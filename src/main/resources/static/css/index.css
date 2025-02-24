@@ -1,0 +1,17 @@
+.logo-container {
+    height: 75vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.logo-container a {
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.logo-container a:hover {
+    transform: scale(1.05);
+    opacity: 0.9;
+}

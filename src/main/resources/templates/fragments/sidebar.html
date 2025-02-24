@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Sidebar</title>
+</head>
+
+<body>
+
+<main>
+
+
+
+    <div th:fragment="sidebar" class="nav-bar">
+        <div class="side-bar-container">
+            <nav>
+                <div class="side_navbar">
+                    <div class="jubbisoft-nav-bar">
+                        <div class="jubbisoft-nav-bar-name">Jubbisoft</div>
+                        <div class="jubbisoft-nav-bar-version">v1.0.0</div>
+                    </div>
+
+                    <div class="func-block">
+                        <a href="/home" class="active">
+                            <p>Dashboard</p>
+                            <i class="fas fa-chart-line"></i>
+                        </a>
+                        <a class="special-gold" href="/subscriptions">
+                            <p>Upgrade</p>
+                            <i class="fas fa-crown"></i>
+                        </a>
+                    </div>
+
+
+                    <div class="func-block">
+                        <span class="func-block-title">Options</span>
+
+                        <a href="/games">
+                            <p>Games</p>
+                            <i class="fas fa-gamepad"></i>
+                        </a>
+                        <a href="/wallets">
+                            <p>Wallets</p>
+                            <i class="fas fa-wallet"></i>
+                        </a>
+                        <a href="/subscriptions/history">
+                            <p>Subscription History</p>
+                            <i class="fas fa-history"></i>
+                        </a>
+                        <a href="/transactions">
+                            <p>Transactions</p>
+                            <i class="fas fa-file-invoice-dollar"></i>
+                        </a>
+                        <a href="/transfers">
+                            <p>Transfers</p>
+                            <i class="fas fa-exchange-alt"></i>
+                        </a>
+                    </div>
+
+                    <div class="func-block admin-func-block" th:if="${user.role.name() == 'ADMIN'}">
+                        <div class="func-block-title">Admin</div>
+                        <a href="/users">
+                            <p>Users</p>
+                            <i class="fas fa-user-cog"></i>
+                        </a>
+                    </div>
+
+                    <div class="func-block">
+                        <a class="logout" href="/logout">
+                            <p>Logout</p>
+                            <i class="fas fa-sign-out-alt"></i>
+                        </a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+
+
+
+</main>
+
+</body>
+
+</html>

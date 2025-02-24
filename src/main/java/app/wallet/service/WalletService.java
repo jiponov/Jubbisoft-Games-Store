@@ -1,0 +1,117 @@
+package app.wallet.service;
+
+import app.shared.exception.*;
+import app.transaction.model.*;
+import app.transaction.service.*;
+import app.user.model.*;
+import app.wallet.model.*;
+import app.wallet.repository.*;
+import lombok.extern.slf4j.*;
+import org.springframework.beans.factory.annotation.*;
+import org.springframework.stereotype.*;
+import org.springframework.transaction.annotation.*;
+
+import java.math.*;
+import java.time.*;
+import java.util.*;
+
+
+@Slf4j
+@Service
+public class WalletService {
+
+    private static final String JUBBISOFT_LTD = "Jubbisoft Ltd.";
+
+    private final WalletRepository walletRepository;
+
+    private final TransactionService transactionService;
+
+
+    @Autowired
+    public WalletService(WalletRepository walletRepository, TransactionService transactionService) {
+
+        this.walletRepository = walletRepository;
+        this.transactionService = transactionService;
+    }
+
+
+    public Wallet createNewWallet(User user) {
+
+        Wallet wallet = walletRepository.save(initializeWallet(user));
+        log.info("Successfully create new wallet with id [%s] and bonus available balance [%.2f].".formatted(wallet.getId(), wallet.getBalance()));
+
+        return wallet;
+    }
+
+
+    private Wallet initializeWallet(User user) {
+
+        Wallet wallet = Wallet.builder()
+                .owner(user)
+                .status(WalletStatus.ACTIVE)
+                .balance(new BigDecimal("30.00"))
+                .currency(Currency.getInstance("EUR"))
+                .createdOn(LocalDateTime.now())
+                .updatedOn(LocalDateTime.now())
+                .build();
+
+        return wallet;
+    }
+
+
+    @Transactional
+    public Transaction addFunds(UUID walletId, BigDecimal amount) {
+
+        Wallet wallet = getWalletById(walletId);
+
+        String transactionDescription = "Added funds %.2f".formatted(amount.doubleValue());
+
+
+        if (wallet.getStatus() == WalletStatus.INACTIVE) {
+            Transaction transaction = transactionService.createNewTransaction(
+                    wallet.getOwner(),
+                    JUBBISOFT_LTD,
+                    walletId.toString(),
+                    amount,
+                    wallet.getBalance(),
+                    wallet.getCurrency(),
+                    TransactionType.DEPOSIT,
+                    TransactionStatus.FAILED,
+                    transactionDescription,
+                    "Inactive wallet");
+
+            return transaction;
+        }
+
+
+        // WalletStatus.ACTIVE  >>
+        wallet.setBalance(wallet.getBalance().add(amount));
+        wallet.setUpdatedOn(LocalDateTime.now());
+
+        walletRepository.save(wallet);
+
+        Transaction transaction = transactionService.createNewTransaction(
+                wallet.getOwner(),
+                JUBBISOFT_LTD,
+                walletId.toString(),
+                amount,
+                wallet.getBalance(),
+                wallet.getCurrency(),
+                TransactionType.DEPOSIT,
+                TransactionStatus.APPROVED,
+                transactionDescription,
+                null);
+
+        return transaction;
+    }
+
+
+    private Wallet getWalletById(UUID walletId) {
+
+        return walletRepository
+                .findById(walletId)
+                .orElseThrow(() -> new DomainException("Wallet with id [%s] does not exist.".formatted(walletId)));
+    }
+
+
+}

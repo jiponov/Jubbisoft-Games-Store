@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&amp;display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&amp;display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" type="text/css" href="/css/common.css">
+    <link rel="stylesheet" type="text/css" href="/css/sidebar.css">
+
+    <link rel="stylesheet" type="text/css" href="/css/my-home.css">
+    <link rel="stylesheet" type="text/css" href="/css/profile-menu.css">
+
+    <title>Home</title>
+</head>
+
+
+<body>
+
+<header th:replace="~{fragments/header::header}"></header>
+
+<main>
+
+    <div th:replace="~{fragments/sidebar::sidebar}"></div>
+
+    <div class="home-section">
+        <div class="single-section-box profile-menu">
+            <div class="profile-header">
+                <img th:src="${#strings.isEmpty(user.profilePicture) ? 'https://icons.veryicon.com/png/o/miscellaneous/user-avatar/user-avatar-male-5.png' : user.profilePicture}"
+                     alt="Profile Picture" class="profile-avatar">
+                <h2 th:text="${user.username}" class="profile-name"></h2>
+            </div>
+
+            <div class="details-section">
+                <div class="details-section-container">
+                    <strong>User id: </strong>
+                    <p th:text="${user.id}"></p>
+                </div>
+                <div class="details-section-container">
+                    <strong>Last profile update: </strong>
+                    <p th:text="${user.updatedOn}"></p>
+                </div>
+            </div>
+
+            <form class="form" th:action="@{'/users/' + ${user.id} + '/profile'}" th:method="PUT"
+                  th:object="${userEditRequest}">
+
+                <label for="firstName">First Name</label>
+                <input type="text" id="firstName" placeholder="First Name" th:field="*{firstName}">
+                <p class="alert-warning" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></p>
+
+                <label for="lastName">Last Name</label>
+                <input type="text" id="lastName" placeholder="Last Name" th:field="*{lastName}">
+                <p class="alert-warning" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></p>
+
+                <label for="email">Email</label>
+                <input type="text" id="email" placeholder="Email Address" th:field="*{email}">
+                <p class="alert-warning" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
+
+                <label for="profilePicture">Profile Picture URL</label>
+                <input type="text" id="profilePicture" placeholder="Image Link" th:field="*{profilePicture}">
+                <p class="alert-warning" th:if="${#fields.hasErrors('profilePicture')}"
+                   th:errors="*{profilePicture}"></p>
+
+                <button class="profile-actions-button">
+                    <p>Save</p>
+                    <i class="fas fa-check"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+
+</main>
+
+<footer th:replace="~{fragments/footer::footer}"></footer>
+
+</body>
+
+</html>

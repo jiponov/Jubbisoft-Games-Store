@@ -1,0 +1,140 @@
+/* Sidebar Container */
+.nav-bar {
+    height: auto;
+    min-height: 70vh; /* Минимална височина за балансиран вид */
+    display: flex;
+    flex-direction: column;
+    justify-content: normal; /* Оправя разстоянието отгоре */
+    background: #202020; /* По-светъл фон за sidebar */
+    width: 280px;
+    border-radius: 12px;
+    padding: 20px;
+
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    font-family: 'Poppins', sans-serif;
+    transition: all 0.3s ease-in-out;
+
+    margin: 0px 0px 20px 20px; /* !!! ПРОМЕНЕНО: Оставя място отгоре */
+}
+
+/* Sidebar Branding */
+.jubbisoft-nav-bar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 15px 0;
+    text-align: center;
+    background: linear-gradient(135deg, #ff8a00, #da1b60);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.jubbisoft-nav-bar-name {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.jubbisoft-nav-bar-version {
+    font-size: 14px;
+    font-weight: 300;
+    margin-top: 5px;
+}
+
+/* Navigation Blocks */
+.func-block {
+    margin-top: 20px;
+}
+
+/* Sidebar Links */
+.func-block a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    font-weight: 400;
+    font-size: 15px;
+    color: #f1f1f1;
+    padding: 12px 15px;
+    border-radius: 8px;
+    transition: all 0.3s ease-in-out;
+    margin: 5px 0; /* Добавено разстояние между бутоните */
+}
+
+.func-block a p {
+    margin: 0;
+    flex-grow: 1;
+}
+
+.func-block a svg {
+    width: 20px;
+    height: 20px;
+    color: #f1f1f1;
+}
+
+/* Hover & Active Effects */
+.func-block a:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.func-block a.active {
+    background: linear-gradient(135deg, #ff8a00, #da1b60);
+    color: white;
+    font-weight: 500;
+}
+
+/* Special Gold Upgrade */
+.func-block a.special-gold {
+    background: linear-gradient(145deg, #f1c40f, #f39c12);
+    color: white;
+    font-weight: 500;
+}
+
+.func-block a.special-gold:hover {
+    background: linear-gradient(145deg, #f4b942, #e67e22);
+}
+
+/* Logout Button */
+.func-block a.logout {
+    background: linear-gradient(145deg, #ff4d4d, #ff1a1a);
+    color: white;
+}
+
+.func-block a.logout:hover {
+    background: linear-gradient(145deg, #ff6767, #ff4d4d);
+}
+
+/* Responsive Sidebar */
+@media (max-width: 1024px) {
+    .nav-bar {
+        width: 80px;
+        padding: 15px;
+        margin: 10px;
+    }
+
+    .jubbisoft-nav-bar-name,
+    .jubbisoft-nav-bar-version {
+        display: none;
+    }
+
+    .func-block a p {
+        display: none;
+    }
+
+    .func-block a {
+        justify-content: center;
+    }
+
+    /* Стил за заглавията "Options" и "Admin" */
+    .func-block-title {
+        display: block;
+
+        font-size: 14px;
+        font-weight: 600;
+        text-transform: uppercase;
+        background: linear-gradient(135deg, #ff8a00, #da1b60) !important;
+        color: transparent!important;
+
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin: 10px 0 5px 15px; /* Оставя разстояние за подравняване */
+    }
+}

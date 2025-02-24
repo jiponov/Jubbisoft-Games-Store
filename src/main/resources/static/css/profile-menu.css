@@ -1,0 +1,121 @@
+.home-section {
+    display: flex;
+    justify-content: center; /* Центрира профилния панел */
+    align-items: center; /* Центрира вертикално */
+    min-height: 80vh; /* Подравнява с другите панели */
+}
+
+/* Основен контейнер за профилното меню */
+.profile-menu {
+    position: relative;
+    width: 50%;
+    max-width: 700px; /* По-добра адаптация към различни екрани */
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; /* Центрира съдържанието */
+    overflow: hidden;
+    background: #2a2a2a; /* Същия фон като sidebar */
+    padding: 30px; /* По-добро вътрешно разстояние */
+    border-radius: 12px; /* Закръглени ъгли */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Подобрен ефект */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #f1f1f1;
+    text-align: center;
+}
+
+/* Заглавие на профилната форма */
+.profile-header {
+    margin-bottom: 20px; /* Увеличено за по-добро разделение */
+}
+
+
+
+/* Стил за формата */
+form {
+    width: 100%;
+    align-self: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    gap: 12px; /* По-добро разстояние между полетата */
+    margin-top: 16px;
+}
+
+/* Бутон в профилното меню */
+form button {
+    margin-top: 20px;
+    padding: 12px 18px;
+    font-size: 16px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    color: #ffffff;
+    background: linear-gradient(135deg, #f15a24, #c13584);
+    font-weight: 400;
+    text-decoration: none;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Общ стил за всички елементи във формата */
+form * {
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: 0.5px;
+    outline: none;
+    border: none;
+}
+
+form button:hover {
+    background: linear-gradient(135deg, #c13584, #f15a24);
+    box-shadow: 0 4px 10px rgba(255, 87, 51, 0.5);
+}
+
+/* Стил за етикетите */
+label {
+    display: block;
+    font-size: 14px;
+    font-weight: 400;
+    margin-top: 12px;
+    color: #f1f1f1;
+}
+
+/* Стил за input и select */
+input, select {
+    display: block;
+    height: 45px;
+    width: 80%;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    padding: 0 12px;
+    margin-top: 6px;
+    font-size: 14px;
+    font-weight: 300;
+    color: #f1f1f1;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+input:focus, select:focus {
+    background: radial-gradient(circle at 90% top, rgba(36, 36, 77, 0.1), rgba(26, 26, 65, 0.1), rgba(16, 16, 53, 0.1));
+    box-shadow: 0 0 6px rgba(36, 36, 77, 0.6);
+}
+
+/* По-широки dropdown полета */
+select {
+    width: 100%;
+    height: 50px;
+}
+
+/* Подобрения за мобилни устройства */
+@media (max-width: 1024px) {
+    .profile-menu {
+        width: 90%;
+        max-width: 500px;
+    }
+
+    input, select {
+        width: 100%;
+    }
+}

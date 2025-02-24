@@ -1,0 +1,224 @@
+.section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 90vh;
+    padding: 40px 20px;
+}
+
+.section.full-height {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    min-height: 85vh;
+    padding-top: 20px;
+}
+
+.section.full-height .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 0px;
+}
+
+.section.full-height .container .logo {
+    margin-bottom: 10px;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.logo-big {
+    max-width: 250px;
+}
+
+.logo-big img {
+    width: 100%;
+    height: auto;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.form {
+    background: rgba(30, 30, 30, 0.95);
+    padding: 30px 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.form * {
+    font-family: 'Poppins', sans-serif;
+    color: #ffffff;
+    letter-spacing: 0.5px;
+    outline: none;
+    border: none;
+}
+
+.form h3 {
+    font-size: 24px;
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 20px;
+}
+
+.form input,
+input,
+.form select,
+select {
+    margin: 0 auto;
+    display: block;
+    height: 50px;
+    width: calc(100% - 30px);
+    background-color: rgba(255, 255, 255, 0.07);
+    border-radius: 5px;
+    padding: 15px;
+    font-size: 15px;
+    font-weight: 300;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease;
+}
+
+.form input:focus,
+input:focus,
+.form select:focus,
+select:focus {
+    border: 1px solid #f15a24;
+    background-color: rgba(255, 255, 255, 0.12);
+}
+
+.form label {
+    display: block;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 600;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+option {
+    background-color: #001F40;
+    color: white;
+}
+
+::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+button {
+    margin-top: 30px;
+    width: 100%;
+    padding: 15px;
+    background: linear-gradient(135deg, #f15a24, #c13584);
+    color: white;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    background: linear-gradient(135deg, #c13584, #f15a24);
+    box-shadow: 0 4px 15px rgba(255, 87, 51, 0.5);
+}
+
+input, select {
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.08);
+    color: white;
+    padding: 12px 15px;
+    font-size: 16px;
+    font-weight: 300;
+    border-radius: 5px;
+}
+
+input:hover, select:hover {
+    box-shadow: 0 1px 12px rgba(255, 255, 255, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+input:focus, select:focus {
+    box-shadow: 0 1px 14px rgba(241, 90, 36, 0.7);
+    border: 1px solid #f15a24;
+    background-color: rgba(255, 255, 255, 0.12);
+}
+
+.alert-warning {
+    font-size: 14px;
+    color: #f56767;
+    margin-top: 5px;
+    text-align: left;
+}
+
+.form-already {
+    color: rgba(255, 255, 255, 0.7);
+    font-weight: 300;
+    text-align: center;
+    font-size: 14px;
+    margin: 20px auto 0;
+}
+
+.form-already a {
+    text-decoration: none;
+    transition: 0.4s ease-in-out;
+    background: linear-gradient(135deg, #f15a24, #c13584, #8e44ad);
+    background-size: 200%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 400;
+}
+
+.form-already a:hover {
+    background-position: right;
+    text-decoration: underline;
+    transition: 0.4s ease-in-out;
+}
+
+.form textarea,
+textarea {
+    width: 100%;
+    padding: 12px;
+    border-radius: 5px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    font-size: 16px;
+    outline: none;
+    resize: vertical;
+    min-height: 100px;
+    transition: all 0.3s ease;
+}
+
+textarea:focus {
+    border: 1px solid #f15a24;
+}
+
+.form input[type="checkbox"],
+.form input[type="radio"] {
+    width: auto;
+    margin-right: 8px;
+}
+
+.form .button-group {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.form .button-group button {
+    flex: 1;
+}
