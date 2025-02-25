@@ -34,12 +34,13 @@ public class Game {
     @Column(nullable = false)
     private Genre genre;
 
-    @Column(nullable = false)
-    private LocalDate releaseDate;
-
     private boolean isAvailable;
 
+    @Column(nullable = false)
     private String imageCoverUrl;
+
+    @Column(nullable = false)
+    private LocalDate releaseDate;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(

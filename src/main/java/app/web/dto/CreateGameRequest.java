@@ -4,6 +4,7 @@ import app.game.model.*;
 import jakarta.validation.constraints.*;
 import lombok.*;
 
+import java.math.*;
 import java.time.*;
 
 
@@ -18,10 +19,10 @@ public class CreateGameRequest {
     @Size(min = 10, max = 1000, message = "Description length must be between 10 and 1000 characters!")
     private String description;
 
+    private BigDecimal price;
+
     @NotNull(message = "You must select a genre!")
     private Genre genre;
 
-    @PastOrPresent(message = "The date cannot be in the future!")
-    @NotNull(message = "must not be null")
-    private LocalDate date;
+    private String imageCoverUrl;
 }

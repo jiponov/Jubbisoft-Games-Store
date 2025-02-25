@@ -4,6 +4,7 @@ import app.game.model.*;
 import app.game.repository.*;
 import app.shared.exception.*;
 import app.user.model.*;
+import app.web.dto.*;
 import lombok.extern.slf4j.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.*;
@@ -25,17 +26,17 @@ public class GameService {
         this.gameRepository = gameRepository;
     }
 
-
-    public void createNewGame(User user, String title, String description, BigDecimal price, Genre genre, String imageCoverUrl) {
+    // CREATE
+    public void createNewGame(CreateGameRequest createGameRequest, User user) {
 
         Game game = Game.builder()
                 .publisher(user)
-                .title(title)
-                .description(description)
-                .price(price)
-                .genre(genre)
-                .isAvailable(true)
-                .imageCoverUrl(imageCoverUrl)
+                .title(createGameRequest.getTitle())
+                .description(createGameRequest.getDescription())
+                .price(createGameRequest.getPrice())
+                .genre(createGameRequest.getGenre())
+                .isAvailable(false)
+                .imageCoverUrl(createGameRequest.getImageCoverUrl())
                 .releaseDate(LocalDate.now())
                 .build();
 
@@ -68,6 +69,11 @@ public class GameService {
         return gameRepository
                 .findById(gameId)
                 .orElseThrow(() -> new DomainException("Game with id [%s] does not exist.".formatted(gameId)));
+    }
+
+    // delete ONE game
+    public void deleteGameById(UUID gameId) {
+        gameRepository.deleteById(gameId);
     }
 
     // change to true
