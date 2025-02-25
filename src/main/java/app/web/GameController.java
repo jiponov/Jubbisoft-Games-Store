@@ -89,7 +89,7 @@ public class GameController {
     }
 
 
-    // PUBLIC GAMES by USERS
+    // PUBLIC GAMES  for  USERS  (not for all - NOT LOGGED-IN)
     // /games/{gameId}
     @GetMapping("/{gameId}")
     public ModelAndView viewGame(@PathVariable UUID gameId, HttpSession session) {
@@ -115,5 +115,22 @@ public class GameController {
         modelAndView.addObject("game", game);
 
         return modelAndView;
+    }
+
+
+    // PUT  -  Share GAME
+    // /games/{gameId}/availability
+    @PutMapping("/{gameId}/availability")
+    public String shareGame(@PathVariable UUID gameId, HttpSession session) {
+
+        UUID userId = (UUID) session.getAttribute("user_id");
+
+        if (userId == null) {
+            return "redirect:/login";
+        }
+
+        gameService.availabilityChangeTrue(gameId);
+
+        return "redirect:/home";
     }
 }

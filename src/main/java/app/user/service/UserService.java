@@ -95,7 +95,30 @@ public class UserService {
     //@CacheEvict(value = "users", allEntries = true)
     public void editUserDetails(UUID userId, UserEditRequest userEditRequest) {
 
+        // see here:
+        // Optional<User> existingUser = userRepository.findByUsername(user.getUsername());
+        // if (existingUser.isPresent() && !existingUser.get().getId().equals(user.getId())) {
+        //     throw new IllegalArgumentException("Username is already taken!");
+        // }
+
         User user = getById(userId);
+        // someone else - existingEmailUser
+
+        // Проверка за уникален email
+        if (userEditRequest.getEmail() != null && !userEditRequest.getEmail().trim().isEmpty()) {
+            Optional<User> existingEmailUser = userRepository.findByEmail(userEditRequest.getEmail());
+
+            if (existingEmailUser.isPresent() && !existingEmailUser.get().getId().equals(user.getId())) {
+                throw new DomainException("Email is already in use! Choose another email.");
+            }
+
+            user.setEmail(userEditRequest.getEmail());
+
+        } else {
+            user.setEmail(null);   // Запази `null`, за да избегнеш проблем с `""`
+        }
+
+        // User user = getById(userId);
 
         user.setFirstName(userEditRequest.getFirstName());
         user.setLastName(userEditRequest.getLastName());
@@ -158,3 +181,75 @@ public class UserService {
     }
 
 }
+
+
+/*
+
+
+//@CacheEvict(value = "users", allEntries = true)
+    public void editUserDetails(UUID userId, UserEditRequest userEditRequest) {
+
+        // see here:
+        // Optional<User> existingUser = userRepository.findByUsername(user.getUsername());
+        // if (existingUser.isPresent() && !existingUser.get().getId().equals(user.getId())) {
+        //     throw new IllegalArgumentException("Username is already taken!");
+        // }
+
+        User user = getById(userId);
+        // someone else - existingEmailUser
+        // Проверка дали email е празен или null преди да търсим в базата
+        if (user.getEmail() != null && !user.getEmail().trim().isEmpty()) {
+            List<User> existingEmailUsers = userRepository.findByEmail(user.getEmail());
+
+            if (!existingEmailUsers.isEmpty()) {
+                // Проверяваме дали има потребител с този имейл, който не е текущия
+                boolean emailTaken = existingEmailUsers.stream()
+                        .anyMatch(existingUser -> !existingUser.getId().equals(user.getId()));
+
+                if (emailTaken) {
+                    throw new DomainException("Email is already in use! Change your with new email");
+                }
+            }
+        }
+
+        // User user = getById(userId);
+
+        user.setFirstName(userEditRequest.getFirstName());
+        user.setLastName(userEditRequest.getLastName());
+        user.setEmail(userEditRequest.getEmail());
+        user.setProfilePicture(userEditRequest.getProfilePicture());
+
+        userRepository.save(user);
+    }
+
+
+
+
+
+        //@CacheEvict(value = "users", allEntries = true)
+    public void editUserDetails(UUID userId, UserEditRequest userEditRequest) {
+
+        // see here:
+        // Optional<User> existingUser = userRepository.findByUsername(user.getUsername());
+        // if (existingUser.isPresent() && !existingUser.get().getId().equals(user.getId())) {
+        //     throw new IllegalArgumentException("Username is already taken!");
+        // }
+        User user = getById(userId);
+        // someone else - existingEmailUser
+        Optional<User> existingEmailUser = userRepository.findByEmail(user.getEmail());
+
+        if (existingEmailUser.isPresent() && !existingEmailUser.get().getId().equals(user.getId())) {
+            throw new DomainException("Email is already in use! Change your with new email");
+        }
+
+        //User user = getById(userId);
+
+        user.setFirstName(userEditRequest.getFirstName());
+        user.setLastName(userEditRequest.getLastName());
+        user.setEmail(userEditRequest.getEmail());
+        user.setProfilePicture(userEditRequest.getProfilePicture());
+
+        userRepository.save(user);
+    }
+
+    */
