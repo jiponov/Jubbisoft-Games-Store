@@ -17,6 +17,7 @@ public class UserEditRequest {
     private String lastName;
 
     @Email(message = "Requires correct email format")
+    @Size(max = 255)
     private String email;
 
     @URL(message = "Requires valid URL format")

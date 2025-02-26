@@ -54,6 +54,7 @@ main {
     transition: all 0.3s ease;
 }
 
+.button.explore:hover,
 .button.login:hover,
 .button.register:hover {
     background: linear-gradient(135deg, #f15a24, #c13584);

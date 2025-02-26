@@ -29,15 +29,24 @@ public class GameService {
     // CREATE
     public void createNewGame(CreateGameRequest createGameRequest, User user) {
 
+        // дали администраторът реално съществува
+        if (user == null) {
+            throw new IllegalArgumentException("Publisher cannot be null");
+        }
+
+        if (createGameRequest.getPrice() == null || createGameRequest.getPrice().compareTo(BigDecimal.ZERO) < 0) {
+            throw new IllegalArgumentException("Price must be a positive value.");
+        }
+
         Game game = Game.builder()
-                .publisher(user)
+                .publisher(user)    // Администраторът се записва като publisher
                 .title(createGameRequest.getTitle())
                 .description(createGameRequest.getDescription())
                 .price(createGameRequest.getPrice())
                 .genre(createGameRequest.getGenre())
-                .isAvailable(false)
+                .isAvailable(false)    // Играта е недостъпна по подразбиране
                 .imageCoverUrl(createGameRequest.getImageCoverUrl())
-                .releaseDate(LocalDate.now())
+                .releaseDate(LocalDate.now())    // Датата на пускане е днес
                 .build();
 
         gameRepository.save(game);

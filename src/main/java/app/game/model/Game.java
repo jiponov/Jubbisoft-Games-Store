@@ -51,6 +51,6 @@ public class Game {
     private List<User> purchasedByUsers;
 
     @ManyToOne
-    @JoinColumn(referencedColumnName = "id", nullable = true)
+    @JoinColumn(name = "publisher_id", referencedColumnName = "id", nullable = false)
     private User publisher;
 }

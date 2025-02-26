@@ -2,6 +2,7 @@ package app.web;
 
 import app.game.model.*;
 import app.game.service.*;
+import app.security.*;
 import app.user.model.*;
 import app.user.service.*;
 import app.web.dto.*;
@@ -31,7 +32,26 @@ public class GameController {
     }
 
 
-    // /games/new    -    GET for CREATE GAME
+    // PUBLIC GAMES  -  EXPLORE button
+    // /games
+    @GetMapping("/explore")
+    public ModelAndView getAllPublicGames() {
+
+        // List<Game> allSystemGames = gameService.getAllGames();
+        List<Game> allAvailablePublicGames = gameService.getAllAvailableGames();
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("games-public");
+
+        modelAndView.addObject("allAvailablePublicGames", allAvailablePublicGames);
+
+        return modelAndView;
+    }
+
+
+    // GET for CREATE GAME  ->  ADMIN ROLE
+    // /games/new
+    @RequireAdminRole
     @GetMapping("/new")
     public ModelAndView getNewGamePage(HttpSession session) {
         UUID userId = (UUID) session.getAttribute("user_id");
@@ -47,8 +67,9 @@ public class GameController {
     }
 
 
-    // CREATE GAME   -   POST
+    // POST for CREATE GAME  ->  ADMIN ROLE
     // /games
+    @RequireAdminRole
     @PostMapping
     public ModelAndView createGame(@Valid CreateGameRequest createGameRequest, BindingResult bindingResult, HttpSession session) {
 
@@ -72,8 +93,9 @@ public class GameController {
     }
 
 
-    // DELETE game   -   DELETE
+    // DELETE for GAME  ->  ADMIN ROLE
     // /games/{gameId}
+    @RequireAdminRole
     @DeleteMapping("/{gameId}")
     public String deleteGame(@PathVariable UUID gameId, HttpSession session) {
 

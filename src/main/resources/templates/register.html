@@ -44,6 +44,7 @@
 
             <label for="country">Country</label>
             <select name="country" id="country" th:field="*{country}">
+                <option value="">Select country</option>
                 <option th:each="country : ${T(app.user.model.Country).values()}" th:value="${country}"
                         th:text="${#strings.capitalize(#strings.toLowerCase(country))}"></option>
             </select>
