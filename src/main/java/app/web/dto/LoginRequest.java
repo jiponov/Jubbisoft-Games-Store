@@ -3,7 +3,8 @@ package app.web.dto;
 import jakarta.validation.constraints.*;
 import lombok.*;
 
-
+@AllArgsConstructor
+@NoArgsConstructor
 @Data
 public class LoginRequest {
 

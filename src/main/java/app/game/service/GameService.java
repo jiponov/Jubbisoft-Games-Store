@@ -7,7 +7,9 @@ import app.user.model.*;
 import app.web.dto.*;
 import lombok.extern.slf4j.*;
 import org.springframework.beans.factory.annotation.*;
+import org.springframework.http.*;
 import org.springframework.stereotype.*;
+import org.springframework.web.server.*;
 
 import java.math.*;
 import java.time.*;
@@ -25,6 +27,7 @@ public class GameService {
     public GameService(GameRepository gameRepository) {
         this.gameRepository = gameRepository;
     }
+
 
     // CREATE
     public void createNewGame(CreateGameRequest createGameRequest, User user) {
@@ -53,6 +56,7 @@ public class GameService {
     }
 
 
+    //@Transactional(readOnly = true)    // Гарантира, че винаги чете от базата
     // get ALL by PUBLISHERID
     public List<Game> getAllGamesByPublisherId(UUID publisherId) {
         return gameRepository.findAllByPublisherIdOrderByReleaseDateDesc(publisherId);
@@ -80,30 +84,45 @@ public class GameService {
                 .orElseThrow(() -> new DomainException("Game with id [%s] does not exist.".formatted(gameId)));
     }
 
+
     // delete ONE game
     public void deleteGameById(UUID gameId) {
         gameRepository.deleteById(gameId);
     }
 
-    // change to true
-    public void availabilityChangeTrue(UUID gameId) {
-        gameRepository
-                .findById(gameId)
-                .ifPresent(game -> {
 
-                    game.setAvailable(true);
-                    gameRepository.save(game);
-                });
+    // change status .isAvailable()  ->   true/false
+    public void toggleAvailability(UUID gameId) {
+
+        Game game = getGameById(gameId);
+
+        if (game == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Game not found!");
+        }
+
+        if (game.isAvailable()) {
+            game.setAvailable(false);
+        } else {
+            game.setAvailable(true);
+        }
+
+        gameRepository.save(game);
+
     }
 
-    // change to false
-    public void availabilityChangeFalse(UUID gameId) {
-        gameRepository
-                .findById(gameId)
-                .ifPresent(game -> {
-
-                    game.setAvailable(false);
-                    gameRepository.save(game);
-                });
-    }
 }
+
+
+/*  ALTERNATIVE
+
+// change to false
+public void availabilityChangeFalse(UUID gameId) {
+    gameRepository
+            .findById(gameId)
+            .ifPresent(game -> {
+
+                game.setAvailable(false);
+                gameRepository.save(game);
+            });
+}
+*/

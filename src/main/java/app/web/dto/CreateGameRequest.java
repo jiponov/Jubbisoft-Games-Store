@@ -9,8 +9,10 @@ import org.hibernate.validator.constraints.*;
 import java.math.*;
 import java.time.*;
 
-
+@AllArgsConstructor
+@NoArgsConstructor
 @Data
+@Builder
 public class CreateGameRequest {
 
     @NotBlank(message = "Title cannot be empty.")

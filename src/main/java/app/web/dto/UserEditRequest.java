@@ -5,7 +5,8 @@ import jakarta.validation.constraints.Email;
 import lombok.*;
 import org.hibernate.validator.constraints.*;
 
-
+@AllArgsConstructor
+@NoArgsConstructor
 @Data
 @Builder
 public class UserEditRequest {

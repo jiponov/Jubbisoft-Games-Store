@@ -33,9 +33,10 @@ public class GameController {
 
 
     // PUBLIC GAMES  -  EXPLORE button
-    // /games
+    // /games/explore
     @GetMapping("/explore")
     public ModelAndView getAllPublicGames(HttpSession session) {
+
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("games-public");
 
@@ -116,14 +117,14 @@ public class GameController {
 
         gameService.deleteGameById(gameId);
 
-        return "redirect:/home";
+        return "redirect:/games/owned";
     }
 
 
     // PUBLIC GAMES  for  USERS  (not for all - NOT LOGGED-IN)
     // /games/{gameId}
     @GetMapping("/{gameId}/explore")
-    public ModelAndView viewGame(@PathVariable UUID gameId,HttpSession session) {
+    public ModelAndView viewGame(@PathVariable UUID gameId, HttpSession session) {
 
         Game game = gameService.getGameById(gameId);
 
@@ -155,8 +156,9 @@ public class GameController {
 
     // PUT  -  Share GAME
     // /games/{gameId}/availability
+    @RequireAdminRole
     @PutMapping("/{gameId}/availability")
-    public String shareGame(@PathVariable UUID gameId, HttpSession session) {
+    public String changeGameAvailability(@PathVariable UUID gameId, HttpSession session) {
 
         UUID userId = (UUID) session.getAttribute("user_id");
 
@@ -164,9 +166,71 @@ public class GameController {
             return "redirect:/login";
         }
 
-        gameService.availabilityChangeTrue(gameId);
+        gameService.toggleAvailability(gameId);
 
-        return "redirect:/home";
+        return "redirect:/games/{gameId}/owned";
+    }
+
+
+    // MY OWNED GAMES  -  OWNED button
+    // /games/owned
+    @RequireAdminRole
+    @GetMapping("/owned")
+    public ModelAndView getAllOwnedGames(HttpSession session) {
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("owned-games");
+
+        // Взимаме user_id от сесията
+        UUID userId = (UUID) session.getAttribute("user_id");
+
+        if (userId == null) {
+            // Ако няма логнат потребител, редиректваме към Login
+            return new ModelAndView("redirect:/login");
+        }
+
+        User user = userService.getById(userId);
+        modelAndView.addObject("user", user); // Добавяме user в модела
+
+        // Взимаме всички игри, които са публикувани от текущия потребител
+        List<Game> ownedGames = gameService.getAllGamesByPublisherId(userId);
+
+        // Добавяме игрите в модела
+        modelAndView.addObject("ownedGames", ownedGames);
+
+        return modelAndView;
+    }
+
+
+    // PUBLIC GAMES  for  USERS  (not for all - NOT LOGGED-IN)
+    // /games/{gameId}
+    @RequireAdminRole
+    @GetMapping("/{gameId}/owned")
+    public ModelAndView viewOwnedGame(@PathVariable UUID gameId, HttpSession session) {
+
+        Game game = gameService.getGameById(gameId);
+
+        if (game == null) {
+            return new ModelAndView("redirect:/home");
+        }
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("game-owned");
+
+        // Взимаме user_id от сесията
+        UUID userId = (UUID) session.getAttribute("user_id");
+
+        if (userId == null) {
+            // Ако няма логнат потребител, редиректваме към Login
+            return new ModelAndView("redirect:/login");
+        }
+
+        User user = userService.getById(userId);
+        modelAndView.addObject("user", user); // Добавяме user в модела
+
+        modelAndView.addObject("game", game);
+
+        return modelAndView;
     }
 }
 

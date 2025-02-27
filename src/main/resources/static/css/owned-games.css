@@ -1,0 +1,281 @@
+/* General Styling */
+
+body main {
+    margin: 20px 20px;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 25px;
+
+    font-family: 'Poppins', sans-serif;
+    color: #ffffff;
+    background: transparent;
+}
+
+
+/* Home Section */
+.home-section {
+    width: 90%;
+    max-width: 1200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* My Games Section */
+.my-games-section {
+    width: 100%;
+    padding: 20px;
+
+    border-radius: 12px;
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.3);
+}
+
+/* Заглавие на секцията */
+.my-games {
+    font-size: 24px;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    background: linear-gradient(135deg, #ff8a00, #da1b60);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Game Board */
+.game-board {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    max-width: 1100px;
+    background: linear-gradient(135deg, #202020, #282828);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 20px auto;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    gap: 20px;
+    justify-content: center;
+}
+
+/* Кутийките */
+.single-game {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    font-size: 16px;
+    color: #f1f1f1;
+
+    width: 215px;
+    height: 215px;
+    background: rgba(40, 40, 40, 0.85);
+    border-radius: 14px;
+    padding: 24px;
+    box-shadow: 0 5px 12px rgba(0, 0, 0, 0.4);
+    transition: all 0.3s ease-in-out;
+}
+
+/* Hover ефект за кутийките */
+.single-game:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 16px rgba(255, 165, 0, 0.4);
+}
+
+/* Текст в кутийките */
+.single-game p {
+    word-wrap: break-word;
+    text-align: left;
+    color: #ddd;
+}
+
+/* Заглавие */
+.single-game h5 {
+    margin: 4px 0;
+    font-weight: 600;
+    color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Бутона */
+button {
+    background: linear-gradient(135deg, #f15a24, #c13584);
+    color: #ffffff;
+    border: none;
+    padding: 12px 20px;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 4px 8px rgba(255, 87, 51, 0.6);
+    align-self: center;
+}
+
+/* Hover ефект за бутона */
+button:hover {
+    background: linear-gradient(135deg, #c13584, #f15a24);
+    box-shadow: 0 4px 14px rgba(255, 87, 51, 0.9);
+    transform: scale(1.07);
+}
+
+/* Премахва маркери от списъците */
+ul, li {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* 🎨 Image Cover - модерно стилно изображение */
+.profile-avatar {
+    width: 260px;
+    height: 260px;
+    border-radius: 16px;
+    margin-bottom: 16px;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.15); /* Леко сияние */
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Hover ефект за Image Cover */
+.profile-avatar:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 25px rgba(255, 165, 0, 0.5); /* Леко оранжево сияние */
+    border-color: rgba(255, 165, 0, 0.7);
+}
+
+
+
+/* Групиране на бутоните - ВЕРТИКАЛНО */
+.button-group {
+    display: flex;
+    flex-direction: column; /* Подрежда бутоните един под друг */
+    align-items: center; /* Центрира бутоните */
+    gap: 12px; /* Разстояние между бутоните */
+
+    width: 100%;
+}
+
+/* Общ стил за бутоните */
+.button-group button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px; /* Разстояние между иконата и текста */
+    width: 150px; /* Еднаква ширина за всички бутони */
+    height: 50px; /* Еднаква височина */
+    border: none;
+    padding: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-decoration: none; /* Премахва подчертаването */
+}
+
+/* Подравняване на <a> таговете (ако са бутони) */
+.button-group a {
+    text-decoration: none;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+/* View Button */
+.btn-view {
+    background: linear-gradient(135deg, #f15a24, #c13584);
+    color: #ffffff;
+}
+
+.btn-view:hover {
+    background: linear-gradient(135deg, #c13584, #f15a24);
+    box-shadow: 0 4px 14px rgba(255, 87, 51, 0.9);
+}
+
+.btn-view a {
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-view i {
+    text-decoration: none; /* Премахва подчертаването от иконата */
+}
+
+
+
+/* Edit Button */
+.btn-edit {
+    background: linear-gradient(135deg, #8a2be2, #4b0082);
+    color: #ffffff;
+}
+
+.btn-edit:hover {
+    background: linear-gradient(135deg, #4b0082, #8a2be2);
+    box-shadow: 0 4px 14px rgba(138, 43, 226, 0.9);
+}
+
+.btn-edit a {
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-edit i {
+    text-decoration: none; /* Премахва подчертаването от иконата */
+}
+
+
+
+/* Delete Button */
+.btn-delete {
+    background: linear-gradient(135deg, #ffcc00, #ff8800);
+    color: #ffffff;
+}
+
+.btn-delete:hover {
+    background: linear-gradient(135deg, #ff8800, #ffcc00);
+    box-shadow: 0 4px 14px rgba(255, 204, 0, 0.9);
+}
+
+/* Ако бутона е в <a>, премахваме ефекта */
+.btn-view:focus,
+.btn-view:active {
+    outline: none; /* Премахва контурите при клик */
+    text-decoration: none;
+}
+
+/* Ако бутона е в <a>, премахваме ефекта */
+.btn-edit:focus,
+.btn-edit:active {
+    outline: none; /* Премахва контурите при клик */
+    text-decoration: none;
+}
+
+
+
+/* Status Button (НОВ) */
+.btn-status {
+    background: linear-gradient(135deg, #0080ff, #0056b3);
+    color: #ffffff;
+}
+
+.btn-status:hover {
+    background: linear-gradient(135deg, #0056b3, #0080ff);
+    box-shadow: 0 4px 14px rgba(0, 128, 255, 0.9);
+}
+
+/* Ако бутона е в <a>, премахваме подчертаването */
+.btn-status:focus,
+.btn-status:active {
+    outline: none;
+    text-decoration: none;
+}

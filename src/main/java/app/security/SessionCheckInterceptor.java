@@ -16,7 +16,7 @@ import java.util.*;
 public class SessionCheckInterceptor implements HandlerInterceptor {
 
     private final Set<String> UNAUTHENTICATED_ENDPOINTS = Set.of("/", "/games/explore", "/games/{gameId}/explore", "/login", "/register", "/error");
-    private final Set<String> ADMIN_ENDPOINTS = Set.of("/users", "/games/new", "/reports");
+    private final Set<String> ADMIN_ENDPOINTS = Set.of("/users", "/games/new", "/games/owned", "/games/{gameId}/owned");
 
     private final UserService userService;
 

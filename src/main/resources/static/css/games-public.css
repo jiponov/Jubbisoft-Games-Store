@@ -5,13 +5,15 @@ body {
     background: linear-gradient(to bottom, #252525, #181818);
     margin: 0;
     padding: 0;
+    gap: 25px;
+
 }
 
 main {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 40px 0;
+    padding: 0 0;
     flex-direction: column;
 }
 
@@ -21,16 +23,21 @@ main {
     max-width: 1200px;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: center; /* Центриране на съдържанието */
 }
 
-/* My Games Section */
+/* Центриране на целия блок Explore Games Board */
 .my-games-section {
-    width: 100%;
-    padding: 20px;
-    background: linear-gradient(135deg, #1f1f1f, #292929);
+    width: 85%; /* Намаляваме ширината, за да изглежда по-добре */
+    max-width: 1200px; /* Ограничаваме максималната ширина */
+    padding: 40px; /* Увеличаваме padding за повече въздух */
+    background: #ffffff;
     border-radius: 12px;
     box-shadow: 0 6px 14px rgba(0, 0, 0, 0.3);
+    margin: 40px auto; /* Автоматичен margin за центриране */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Центриране на съдържанието вътре */
 }
 
 /* Заглавие на секцията */
@@ -42,32 +49,32 @@ main {
     background: linear-gradient(135deg, #ff8a00, #da1b60);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    text-align: center;
 }
 
-/* Game Board */
+/* Гейм борда с кутийките - Подравняване и разстояние */
 .game-board {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    display: flex;
+    flex-wrap: wrap; /* Позволява прехвърляне на следващ ред */
+    justify-content: center; /* Центрира кутийките в контейнера */
+    gap: 30px; /* Добавя разстояние между кутийките */
     max-width: 1100px;
     background: linear-gradient(135deg, #202020, #282828);
     border-radius: 10px;
-    padding: 20px;
+    padding: 40px;
     margin: 20px auto;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-    gap: 20px;
-    justify-content: center;
 }
 
-/* Кутийките */
+/* Кутийките - с по-добро разстояние */
 .single-game {
     display: flex;
     flex-direction: column;
     gap: 12px;
     font-size: 16px;
     color: #f1f1f1;
-
-    width: 215px;
-    height: 215px;
+    width: 235px; /* Достатъчно ширина, за да не са слепени */
+    height: 235px;
     background: rgba(40, 40, 40, 0.85);
     border-radius: 14px;
     padding: 24px;
@@ -128,11 +135,11 @@ ul, li {
 
 /* 🎨 Image Cover - модерно стилно изображение */
 .profile-avatar {
-    width: 260px;
-    height: 260px;
+    width: 280px;
+    height: 280px;
     border-radius: 16px;
     margin-bottom: 16px;
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.15); /* Леко сияние */
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.15);
     border: 3px solid rgba(255, 255, 255, 0.3);
     display: block;
     margin-left: auto;
@@ -143,6 +150,6 @@ ul, li {
 /* Hover ефект за Image Cover */
 .profile-avatar:hover {
     transform: scale(1.05);
-    box-shadow: 0 0 25px rgba(255, 165, 0, 0.5); /* Леко оранжево сияние */
+    box-shadow: 0 0 25px rgba(255, 165, 0, 0.5);
     border-color: rgba(255, 165, 0, 0.7);
 }
