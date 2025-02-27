@@ -27,9 +27,22 @@ public class IndexController {
 
 
     @GetMapping("/")
-    public String getIndexPage() {
+    public ModelAndView getIndexPage(HttpSession session) {
 
-        return "index";
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("index");
+
+        // Взимаме user_id от сесията
+        UUID userId = (UUID) session.getAttribute("user_id");
+
+        if (userId != null) {
+            User user = userService.getById(userId);
+            modelAndView.addObject("user", user); // Добавяме user в модела
+        } else {
+            modelAndView.addObject("user", null); // Гарантираме, че user винаги съществува в Thymeleaf
+        }
+
+        return modelAndView;
     }
 
 

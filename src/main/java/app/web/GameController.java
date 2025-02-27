@@ -35,13 +35,22 @@ public class GameController {
     // PUBLIC GAMES  -  EXPLORE button
     // /games
     @GetMapping("/explore")
-    public ModelAndView getAllPublicGames() {
+    public ModelAndView getAllPublicGames(HttpSession session) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("games-public");
+
+        // Взимаме user_id от сесията
+        UUID userId = (UUID) session.getAttribute("user_id");
+
+        if (userId != null) {
+            User user = userService.getById(userId);
+            modelAndView.addObject("user", user); // Добавяме user в модела
+        } else {
+            modelAndView.addObject("user", null); // Гарантираме, че user винаги съществува в Thymeleaf
+        }
 
         // List<Game> allSystemGames = gameService.getAllGames();
         List<Game> allAvailablePublicGames = gameService.getAllAvailableGames();
-
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("games-public");
 
         modelAndView.addObject("allAvailablePublicGames", allAvailablePublicGames);
 
@@ -113,6 +122,80 @@ public class GameController {
 
     // PUBLIC GAMES  for  USERS  (not for all - NOT LOGGED-IN)
     // /games/{gameId}
+    @GetMapping("/{gameId}/explore")
+    public ModelAndView viewGame(@PathVariable UUID gameId,HttpSession session) {
+
+        Game game = gameService.getGameById(gameId);
+
+        if (game == null) {
+            // return new ModelAndView("redirect:/login");
+            // Или да върне 404:
+            // throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Story not found");
+            return new ModelAndView("redirect:/");
+        }
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("game");
+
+        // Взимаме user_id от сесията
+        UUID userId = (UUID) session.getAttribute("user_id");
+
+        if (userId != null) {
+            User user = userService.getById(userId);
+            modelAndView.addObject("user", user); // Добавяме user в модела
+        } else {
+            modelAndView.addObject("user", null); // Гарантираме, че user винаги съществува в Thymeleaf
+        }
+
+        modelAndView.addObject("game", game);
+
+        return modelAndView;
+    }
+
+
+    // PUT  -  Share GAME
+    // /games/{gameId}/availability
+    @PutMapping("/{gameId}/availability")
+    public String shareGame(@PathVariable UUID gameId, HttpSession session) {
+
+        UUID userId = (UUID) session.getAttribute("user_id");
+
+        if (userId == null) {
+            return "redirect:/login";
+        }
+
+        gameService.availabilityChangeTrue(gameId);
+
+        return "redirect:/home";
+    }
+}
+
+
+
+/*this WORKS  >>
+
+// PUBLIC GAMES  -  EXPLORE button
+    // /games
+    @GetMapping("/explore")
+    public ModelAndView getAllPublicGames(HttpSession session) {
+
+        // List<Game> allSystemGames = gameService.getAllGames();
+        List<Game> allAvailablePublicGames = gameService.getAllAvailableGames();
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("games-public");
+
+        modelAndView.addObject("allAvailablePublicGames", allAvailablePublicGames);
+
+        return modelAndView;
+    }
+
+    */
+
+/* this WORKS  >>
+
+      // PUBLIC GAMES  for  USERS  (not for all - NOT LOGGED-IN)
+    // /games/{gameId}
     @GetMapping("/{gameId}")
     public ModelAndView viewGame(@PathVariable UUID gameId, HttpSession session) {
 
@@ -139,20 +222,4 @@ public class GameController {
         return modelAndView;
     }
 
-
-    // PUT  -  Share GAME
-    // /games/{gameId}/availability
-    @PutMapping("/{gameId}/availability")
-    public String shareGame(@PathVariable UUID gameId, HttpSession session) {
-
-        UUID userId = (UUID) session.getAttribute("user_id");
-
-        if (userId == null) {
-            return "redirect:/login";
-        }
-
-        gameService.availabilityChangeTrue(gameId);
-
-        return "redirect:/home";
-    }
-}
+    */

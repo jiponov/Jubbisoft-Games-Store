@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&amp;display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&amp;display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" type="text/css" href="/css/common.css">
+    <link rel="stylesheet" type="text/css" href="/css/sidebar.css">
+    <link rel="stylesheet" type="text/css" href="/css/my-home.css">
+
+    <link rel="stylesheet" type="text/css" href="/css/add-game.css">
+
+    <title>Add Game</title>
+</head>
+
+<body>
+
+<header th:replace="~{fragments/header::header}"></header>
+
+<main>
+
+    <div th:replace="~{fragments/sidebar::sidebar}"></div>
+
+    <div class="home-section">
+        <div class="single-section-box add-game-menu">
+
+            <form class="form" th:action="@{/games}" th:method="POST" th:object="${createGameRequest}">
+
+                <h3>Create Game</h3>
+
+                <label for="title">Title</label>
+                <input type="text" id="title" placeholder="Title" th:field="*{title}">
+                <p class="alert-warning" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></p>
+
+                <label for="description">Description</label>
+                <input type="text" id="description" placeholder="Description" th:field="*{description}">
+                <p class="alert-warning" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></p>
+
+                <label for="price">Price</label>
+                <input type="number" id="price" placeholder="Price" th:field="*{price}" step="0.01" min="0">
+                <p class="alert-warning" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></p>
+
+                <label for="genre">Genre</label>
+                <select name="genre" id="genre" th:field="*{genre}">
+                    <option value="">Select genre</option>
+                    <option th:each="genre : ${T(app.game.model.Genre).values()}" th:value="${genre}"
+                            th:text="${#strings.capitalize(#strings.toLowerCase(genre))}"></option>
+                </select>
+
+                <label for="imageCoverUrl">Image Cover URL</label>
+                <input type="text" id="imageCoverUrl" placeholder="Image Cover Link" th:field="*{imageCoverUrl}">
+                <p class="alert-warning" th:if="${#fields.hasErrors('imageCoverUrl')}"
+                   th:errors="*{imageCoverUrl}"></p>
+
+                <button class="game-actions-button">
+                    <p>Create</p>
+                    <i class="fas fa-check"></i>
+                </button>
+
+            </form>
+
+        </div>
+    </div>
+
+</main>
+
+<footer th:replace="~{fragments/footer::footer}"></footer>
+
+</body>
+
+</html>

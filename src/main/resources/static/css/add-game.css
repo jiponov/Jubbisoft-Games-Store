@@ -1,0 +1,135 @@
+/* Основни стилове */
+.add-game-menu {
+    background: linear-gradient(135deg, #1e1e1e, #2a2a2a);
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: #f1f1f1;
+    text-align: center;
+    width: 500px;
+    max-width: 90%;
+    margin: 40px auto;
+}
+
+.add-game-menu h3 {
+    font-size: 24px;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    background: linear-gradient(135deg, #ff8a00, #da1b60);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Формуляр */
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    align-items: center;
+}
+
+.form label {
+    display: block;
+    font-size: 14px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.85);
+    text-align: left;
+    width: 100%;
+}
+
+.form input,
+.form select {
+    width: 100%;
+    height: 45px;
+    background-color: rgba(255, 255, 255, 0.12); /* Променено - по-тъмен фон */
+    border-radius: 6px;
+    padding: 0 12px;
+    font-size: 14px;
+    font-weight: 400;
+    color: #fff; /* Буквите остават бели */
+    outline: none;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: background-color 0.3s, box-shadow 0.3s;
+    appearance: none; /* Скрива стандартния стрелкичка-стил в някои браузъри */
+}
+
+.form input:focus,
+.form select:focus {
+    background: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 0 6px rgba(255, 255, 255, 0.4);
+}
+
+.form select {
+    cursor: pointer;
+}
+
+/* Стилизация на списъка с жанрове */
+.form select option {
+    background-color: #2a2a2a; /* Фонът на падащия списък */
+    color: #ffffff; /* Цвят на текста */
+}
+
+/* Когато един от жанровете е маркиран */
+.form select option:checked {
+    background-color: #c13584; /* Активен фон */
+    color: #ffffff; /* Запазваме белите букви */
+}
+
+/* Firefox-specific fix */
+@supports (-moz-appearance: none) {
+    .form select {
+        background-color: #333;
+    }
+}
+
+/* Бутон */
+.game-actions-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 18px;
+    width: 150px;
+    font-size: 16px;
+    font-weight: 500;
+    border-radius: 6px;
+    cursor: pointer;
+    color: #fff;
+    background: linear-gradient(135deg, #f15a24, #c13584);
+    border: none;
+    transition: all 0.3s ease-in-out;
+}
+
+.game-actions-button i {
+    margin-left: 6px;
+    font-size: 18px;
+}
+
+.game-actions-button:hover {
+    background: linear-gradient(135deg, #c13584, #f15a24);
+    box-shadow: 0 4px 10px rgba(255, 87, 51, 0.5);
+}
+
+/* Валидация */
+.alert-warning {
+    font-size: 14px;
+    letter-spacing: 0.5px;
+    background: linear-gradient(to left, #f88e8e, #f56767, #f53b3b);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin: 4px 0 0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .add-game-menu {
+        width: 90%;
+        padding: 30px;
+    }
+
+    .game-actions-button {
+        width: 100%;
+    }
+}
