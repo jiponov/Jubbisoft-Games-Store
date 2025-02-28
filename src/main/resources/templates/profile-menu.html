@@ -45,7 +45,7 @@
                 </div>
                 <div class="details-section-container">
                     <strong>Last profile update: </strong>
-                    <p th:text="${user.updatedOn}"></p>
+                    <p th:text="${#temporals.format(user.updatedOn, 'dd MMM YYYY HH:mm')}"></p>
                 </div>
             </div>
 

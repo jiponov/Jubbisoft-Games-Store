@@ -59,7 +59,7 @@ public class UserInitialize implements CommandLineRunner {
 
         // Създаваме User с вече създаден Wallet
         User XBOX = User.builder()
-                .username("Xbox123")
+                .username("XboxCorporation")
                 .password(passwordEncoder.encode("123123"))
                 .role(UserRole.ADMIN)
                 .isActive(true)
@@ -158,7 +158,7 @@ public class UserInitialize implements CommandLineRunner {
 
         // Създаваме User с вече създаден Wallet
         User PlayStation = User.builder()
-                .username("PlayStation")
+                .username("PlayStationCorporation")
                 .password(passwordEncoder.encode("123123"))
                 .role(UserRole.ADMIN)
                 .isActive(true)

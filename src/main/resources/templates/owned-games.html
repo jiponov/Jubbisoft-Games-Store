@@ -43,9 +43,17 @@
 
                             <div class="single-game">
                                 <h5>Title: <span th:text="${game.title}"></span></h5>
+
                                 <h5>Genre: <span
                                         th:text="${#strings.capitalize(#strings.toLowerCase(game.genre))}"></span></h5>
+
                                 <h5>Price: <span th:text="${game.price}"></span></h5>
+
+                                <h5>
+                                    <span th:text="'STATUS: '"></span>
+                                    <span th:text="${game.isAvailable()} ? 'AVAILABLE' : 'NOT AVAILABLE'"></span>
+                                </h5>
+
                                 <h5>Added by: <span th:text="${game.publisher.username}"></span></h5>
                             </div>
 

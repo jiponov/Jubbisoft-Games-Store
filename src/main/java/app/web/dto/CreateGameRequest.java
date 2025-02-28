@@ -16,7 +16,7 @@ import java.time.*;
 public class CreateGameRequest {
 
     @NotBlank(message = "Title cannot be empty.")
-    @Size(min = 3, max = 30, message = "Title length must be between 3 and 30 characters!")
+    @Size(min = 3, max = 45, message = "Title length must be between 3 and 45 characters!")
     private String title;
 
     @NotBlank(message = "Description cannot be empty.")

@@ -99,7 +99,7 @@ public class GameController {
 
         gameService.createNewGame(createGameRequest, user);
 
-        return new ModelAndView("redirect:/home");
+        return new ModelAndView("redirect:/games/owned");
     }
 
 
@@ -168,7 +168,7 @@ public class GameController {
 
         gameService.toggleAvailability(gameId);
 
-        return "redirect:/games/{gameId}/owned";
+        return "redirect:/games/owned";
     }
 
 
@@ -232,6 +232,37 @@ public class GameController {
 
         return modelAndView;
     }
+
+
+
+    // -----------------------------  BUY GAME  -----------------------------
+
+    // POST - Buy Game
+    // /games/{gameId}/buy
+    @PostMapping("/{gameId}/buy")
+    public ModelAndView buyGame(@PathVariable UUID gameId, HttpSession session) {
+
+        UUID userId = (UUID) session.getAttribute("user_id");
+
+        if (userId == null) {
+            return new ModelAndView("redirect:/login");
+        }
+
+        // purchaseGame(gameId, userId)   ->  обработва покупката.
+        // Ако няма баланс, връща грешка в страницата.
+        // Ако е успешно, презарежда страницата на играта
+        try {
+            gameService.purchaseGame(gameId, userId);
+        } catch (IllegalStateException e) {
+            ModelAndView modelAndView = new ModelAndView("game");
+            modelAndView.addObject("error", e.getMessage());
+            modelAndView.addObject("game", gameService.getGameById(gameId));
+            return modelAndView;
+        }
+
+        return new ModelAndView("redirect:/games/" + gameId + "/explore");
+    }
+
 }
 
 

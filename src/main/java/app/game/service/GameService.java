@@ -4,6 +4,9 @@ import app.game.model.*;
 import app.game.repository.*;
 import app.shared.exception.*;
 import app.user.model.*;
+import app.user.service.*;
+import app.wallet.model.*;
+import app.wallet.service.*;
 import app.web.dto.*;
 import lombok.extern.slf4j.*;
 import org.springframework.beans.factory.annotation.*;
@@ -22,10 +25,15 @@ public class GameService {
 
     private final GameRepository gameRepository;
 
+    private final UserService userService;
+    private final WalletService walletService;
+
 
     @Autowired
-    public GameService(GameRepository gameRepository) {
+    public GameService(GameRepository gameRepository, UserService userService, WalletService walletService) {
         this.gameRepository = gameRepository;
+        this.userService = userService;
+        this.walletService = walletService;
     }
 
 
@@ -34,11 +42,17 @@ public class GameService {
 
         // дали администраторът реално съществува
         if (user == null) {
-            throw new IllegalArgumentException("Publisher cannot be null");
+            throw new DomainException("Publisher cannot be null");
+        }
+
+        Optional<Game> optionalTitle = gameRepository.findByTitle(createGameRequest.getTitle());
+
+        if (optionalTitle.isPresent()) {
+            throw new DomainException("Title [%s] already exist.".formatted(createGameRequest.getTitle()));
         }
 
         if (createGameRequest.getPrice() == null || createGameRequest.getPrice().compareTo(BigDecimal.ZERO) < 0) {
-            throw new IllegalArgumentException("Price must be a positive value.");
+            throw new DomainException("Price must be a positive value.");
         }
 
         Game game = Game.builder()
@@ -108,6 +122,37 @@ public class GameService {
 
         gameRepository.save(game);
 
+    }
+
+
+    // -----------------------------  BUY GAME  -----------------------------
+
+
+    public void purchaseGame(UUID gameId, UUID userId) {
+
+        User user = userService.getById(userId);
+        Game game = getGameById(gameId);
+
+        // Проверява дали потребителят вече притежава играта.
+        if (game.getPurchasedByUsers().contains(user)) {
+            throw new DomainException("You already own this game.");
+        }
+
+        Wallet wallet = user.getWallet();
+
+        // Проверява дали има достатъчно баланс.
+        if (wallet.getBalance().compareTo(game.getPrice()) < 0) {
+            throw new DomainException("Insufficient funds to purchase this game.");
+        }
+
+        // Намаляваме баланса
+        wallet.setBalance(wallet.getBalance().subtract(game.getPrice()));
+
+        // Добавя играта към списъка на закупените.
+        game.getPurchasedByUsers().add(user);
+
+        // walletRepository.save(wallet);
+        // gameRepository.save(game);
     }
 
 }

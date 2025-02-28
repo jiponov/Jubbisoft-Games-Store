@@ -53,39 +53,48 @@ main {
 }
 
 /* Гейм борда с кутийките - Подравняване и разстояние */
+/* Game Board - Подрежда игрите в мрежа */
 .game-board {
     display: flex;
-    flex-wrap: wrap; /* Позволява прехвърляне на следващ ред */
-    justify-content: center; /* Центрира кутийките в контейнера */
-    gap: 30px; /* Добавя разстояние между кутийките */
-    max-width: 1100px;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 1200px; /* Увеличаваме ширината */
     background: linear-gradient(135deg, #202020, #282828);
-    border-radius: 10px;
-    padding: 40px;
-    margin: 20px auto;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    border-radius: 16px; /* По-заоблени ъгли */
+    padding: 30px; /* По-голям padding за повече въздух */
+    margin: 25px auto;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+}
+
+/* Контейнер за изображението */
+.game-board img.profile-avatar {
+    width: 240px; /* По-голям размер */
+    height: 240px;
+    border-radius: 16px;
+    margin-right: 20px;
+    box-shadow: 0 0 14px rgba(255, 255, 255, 0.2);
+    object-fit: cover;
 }
 
 /* Кутийките - с по-добро разстояние */
 .single-game {
+    padding: 30px;
+    margin-right: 20px;
+    flex-grow: 1;
     display: flex;
     flex-direction: column;
+    justify-content: center;
     gap: 12px;
-    font-size: 16px;
+    font-size: 18px;
     color: #f1f1f1;
-    width: 235px; /* Достатъчно ширина, за да не са слепени */
-    height: 235px;
-    background: rgba(40, 40, 40, 0.85);
-    border-radius: 14px;
-    padding: 24px;
-    box-shadow: 0 5px 12px rgba(0, 0, 0, 0.4);
-    transition: all 0.3s ease-in-out;
+    text-align: left;
 }
 
 /* Hover ефект за кутийките */
 .single-game:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 16px rgba(255, 165, 0, 0.4);
+    transform: translateY(-6px);
+    box-shadow: 0 8px 20px rgba(255, 165, 0, 0.5);
 }
 
 /* Текст в кутийките */
@@ -95,7 +104,7 @@ main {
     color: #ddd;
 }
 
-/* Заглавие */
+/* Подравняване на текст */
 .single-game h5 {
     margin: 4px 0;
     font-weight: 600;
@@ -105,26 +114,26 @@ main {
 }
 
 /* Бутона */
-button {
-    background: linear-gradient(135deg, #f15a24, #c13584);
-    color: #ffffff;
-    border: none;
-    padding: 12px 20px;
-    font-size: 16px;
-    font-weight: 600;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: all 0.3s ease-in-out;
-    box-shadow: 0 4px 8px rgba(255, 87, 51, 0.6);
-    align-self: center;
-}
+/*button {*/
+/*    background: linear-gradient(135deg, #f15a24, #c13584);*/
+/*    color: #ffffff;*/
+/*    border: none;*/
+/*    padding: 12px 20px;*/
+/*    font-size: 16px;*/
+/*    font-weight: 600;*/
+/*    border-radius: 6px;*/
+/*    cursor: pointer;*/
+/*    transition: all 0.3s ease-in-out;*/
+/*    box-shadow: 0 4px 8px rgba(255, 87, 51, 0.6);*/
+/*    align-self: center;*/
+/*}*/
 
 /* Hover ефект за бутона */
-button:hover {
-    background: linear-gradient(135deg, #c13584, #f15a24);
-    box-shadow: 0 4px 14px rgba(255, 87, 51, 0.9);
-    transform: scale(1.07);
-}
+/*button:hover {*/
+/*    background: linear-gradient(135deg, #c13584, #f15a24);*/
+/*    box-shadow: 0 4px 14px rgba(255, 87, 51, 0.9);*/
+/*    transform: scale(1.07);*/
+/*}*/
 
 /* Премахва маркери от списъците */
 ul, li {
@@ -152,4 +161,92 @@ ul, li {
     transform: scale(1.05);
     box-shadow: 0 0 25px rgba(255, 165, 0, 0.5);
     border-color: rgba(255, 165, 0, 0.7);
+}
+
+
+
+
+
+/* Подравняване на бутоните вдясно */
+.button-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 16px;
+}
+
+/* Стил за бутоните */
+.button-group button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 180px;
+    height: 55px;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.25);
+    text-decoration: none;
+}
+
+/* Подравняване на <a> таговете (ако са бутони) */
+.button-group a {
+    text-decoration: none;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+
+/* View Button */
+.btn-view {
+    background: linear-gradient(135deg, #f15a24, #c13584);
+    color: #ffffff;
+}
+
+.btn-view:hover {
+    background: linear-gradient(135deg, #c13584, #f15a24);
+    box-shadow: 0 4px 14px rgba(255, 87, 51, 0.9);
+}
+
+.btn-view a {
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-view i {
+    text-decoration: none; /* Премахва подчертаването от иконата */
+}
+
+/* Ако бутона е в <a>, премахваме ефекта */
+.btn-view:focus,
+.btn-view:active {
+    outline: none; /* Премахва контурите при клик */
+    text-decoration: none;
+}
+
+
+
+/* BUY Button */
+.btn-buy {
+    background: linear-gradient(135deg, #ff9800, #e65100);
+    color: #ffffff;
+}
+
+.btn-buy:hover {
+    background: linear-gradient(135deg, #e65100, #ff9800);
+    box-shadow: 0 4px 14px rgba(255, 152, 0, 0.9);
+}
+
+/* Ако бутона е в <a>, премахваме подчертаването */
+.btn-buy:focus,
+.btn-buy:active {
+    outline: none;
+    text-decoration: none;
 }

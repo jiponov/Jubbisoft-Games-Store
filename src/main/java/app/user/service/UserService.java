@@ -127,6 +127,8 @@ public class UserService {
         user.setLastName(userEditRequest.getLastName());
         user.setProfilePicture(userEditRequest.getProfilePicture());
 
+        user.setUpdatedOn(LocalDateTime.now());
+
         userRepository.save(user);
     }
 

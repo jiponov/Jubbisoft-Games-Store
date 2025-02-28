@@ -123,18 +123,17 @@
         justify-content: center;
     }
 
-    /* Стил за заглавията "Options" и "Admin" */
-    .func-block-title {
-        display: block;
 
-        font-size: 14px;
-        font-weight: 600;
-        text-transform: uppercase;
-        background: linear-gradient(135deg, #ff8a00, #da1b60) !important;
-        color: transparent!important;
+}
 
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        margin: 10px 0 5px 15px; /* Оставя разстояние за подравняване */
-    }
+
+/* Стил за заглавията "Options" и "Admin" */
+.func-block-title {
+    display: block;
+    font-size: 18px;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: #4169E1; /* Кралско синьо */
+    text-decoration: none; /* Подчертаване НЕ */
+    margin: 10px 0 5px 15px; /* Оставя разстояние за подравняване */
 }

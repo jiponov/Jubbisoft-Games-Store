@@ -42,13 +42,14 @@ public class Game {
     @Column(nullable = false)
     private LocalDate releaseDate;
 
+    // много към много релация между игри и потребители.
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "games_users",
             joinColumns = @JoinColumn(name = "game_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id")
     )
-    private List<User> purchasedByUsers;
+    private List<User> purchasedByUsers = new ArrayList<>();     // След покупка играта става достъпна за потребителя.
 
     @ManyToOne
     @JoinColumn(name = "publisher_id", referencedColumnName = "id", nullable = false)
