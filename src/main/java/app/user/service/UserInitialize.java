@@ -83,7 +83,8 @@ public class UserInitialize implements CommandLineRunner {
                 .genre(Genre.ACTION)
                 .isAvailable(true)    // Играта е достъпна
                 .imageCoverUrl("https://eapi.pcloud.com/getpubthumb?code=XZHbhlZYpsLLpEaFzJ1EfaqYH3p5HKlubFk&size=800x800&format=png")
-                .releaseDate(LocalDate.now())    // Датата на пускане е днес
+                .releaseDate(LocalDateTime.now())    // Датата на пускане е днес
+                .updatedOn(LocalDateTime.now())
                 .build();
 
         gameXbox1 = gameRepository.save(gameXbox1);
@@ -96,7 +97,8 @@ public class UserInitialize implements CommandLineRunner {
                 .genre(Genre.RPG)
                 .isAvailable(true)    // Играта е достъпна
                 .imageCoverUrl("https://eapi.pcloud.com/getpubthumb?code=XZIShlZaM7vVYwTxRQBIno6tM4AKkA5FC3k&size=800x800&format=png")
-                .releaseDate(LocalDate.now())    // Датата на пускане е днес
+                .releaseDate(LocalDateTime.now())    // Датата на пускане е днес
+                .updatedOn(LocalDateTime.now())
                 .build();
 
         gameXbox2 = gameRepository.save(gameXbox2);
@@ -109,7 +111,8 @@ public class UserInitialize implements CommandLineRunner {
                 .genre(Genre.STRATEGY)
                 .isAvailable(true)    // Играта е достъпна
                 .imageCoverUrl("https://eapi.pcloud.com/getpubthumb?code=XZpjhlZQUh21UNvuaLkI4JxLNOwhYjeEfuX&size=800x800&format=png")
-                .releaseDate(LocalDate.now())    // Датата на пускане е днес
+                .releaseDate(LocalDateTime.now())    // Датата на пускане е днес
+                .updatedOn(LocalDateTime.now())
                 .build();
 
         gameXbox3 = gameRepository.save(gameXbox3);
@@ -122,7 +125,8 @@ public class UserInitialize implements CommandLineRunner {
                 .genre(Genre.SPORTS)
                 .isAvailable(true)    // Играта е достъпна
                 .imageCoverUrl("https://eapi.pcloud.com/getpubthumb?code=XZijhlZxsrNNvJdkGS3mXcUpRcrXRBRSCr7&size=800x800&format=png")
-                .releaseDate(LocalDate.now())    // Датата на пускане е днес
+                .releaseDate(LocalDateTime.now())    // Датата на пускане е днес
+                .updatedOn(LocalDateTime.now())
                 .build();
 
         gameXbox4 = gameRepository.save(gameXbox4);
@@ -135,7 +139,8 @@ public class UserInitialize implements CommandLineRunner {
                 .genre(Genre.ADVENTURE)
                 .isAvailable(true)    // Играта е достъпна
                 .imageCoverUrl("https://eapi.pcloud.com/getpubthumb?code=XZ2uhlZYsOUxEAno5Hp070QYWL8gQKkUjc7&size=800x800&format=png")
-                .releaseDate(LocalDate.now())    // Датата на пускане е днес
+                .releaseDate(LocalDateTime.now())    // Датата на пускане е днес
+                .updatedOn(LocalDateTime.now())
                 .build();
 
         gameXbox5 = gameRepository.save(gameXbox5);

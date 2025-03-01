@@ -14,5 +14,5 @@ public interface GameRepository extends JpaRepository<Game, UUID> {
 
     List<Game> findAllByPublisherIdOrderByReleaseDateDesc(UUID publisherId);
 
-    List<Game> findAllByIsAvailableTrue();
+    List<Game> findAllByIsAvailableTrueOrderByReleaseDateDesc();
 }

@@ -6,6 +6,7 @@ import app.security.*;
 import app.user.model.*;
 import app.user.service.*;
 import app.web.dto.*;
+import app.web.mapper.*;
 import jakarta.servlet.http.*;
 import jakarta.validation.*;
 import org.springframework.beans.factory.annotation.*;
@@ -234,8 +235,97 @@ public class GameController {
     }
 
 
+    // EDIT GAME - GET
+    // /games/{gameId}/profile
+    @RequireAdminRole
+    @GetMapping("/{gameId}/profile")
+    public ModelAndView getProfileMenu(@PathVariable UUID gameId, HttpSession session) {
+
+        // Взимаме user_id от сесията и USER
+        UUID userId = (UUID) session.getAttribute("user_id");
+        // Проверка дали потребителят е логнат
+        if (userId == null) {
+            return new ModelAndView("redirect:/login");
+        }
+
+        User user = userService.getById(userId);
+
+        // Взимам GAME
+        Game game = gameService.getGameById(gameId);
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("game-profile");
+
+        modelAndView.addObject("user", user);
+        modelAndView.addObject("game", game);
+        modelAndView.addObject("gameEditRequest", DtoMapperGame.mapGameToGameEditRequest(game));
+
+        return modelAndView;
+    }
+
+
+    // EDIT GAME - PUT
+    // /games/{gameId}/profile
+    @RequireAdminRole
+    @PutMapping("/{gameId}/profile")
+    public ModelAndView updateGameProfile(@PathVariable UUID gameId, @Valid GameEditRequest gameEditRequest, BindingResult bindingResult, HttpSession session) {
+
+        UUID userId = (UUID) session.getAttribute("user_id");
+        User user = userService.getById(userId);
+
+        // 1. Проверка за логнат потребител
+        if (userId == null) {
+            return new ModelAndView("redirect:/login");
+        }
+
+        // 2. Извличане на игра.  Взимаме играта по ID (методът хвърля грешка, ако играта не съществува)
+        Game game = gameService.getGameById(gameId);
+
+        // 3. Проверка за game == null
+        if (game == null) {
+            return new ModelAndView("redirect:/home");
+        }
+
+        // 4. Проверка за собственост.  Дали текущият потребител е собственикът на играта
+        if (!game.getPublisher().getId().equals(userId)) {
+            return new ModelAndView("redirect:/home");   // Забраняваме достъп  ако не мачват
+        }
+
+        // 5. Валидация на формата.  Проверка за грешки във FORM - GameEditRequest
+        if (bindingResult.hasErrors()) {
+
+            ModelAndView modelAndView = new ModelAndView();
+            modelAndView.setViewName("game-profile");
+
+            modelAndView.addObject("user", user);
+            modelAndView.addObject("game", game);
+            modelAndView.addObject("gameEditRequest", gameEditRequest);
+
+            return modelAndView;
+        }
+
+        // 6. Допълнителна валидация
+        if (gameService.isTitleInUseByAnotherGame(gameId, gameEditRequest.getTitle())) {
+            bindingResult.rejectValue("title", "error.gameEditRequest", "Title is already in use! Choose another title.");
+
+            return new ModelAndView("game-profile")
+                    .addObject("user", user)
+                    .addObject("game", game)
+                    .addObject("gameEditRequest", gameEditRequest);
+        }
+
+        // 6. Извикваме editGameDetails в GameService.  Обновяване на данните
+        gameService.editGameDetails(gameId, gameEditRequest);
+
+
+        return new ModelAndView("redirect:/games/owned");
+        // return new ModelAndView("redirect:/games/{gameId}/owned");
+        // пример:  /games/550e8400-e29b-41d4-a716-446655440000/owned
+    }
+
 
     // -----------------------------  BUY GAME  -----------------------------
+
 
     // POST - Buy Game
     // /games/{gameId}/buy

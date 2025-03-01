@@ -51,7 +51,7 @@ public class UserController {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("profile-menu");
         modelAndView.addObject("user", user);
-        modelAndView.addObject("userEditRequest", DtoMapper.mapUserToUserEditRequest(user));
+        modelAndView.addObject("userEditRequest", DtoMapperUser.mapUserToUserEditRequest(user));
 
         return modelAndView;
     }

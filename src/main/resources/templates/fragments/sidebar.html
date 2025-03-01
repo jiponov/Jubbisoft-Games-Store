@@ -59,7 +59,7 @@
                         </a>
                     </div>
 
-                    <div class="func-block admin-func-block" th:if="${user.role.name() == 'ADMIN'}">
+                    <div class="func-block admin-func-block" th:if="${user != null and user.role != null and user.role.name() == 'ADMIN'}">
                         <div class="func-block-title">Admin</div>
                         <a href="/users">
                             <p>Users</p>

@@ -17,7 +17,7 @@
 
     <link rel="stylesheet" type="text/css" href="/css/game.css">
 
-    <title>Game</title>
+    <title>Game Owned</title>
 </head>
 
 
@@ -69,7 +69,7 @@
 
                 <div class="details-section-container">
                     <strong>Release Date: </strong>
-                    <p th:text="${#temporals.format(game.releaseDate, 'dd MMM YYYY')}"></p>
+                    <p th:text="${#temporals.format(game.releaseDate, 'dd MMM YYYY HH:mm')}"></p>
                 </div>
 
                 <div class="details-section-container">

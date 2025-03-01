@@ -8,10 +8,12 @@ import app.user.service.*;
 import app.wallet.model.*;
 import app.wallet.service.*;
 import app.web.dto.*;
+import jakarta.validation.*;
 import lombok.extern.slf4j.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.http.*;
 import org.springframework.stereotype.*;
+import org.springframework.transaction.annotation.*;
 import org.springframework.web.server.*;
 
 import java.math.*;
@@ -63,10 +65,12 @@ public class GameService {
                 .genre(createGameRequest.getGenre())
                 .isAvailable(false)    // Играта е недостъпна по подразбиране
                 .imageCoverUrl(createGameRequest.getImageCoverUrl())
-                .releaseDate(LocalDate.now())    // Датата на пускане е днес
+                .releaseDate(LocalDateTime.now())    // Датата на пускане е днес
+                .updatedOn(LocalDateTime.now())
                 .build();
 
         gameRepository.save(game);
+        log.info("Successfully create new game with Title: [%s].".formatted(game.getTitle()));
     }
 
 
@@ -87,7 +91,7 @@ public class GameService {
 
     // get ALL AVAILABLE GAMES  -  true
     public List<Game> getAllAvailableGames() {
-        return gameRepository.findAllByIsAvailableTrue();
+        return gameRepository.findAllByIsAvailableTrueOrderByReleaseDateDesc();
     }
 
 
@@ -125,6 +129,85 @@ public class GameService {
     }
 
 
+    // Проверка за title и избягване на дублиране с DB
+    // Премахване на излишни интервали към title
+    // Сетване на новите стойности от gameEditRequest
+    // Запазване в база данни.
+    // edit на GAME
+    public void editGameDetails(UUID gameId, GameEditRequest gameEditRequest) {
+
+        Game game = getGameById(gameId);
+
+        // 1. Премахване на празни интервали от заглавието и снимката
+        // Trim inputs
+        String title = gameEditRequest.getTitle();
+        String imageCoverUrl = gameEditRequest.getImageCoverUrl() != null ? gameEditRequest.getImageCoverUrl().trim() : "";
+
+        if (title != null) {
+            title = title.trim();
+            if (title.isEmpty()) {
+                throw new DomainException("Title cannot be empty!");
+            }
+        }
+
+        // 2. Проверка дали заглавието вече се използва от друга игра
+        Optional<Game> existingGame = gameRepository.findByTitle(title);
+
+        if (existingGame.isPresent() && !existingGame.get().getId().equals(game.getId())) {
+            throw new DomainException("Title is already in use! Choose another title.");
+        }
+
+
+        // 3. Проверка и почистване на description
+        String description = gameEditRequest.getDescription();
+        if (description == null || description.trim().isEmpty()) {
+            throw new DomainException("Description cannot be empty!");
+        }
+
+        // 4. Проверка за неподходяща цена (примерно 0 или отрицателна)
+        if (gameEditRequest.getPrice() == null || gameEditRequest.getPrice().compareTo(BigDecimal.ZERO) <= 0) {
+            throw new DomainException("Price must be greater than 0!");
+        }
+
+        // 5. Проверка дали genre е null
+        if (gameEditRequest.getGenre() == null) {
+            throw new DomainException("You must select a genre!");
+        }
+
+        // 6. Проверка дали URL е празен
+        String imageUrl = gameEditRequest.getImageCoverUrl();
+        if (imageUrl == null || imageUrl.trim().isEmpty()) {
+            throw new DomainException("Image URL cannot be empty!");
+        }
+
+
+        // вече тук ОБНОВЯВАМЕ:
+        game.setTitle(title);
+        game.setDescription(description);
+        game.setPrice(gameEditRequest.getPrice());
+        game.setGenre(gameEditRequest.getGenre());
+
+        // Ако USER остави полето празно, запазваме съществуващото изображение или даваме дефолтнато
+        if (imageCoverUrl.isEmpty()) {
+            game.setImageCoverUrl(game.getImageCoverUrl() != null ? game.getImageCoverUrl()
+                    : "https://eapi.pcloud.com/getpubthumb?code=XZCUYlZHul3dwxwhr88Ezb8Fcfow4PsV4Xk&size=800x800&format=png");
+        } else {
+            game.setImageCoverUrl(imageCoverUrl);
+        }
+
+        game.setUpdatedOn(LocalDateTime.now());
+
+        // game.set
+        gameRepository.save(game);
+    }
+
+
+    public boolean isTitleInUseByAnotherGame(UUID gameId, String title) {
+        Optional<Game> existingGame = gameRepository.findByTitle(title);
+        return existingGame.isPresent() && !existingGame.get().getId().equals(gameId);
+    }
+
+
     // -----------------------------  BUY GAME  -----------------------------
 
 
@@ -154,6 +237,7 @@ public class GameService {
         // walletRepository.save(wallet);
         // gameRepository.save(game);
     }
+
 
 }
 

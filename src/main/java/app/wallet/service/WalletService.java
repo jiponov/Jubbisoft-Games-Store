@@ -49,7 +49,7 @@ public class WalletService {
         Wallet wallet = Wallet.builder()
                 .owner(user)
                 .status(WalletStatus.ACTIVE)
-                .balance(new BigDecimal("30.00"))
+                .balance(new BigDecimal("100.00"))
                 .currency(Currency.getInstance("EUR"))
                 .createdOn(LocalDateTime.now())
                 .updatedOn(LocalDateTime.now())

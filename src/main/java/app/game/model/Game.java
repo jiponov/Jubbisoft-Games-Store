@@ -40,7 +40,10 @@ public class Game {
     private String imageCoverUrl;
 
     @Column(nullable = false)
-    private LocalDate releaseDate;
+    private LocalDateTime releaseDate;
+
+    @Column(nullable = false)
+    private LocalDateTime updatedOn;
 
     // много към много релация между игри и потребители.
     @ManyToMany(fetch = FetchType.EAGER)

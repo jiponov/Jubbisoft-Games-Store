@@ -6,7 +6,7 @@ import lombok.experimental.*;
 
 
 @UtilityClass
-public class DtoMapper {
+public class DtoMapperUser {
     public static UserEditRequest mapUserToUserEditRequest(User user) {
 
         return UserEditRequest.builder()

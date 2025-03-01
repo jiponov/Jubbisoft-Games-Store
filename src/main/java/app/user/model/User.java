@@ -57,7 +57,8 @@ public class User {
     private Wallet wallet;
 
     @ManyToMany(mappedBy = "purchasedByUsers", fetch = FetchType.EAGER)
-    private List<Game> ownedGames = new ArrayList<>();
+    private List<Game> boughtGames = new ArrayList<>();
+    //private List<Game> ownedGames = new ArrayList<>();
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "publisher")
     @OrderBy("releaseDate DESC")
