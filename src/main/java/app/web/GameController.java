@@ -10,6 +10,9 @@ import app.web.mapper.*;
 import jakarta.servlet.http.*;
 import jakarta.validation.*;
 import org.springframework.beans.factory.annotation.*;
+import org.springframework.security.access.*;
+import org.springframework.security.access.prepost.*;
+import org.springframework.security.core.annotation.*;
 import org.springframework.stereotype.*;
 import org.springframework.validation.*;
 import org.springframework.web.bind.annotation.*;
@@ -36,16 +39,13 @@ public class GameController {
     // PUBLIC GAMES  -  EXPLORE button
     // /games/explore
     @GetMapping("/explore")
-    public ModelAndView getAllPublicGames(HttpSession session) {
+    public ModelAndView getAllPublicGames(@AuthenticationPrincipal AuthenticationMetadata authenticationMetadata) {
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("games-public");
 
-        // Взимаме user_id от сесията
-        UUID userId = (UUID) session.getAttribute("user_id");
-
-        if (userId != null) {
-            User user = userService.getById(userId);
+        if (authenticationMetadata != null && authenticationMetadata.getUserId() != null) {
+            User user = userService.getById(authenticationMetadata.getUserId());
             modelAndView.addObject("user", user); // Добавяме user в модела
         } else {
             modelAndView.addObject("user", null); // Гарантираме, че user винаги съществува в Thymeleaf
@@ -62,11 +62,16 @@ public class GameController {
 
     // GET for CREATE GAME  ->  ADMIN ROLE
     // /games/new
-    @RequireAdminRole
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/new")
-    public ModelAndView getNewGamePage(HttpSession session) {
-        UUID userId = (UUID) session.getAttribute("user_id");
-        User user = userService.getById(userId);
+    public ModelAndView getNewGamePage(@AuthenticationPrincipal AuthenticationMetadata authenticationMetadata) {
+
+        // 1. Проверка дали потребителят е логнат
+        if (authenticationMetadata == null || authenticationMetadata.getUserId() == null) {
+            return new ModelAndView("redirect:/login");
+        }
+
+        User user = userService.getById(authenticationMetadata.getUserId());
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("add-game");
@@ -80,12 +85,16 @@ public class GameController {
 
     // POST for CREATE GAME  ->  ADMIN ROLE
     // /games
-    @RequireAdminRole
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
-    public ModelAndView createGame(@Valid CreateGameRequest createGameRequest, BindingResult bindingResult, HttpSession session) {
+    public ModelAndView createGame(@Valid CreateGameRequest createGameRequest, BindingResult bindingResult, @AuthenticationPrincipal AuthenticationMetadata authenticationMetadata) {
 
-        UUID userId = (UUID) session.getAttribute("user_id");
-        User user = userService.getById(userId);
+        // 1. Проверка дали потребителят е логнат
+        if (authenticationMetadata == null || authenticationMetadata.getUserId() == null) {
+            return new ModelAndView("redirect:/login");
+        }
+
+        User user = userService.getById(authenticationMetadata.getUserId());
 
         if (bindingResult.hasErrors()) {
 
@@ -106,14 +115,24 @@ public class GameController {
 
     // DELETE for GAME  ->  ADMIN ROLE
     // /games/{gameId}
-    @RequireAdminRole
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{gameId}")
-    public String deleteGame(@PathVariable UUID gameId, HttpSession session) {
+    public String deleteGame(@PathVariable UUID gameId, @AuthenticationPrincipal AuthenticationMetadata authenticationMetadata) {
 
-        UUID userId = (UUID) session.getAttribute("user_id");
-
-        if (userId == null) {
+        // 1. Проверка дали потребителят е логнат
+        if (authenticationMetadata == null || authenticationMetadata.getUserId() == null) {
             return "redirect:/login";
+        }
+
+        // 2. Извличане на игра.  Взимаме играта по ID (методът хвърля грешка, ако играта не съществува)
+        Game game = gameService.getGameById(gameId);
+
+        // 3. Взимаме текущия потребител
+        User user = userService.getById(authenticationMetadata.getUserId());
+
+        // 4. Проверка за собственост.  Дали текущият потребител е собственикът на играта
+        if (!game.getPublisher().getId().equals(user.getId())) {
+            throw new AccessDeniedException("You do not have permission to delete this game.");
         }
 
         gameService.deleteGameById(gameId);
@@ -125,25 +144,15 @@ public class GameController {
     // PUBLIC GAMES  for  USERS  (not for all - NOT LOGGED-IN)
     // /games/{gameId}
     @GetMapping("/{gameId}/explore")
-    public ModelAndView viewGame(@PathVariable UUID gameId, HttpSession session) {
+    public ModelAndView viewGame(@PathVariable UUID gameId, @AuthenticationPrincipal AuthenticationMetadata authenticationMetadata) {
 
         Game game = gameService.getGameById(gameId);
-
-        if (game == null) {
-            // return new ModelAndView("redirect:/login");
-            // Или да върне 404:
-            // throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Story not found");
-            return new ModelAndView("redirect:/");
-        }
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("game");
 
-        // Взимаме user_id от сесията
-        UUID userId = (UUID) session.getAttribute("user_id");
-
-        if (userId != null) {
-            User user = userService.getById(userId);
+        if (authenticationMetadata != null && authenticationMetadata.getUserId() != null) {
+            User user = userService.getById(authenticationMetadata.getUserId());
             modelAndView.addObject("user", user); // Добавяме user в модела
         } else {
             modelAndView.addObject("user", null); // Гарантираме, че user винаги съществува в Thymeleaf
@@ -157,14 +166,23 @@ public class GameController {
 
     // PUT  -  Share GAME
     // /games/{gameId}/availability
-    @RequireAdminRole
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{gameId}/availability")
-    public String changeGameAvailability(@PathVariable UUID gameId, HttpSession session) {
+    public String changeGameAvailability(@PathVariable UUID gameId, @AuthenticationPrincipal AuthenticationMetadata authenticationMetadata) {
 
-        UUID userId = (UUID) session.getAttribute("user_id");
-
-        if (userId == null) {
+        // 1. Проверка дали потребителят е логнат
+        if (authenticationMetadata == null || authenticationMetadata.getUserId() == null) {
             return "redirect:/login";
+        }
+
+        User user = userService.getById(authenticationMetadata.getUserId());
+
+        // 2. Извличане на игра.  Взимаме играта по ID (методът хвърля грешка, ако играта не съществува)
+        Game game = gameService.getGameById(gameId);
+
+        // 3. Проверка за собственост.  Дали текущият потребител е собственикът на играта
+        if (!game.getPublisher().getId().equals(user.getId())) {
+            throw new AccessDeniedException("You do not have permission to change status of this game.");
         }
 
         gameService.toggleAvailability(gameId);
@@ -175,26 +193,24 @@ public class GameController {
 
     // MY OWNED GAMES  -  OWNED button
     // /games/owned
-    @RequireAdminRole
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/owned")
-    public ModelAndView getAllOwnedGames(HttpSession session) {
+    public ModelAndView getAllOwnedGames(@AuthenticationPrincipal AuthenticationMetadata authenticationMetadata) {
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("owned-games");
 
-        // Взимаме user_id от сесията
-        UUID userId = (UUID) session.getAttribute("user_id");
-
-        if (userId == null) {
-            // Ако няма логнат потребител, редиректваме към Login
+        // Проверка дали потребителят е логнат
+        if (authenticationMetadata == null || authenticationMetadata.getUserId() == null) {
             return new ModelAndView("redirect:/login");
         }
 
-        User user = userService.getById(userId);
+        User user = userService.getById(authenticationMetadata.getUserId());
+
         modelAndView.addObject("user", user); // Добавяме user в модела
 
         // Взимаме всички игри, които са публикувани от текущия потребител
-        List<Game> ownedGames = gameService.getAllGamesByPublisherId(userId);
+        List<Game> ownedGames = gameService.getAllGamesByPublisherId(user.getId());
 
         // Добавяме игрите в модела
         modelAndView.addObject("ownedGames", ownedGames);
@@ -204,29 +220,28 @@ public class GameController {
 
 
     // PUBLIC GAMES  for  USERS  (not for all - NOT LOGGED-IN)
-    // /games/{gameId}
-    @RequireAdminRole
+    // /games/{gameId}/owned
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/{gameId}/owned")
-    public ModelAndView viewOwnedGame(@PathVariable UUID gameId, HttpSession session) {
+    public ModelAndView viewOwnedGame(@PathVariable UUID gameId, @AuthenticationPrincipal AuthenticationMetadata authenticationMetadata) {
+
+        // Проверка за логнат потребител
+        if (authenticationMetadata == null || authenticationMetadata.getUserId() == null) {
+            return new ModelAndView("redirect:/login");
+        }
+
+        User user = userService.getById(authenticationMetadata.getUserId());
 
         Game game = gameService.getGameById(gameId);
 
-        if (game == null) {
-            return new ModelAndView("redirect:/home");
+        // Проверка за собственост.  Дали текущият потребител е собственикът на играта
+        if (!game.getPublisher().getId().equals(user.getId())) {
+            return new ModelAndView("redirect:/games/owned");
         }
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("game-owned");
 
-        // Взимаме user_id от сесията
-        UUID userId = (UUID) session.getAttribute("user_id");
-
-        if (userId == null) {
-            // Ако няма логнат потребител, редиректваме към Login
-            return new ModelAndView("redirect:/login");
-        }
-
-        User user = userService.getById(userId);
         modelAndView.addObject("user", user); // Добавяме user в модела
 
         modelAndView.addObject("game", game);
@@ -237,21 +252,24 @@ public class GameController {
 
     // EDIT GAME - GET
     // /games/{gameId}/profile
-    @RequireAdminRole
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/{gameId}/profile")
-    public ModelAndView getProfileMenu(@PathVariable UUID gameId, HttpSession session) {
+    public ModelAndView getProfileMenu(@PathVariable UUID gameId, @AuthenticationPrincipal AuthenticationMetadata authenticationMetadata) {
 
-        // Взимаме user_id от сесията и USER
-        UUID userId = (UUID) session.getAttribute("user_id");
-        // Проверка дали потребителят е логнат
-        if (userId == null) {
+        // 1. Проверка за логнат потребител
+        if (authenticationMetadata == null || authenticationMetadata.getUserId() == null) {
             return new ModelAndView("redirect:/login");
         }
 
-        User user = userService.getById(userId);
+        User user = userService.getById(authenticationMetadata.getUserId());
 
-        // Взимам GAME
+        // 2. Извличане на игра.  Взимаме играта по ID (методът хвърля грешка, ако играта не съществува)
         Game game = gameService.getGameById(gameId);
+
+        // 3. Проверка за собственост.  Дали текущият потребител е собственикът на играта
+        if (!game.getPublisher().getId().equals(user.getId())) {
+            throw new AccessDeniedException("You do not have permission to edit this game.");
+        }
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("game-profile");
@@ -266,32 +284,26 @@ public class GameController {
 
     // EDIT GAME - PUT
     // /games/{gameId}/profile
-    @RequireAdminRole
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{gameId}/profile")
-    public ModelAndView updateGameProfile(@PathVariable UUID gameId, @Valid GameEditRequest gameEditRequest, BindingResult bindingResult, HttpSession session) {
-
-        UUID userId = (UUID) session.getAttribute("user_id");
-        User user = userService.getById(userId);
+    public ModelAndView updateGameProfile(@PathVariable UUID gameId, @Valid GameEditRequest gameEditRequest, BindingResult bindingResult, @AuthenticationPrincipal AuthenticationMetadata authenticationMetadata) {
 
         // 1. Проверка за логнат потребител
-        if (userId == null) {
+        if (authenticationMetadata == null || authenticationMetadata.getUserId() == null) {
             return new ModelAndView("redirect:/login");
         }
+
+        User user = userService.getById(authenticationMetadata.getUserId());
 
         // 2. Извличане на игра.  Взимаме играта по ID (методът хвърля грешка, ако играта не съществува)
         Game game = gameService.getGameById(gameId);
 
-        // 3. Проверка за game == null
-        if (game == null) {
-            return new ModelAndView("redirect:/home");
+        // 3. Проверка за собственост.  Дали текущият потребител е собственикът на играта
+        if (!game.getPublisher().getId().equals(user.getId())) {
+            throw new AccessDeniedException("You do not have permission to edit this game.");
         }
 
-        // 4. Проверка за собственост.  Дали текущият потребител е собственикът на играта
-        if (!game.getPublisher().getId().equals(userId)) {
-            return new ModelAndView("redirect:/home");   // Забраняваме достъп  ако не мачват
-        }
-
-        // 5. Валидация на формата.  Проверка за грешки във FORM - GameEditRequest
+        // 4. Валидация на формата.  Проверка за грешки във FORM - GameEditRequest
         if (bindingResult.hasErrors()) {
 
             ModelAndView modelAndView = new ModelAndView();
@@ -304,7 +316,7 @@ public class GameController {
             return modelAndView;
         }
 
-        // 6. Допълнителна валидация
+        // 5. Допълнителна валидация
         if (gameService.isTitleInUseByAnotherGame(gameId, gameEditRequest.getTitle())) {
             bindingResult.rejectValue("title", "error.gameEditRequest", "Title is already in use! Choose another title.");
 
@@ -330,19 +342,20 @@ public class GameController {
     // POST - Buy Game
     // /games/{gameId}/buy
     @PostMapping("/{gameId}/buy")
-    public ModelAndView buyGame(@PathVariable UUID gameId, HttpSession session) {
+    public ModelAndView buyGame(@PathVariable UUID gameId, @AuthenticationPrincipal AuthenticationMetadata authenticationMetadata) {
 
-        UUID userId = (UUID) session.getAttribute("user_id");
-
-        if (userId == null) {
+        // 1. Проверка за логнат потребител
+        if (authenticationMetadata == null || authenticationMetadata.getUserId() == null) {
             return new ModelAndView("redirect:/login");
         }
+
+        User user = userService.getById(authenticationMetadata.getUserId());
 
         // purchaseGame(gameId, userId)   ->  обработва покупката.
         // Ако няма баланс, връща грешка в страницата.
         // Ако е успешно, презарежда страницата на играта
         try {
-            gameService.purchaseGame(gameId, userId);
+            gameService.purchaseGame(gameId, user.getId());
         } catch (IllegalStateException e) {
             ModelAndView modelAndView = new ModelAndView("game");
             modelAndView.addObject("error", e.getMessage());

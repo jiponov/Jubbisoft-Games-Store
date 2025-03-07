@@ -1,11 +1,13 @@
 package app.web;
 
+import app.security.*;
 import app.user.model.*;
 import app.user.service.*;
 import app.web.dto.*;
 import jakarta.servlet.http.*;
 import jakarta.validation.*;
 import org.springframework.beans.factory.annotation.*;
+import org.springframework.security.core.annotation.*;
 import org.springframework.stereotype.*;
 import org.springframework.validation.*;
 import org.springframework.web.bind.annotation.*;
@@ -27,16 +29,13 @@ public class IndexController {
 
 
     @GetMapping("/")
-    public ModelAndView getIndexPage(HttpSession session) {
+    public ModelAndView getIndexPage(@AuthenticationPrincipal AuthenticationMetadata authenticationMetadata) {
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("index");
 
-        // Взимаме user_id от сесията
-        UUID userId = (UUID) session.getAttribute("user_id");
-
-        if (userId != null) {
-            User user = userService.getById(userId);
+        if (authenticationMetadata != null && authenticationMetadata.getUserId() != null) {
+            User user = userService.getById(authenticationMetadata.getUserId());
             modelAndView.addObject("user", user); // Добавяме user в модела
         } else {
             modelAndView.addObject("user", null); // Гарантираме, че user винаги съществува в Thymeleaf
@@ -47,29 +46,18 @@ public class IndexController {
 
 
     @GetMapping("/login")
-    public ModelAndView getLoginPage() {
+    public ModelAndView getLoginPage(@RequestParam(value = "error", required = false) String errorParam) {
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("login");
 
         modelAndView.addObject("loginRequest", new LoginRequest());
 
-        return modelAndView;
-    }
-
-
-    @PostMapping("/login")
-    public String login(@Valid LoginRequest loginRequest, BindingResult bindingResult, HttpSession session) {
-
-        if (bindingResult.hasErrors()) {
-            return "login";
+        if (errorParam != null) {
+            modelAndView.addObject("errorMessage", "Incorrect username or password!");
         }
 
-        User loggedInUser = userService.login(loginRequest);
-
-        session.setAttribute("user_id", loggedInUser.getId());
-
-        return "redirect:/home";
+        return modelAndView;
     }
 
 
@@ -99,10 +87,9 @@ public class IndexController {
 
 
     @GetMapping("/home")
-    public ModelAndView getHomePage(HttpSession session) {
+    public ModelAndView getHomePage(@AuthenticationPrincipal AuthenticationMetadata authenticationMetadata) {
 
-        UUID userId = (UUID) session.getAttribute("user_id");
-        User user = userService.getById(userId);
+        User user = userService.getById(authenticationMetadata.getUserId());
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("home");
@@ -112,12 +99,4 @@ public class IndexController {
         return modelAndView;
     }
 
-
-    @GetMapping("/logout")
-    public String getLogoutPage(HttpSession session) {
-
-        session.invalidate();
-
-        return "redirect:/";
-    }
 }

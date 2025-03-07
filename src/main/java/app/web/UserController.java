@@ -7,6 +7,8 @@ import app.web.dto.*;
 import app.web.mapper.*;
 import jakarta.validation.*;
 import org.springframework.beans.factory.annotation.*;
+import org.springframework.security.access.prepost.*;
+import org.springframework.security.core.annotation.*;
 import org.springframework.stereotype.*;
 import org.springframework.validation.*;
 import org.springframework.web.bind.annotation.*;
@@ -28,9 +30,9 @@ public class UserController {
     }
 
 
-    @RequireAdminRole
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping
-    public ModelAndView getAllUsers() {
+    public ModelAndView getAllUsers(@AuthenticationPrincipal AuthenticationMetadata authenticationMetadata) {
 
         List<User> users = userService.getAllUsers();
 
@@ -56,6 +58,7 @@ public class UserController {
         return modelAndView;
     }
 
+
     @PutMapping("/{id}/profile")
     public ModelAndView updateUserProfile(@PathVariable UUID id, @Valid UserEditRequest userEditRequest, BindingResult bindingResult) {
 
@@ -74,5 +77,25 @@ public class UserController {
         userService.editUserDetails(id, userEditRequest);
 
         return new ModelAndView("redirect:/home");
+    }
+
+
+    // /users/{id}/status
+    @PutMapping("/{id}/status")
+    public String switchUserStatus(@PathVariable UUID id) {
+
+        userService.switchStatus(id);
+
+        return "redirect:/users";
+    }
+
+
+    // /users/{id}/role
+    @PutMapping("/{id}/role")
+    public String switchUserRole(@PathVariable UUID id) {
+
+        userService.switchRole(id);
+
+        return "redirect:/users";
     }
 }

@@ -1,13 +1,16 @@
 package app.user.service;
 
+import app.security.*;
 import app.shared.exception.*;
 import app.user.model.*;
+import app.user.model.User;
 import app.user.repository.*;
 import app.wallet.model.*;
 import app.wallet.service.*;
 import app.web.dto.*;
 import lombok.extern.slf4j.*;
 import org.springframework.beans.factory.annotation.*;
+import org.springframework.security.core.userdetails.*;
 import org.springframework.security.crypto.password.*;
 import org.springframework.stereotype.*;
 import org.springframework.transaction.annotation.*;
@@ -19,7 +22,7 @@ import java.util.*;
 
 @Slf4j
 @Service
-public class UserService {
+public class UserService implements UserDetailsService {
 
     private final UserRepository userRepository;
 
@@ -32,24 +35,6 @@ public class UserService {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.walletService = walletService;
-    }
-
-
-    public User login(LoginRequest loginRequest) {
-
-        Optional<User> optionalUser = userRepository.findByUsername(loginRequest.getUsername());
-
-        if (optionalUser.isEmpty()) {
-            throw new DomainException("Username or password are incorrect.");
-        }
-
-        User user = optionalUser.get();
-
-        if (!passwordEncoder.matches(loginRequest.getPassword(), user.getPassword())) {
-            throw new DomainException("Username or password are incorrect.");
-        }
-
-        return user;
     }
 
 
@@ -182,6 +167,20 @@ public class UserService {
         }
 
         userRepository.save(user);
+    }
+
+
+    // Всеки път, когато потребител се логва, Spring Security ще извиква този метод, за да вземе детайлите на потребителя с този username
+    // метод за login() към Spring Security
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        // потребителя ни от БАЗА ДАННИ взимаме тук
+        User user = userRepository
+                .findByUsername(username)
+                .orElseThrow(() -> new DomainException("User with this username does not exist."));
+
+        // ПРОВЕРКА за username към user, дали съвпадат външния вкаран параметър USERNAME с този от БАЗА ДАННИ USER !  >>
+        return new AuthenticationMetadata(user.getId(), username, user.getPassword(), user.getRole(), user.isActive());
     }
 
 }
