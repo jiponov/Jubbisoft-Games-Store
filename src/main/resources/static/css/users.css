@@ -1,0 +1,104 @@
+.styled-table {
+    flex-direction: row!important;
+    align-items: flex-start!important;
+    justify-content: flex-start!important;
+
+    margin: 0 auto!important;
+    width: 100%;
+    position: relative;
+
+    border-collapse: collapse;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    background: #1e1e1e;
+    color: #ffffff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    padding: 15px;
+}
+
+
+/* Заглавен ред */
+.styled-table thead {
+    background: linear-gradient(90deg, #ff0000, #ff7300, #ffd700);
+    color: white;
+    text-transform: uppercase;
+    font-weight: 600;
+    text-align: left;
+}
+
+.styled-table thead th {
+    padding: 14px;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+    text-align: left;
+}
+
+/* Редове */
+.styled-table tbody td {
+    padding: 14px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: left;
+}
+
+/* Оцветяване на редове */
+.styled-table tbody tr:nth-child(even) {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.styled-table tbody tr:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* Статус - Active */
+.status.active {
+    color: #27ae60;
+    font-weight: bold;
+}
+
+/* Статус - Inactive */
+.status.terminated {
+    color: #e74c3c;
+    font-weight: bold;
+}
+
+/* Бутоните Status & Role */
+.profile-actions-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 110px;  /* Фиксирана ширина */
+    height: 40px; /* Фиксирана височина */
+    font-size: 14px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    text-align: center;
+    outline: none;
+}
+
+/* СИН БУТОН - Status */
+.profile-actions-button.status-button {
+    background: linear-gradient(135deg, #007bff, #0056b3);
+    color: #ffffff;
+}
+
+.profile-actions-button.status-button:hover {
+    background: linear-gradient(135deg, #0056b3, #003d82);
+    box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
+}
+
+/* ЛИЛАВ БУТОН - Role */
+.profile-actions-button.role-button {
+    background: linear-gradient(135deg, #8e44ad, #5e3370);
+    color: #ffffff;
+}
+
+.profile-actions-button.role-button:hover {
+    background: linear-gradient(135deg, #5e3370, #3e2150);
+    box-shadow: 0 4px 8px rgba(142, 68, 173, 0.3);
+}

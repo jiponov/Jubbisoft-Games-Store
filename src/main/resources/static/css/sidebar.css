@@ -6,15 +6,21 @@
     flex-direction: column;
     justify-content: normal; /* Оправя разстоянието отгоре */
     background: #202020; /* По-светъл фон за sidebar */
-    width: 280px;
+
     border-radius: 12px;
-    padding: 20px;
+
 
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
     font-family: 'Poppins', sans-serif;
     transition: all 0.3s ease-in-out;
 
-    margin: 0px 0px 20px 20px; /* !!! ПРОМЕНЕНО: Оставя място отгоре */
+    margin: 20px 20px 20px 20px; /* !!! ПРОМЕНЕНО: Оставя място отгоре */
+
+    width: 280px !important;
+    min-width: 280px !important;
+    max-width: 280px !important;
+    padding: 20px; /* Запазва вътрешния падинг */
+    box-sizing: border-box; /* Предотвратява разширяване от padding */
 }
 
 /* Sidebar Branding */

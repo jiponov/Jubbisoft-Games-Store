@@ -34,11 +34,18 @@ public class UserController {
     @GetMapping
     public ModelAndView getAllUsers(@AuthenticationPrincipal AuthenticationMetadata authenticationMetadata) {
 
+        if (authenticationMetadata == null || authenticationMetadata.getUserId() == null) {
+            return new ModelAndView("redirect:/login");
+        }
+
+        User user = userService.getById(authenticationMetadata.getUserId());
+
         List<User> users = userService.getAllUsers();
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("users");
         modelAndView.addObject("users", users);
+        modelAndView.addObject("user", user);
 
         return modelAndView;
     }

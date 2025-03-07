@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&amp;display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&amp;display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" type="text/css" href="/css/common.css">
+    <link rel="stylesheet" type="text/css" href="/css/sidebar.css">
+
+    <link rel="stylesheet" type="text/css" href="/css/my-home.css">
+
+    <link rel="stylesheet" type="text/css" href="/css/users.css">
+
+    <title>Users</title>
+</head>
+
+
+<body>
+
+<header th:replace="~{fragments/header::header}"></header>
+
+<main>
+
+    <div th:replace="~{fragments/sidebar::sidebar}"></div>
+
+    <div class="home-section">
+        <div class="users-main">
+            <table class="styled-table">
+                <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th>Country</th>
+                    <th>Status</th>
+                    <th>Created on</th>
+                    <th>Switch status</th>
+                    <th>Change role</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="user : ${users}">
+                    <td th:text="${user.id}"></td>
+                    <td th:text="${user.username}"></td>
+                    <td th:text="${#strings.isEmpty(user.email) ? 'no email' : user.email}"></td>
+                    <td th:text="${#strings.capitalize(#strings.toLowerCase(user.role.name()))}"></td>
+                    <td th:text="${#strings.capitalize(#strings.toLowerCase(user.country.name()))}"></td>
+                    <td>
+                        <p th:if="${user.active}" class="status active">Active</p>
+                        <p th:unless="${user.active}" class="status terminated">Inactive</p>
+                    </td>
+                    <td th:text="${#temporals.format(user.createdOn, 'dd MMM YYYY HH:mm')}"></td>
+                    <td>
+                        <!-- /users/{id}/status           -->
+                        <form th:action="@{'/users/' + ${user.id} + '/status'}" th:method="PUT">
+                            <button class="profile-actions-button status-button">
+                                <p>Status</p>
+                            </button>
+                        </form>
+                    </td>
+                    <td>
+                        <!-- /users/{id}/role           -->
+                        <form th:action="@{'/users/' + ${user.id} + '/role'}" th:method="PUT">
+                            <button class="profile-actions-button role-button">
+                                <p>Role</p>
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</main>
+
+<footer th:replace="~{fragments/footer::footer}"></footer>
+
+</body>
+
+</html>
