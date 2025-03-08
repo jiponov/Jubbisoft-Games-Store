@@ -54,12 +54,14 @@
 .status.active {
     color: #27ae60;
     font-weight: bold;
+    text-shadow: 0 0 10px rgba(39, 174, 96, 0.7); /* Зелен ореол */
 }
 
 /* Статус - Inactive */
 .status.terminated {
     color: #e74c3c;
     font-weight: bold;
+    text-shadow: 0 0 10px rgba(231, 76, 60, 0.7); /* Червен ореол */
 }
 
 /* Бутоните Status & Role */
@@ -85,20 +87,39 @@
 .profile-actions-button.status-button {
     background: linear-gradient(135deg, #007bff, #0056b3);
     color: #ffffff;
+    box-shadow: 0 0 10px rgba(0, 123, 255, 0.7); /* Син ореол */
+    transition: all 0.3s ease-in-out;
 }
 
 .profile-actions-button.status-button:hover {
     background: linear-gradient(135deg, #0056b3, #003d82);
     box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
+    box-shadow: 0 0 15px rgba(0, 123, 255, 0.9); /* По-силен ореол при hover */
 }
 
 /* ЛИЛАВ БУТОН - Role */
 .profile-actions-button.role-button {
     background: linear-gradient(135deg, #8e44ad, #5e3370);
     color: #ffffff;
+    box-shadow: 0 0 10px rgba(142, 68, 173, 0.7); /* Лилав ореол */
+    transition: all 0.3s ease-in-out;
 }
 
 .profile-actions-button.role-button:hover {
     background: linear-gradient(135deg, #5e3370, #3e2150);
-    box-shadow: 0 4px 8px rgba(142, 68, 173, 0.3);
+    box-shadow: 0 0 15px rgba(142, 68, 173, 0.9); /* По-силен ореол при hover */
+}
+
+/* Администратор - син цвят */
+.role.admin {
+    color: #007bff; /* Ярко син */
+    font-weight: bold;
+    text-shadow: 0 0 8px rgba(0, 123, 255, 0.7); /* Синкав ореол */
+}
+
+/* Потребител - сребрист цвят */
+.role.user {
+    color: #C0C0C0; /* Сребрист */
+    font-weight: bold;
+    text-shadow: 0 0 8px rgba(192, 192, 192, 0.7); /* Сребрист ореол */
 }

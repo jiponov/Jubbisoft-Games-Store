@@ -22,12 +22,12 @@ body main {
 
 /* Подобрено: Центриране и разширяване на профилния панел */
 div.single-section-box {
-    background: #2a2a2a; /* Същият фон като sidebar */
+    background: linear-gradient(135deg, #F5DEB3, #E6C37F); /* Същият фон като sidebar */
     padding: 40px; /* Повече въздух */
     border-radius: 10px; /* Малко по-меки ъгли */
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    color: #f1f1f1;
+    border: 1px solid rgba(255, 215, 0, 0.3);
+    color: #3E2723;
     text-align: center;
     width: 600px; /* По-широк панел */
     max-width: 60%;
@@ -51,10 +51,17 @@ div.single-section-box {
     border-radius: 6px;
     font-size: 14px; /* По-добра четливост */
     font-weight: 600;
-    background-color: #27ae60;
-    color: #ffffff;
-    border: 1px solid rgba(84, 227, 54, 0.6);
-    box-shadow: 0 4px 8px rgba(0, 153, 51, 0.3);
+    background-color: #FFD700; /* Фон - златист */
+    color: #ffffff; /* Текст - бял */
+    border: 1px solid rgba(255, 215, 0, 0.6); /* По-умерен контур */
+    box-shadow: 0 0 6px rgba(255, 215, 0, 0.5), /* Основен златен ореол */
+    0 0 12px rgba(255, 223, 0, 0.4); /* По-мек външен ореол */
+    transition: all 0.3s ease-in-out;
+}
+
+.profile-status-role-container .active-profile:hover {
+    box-shadow: 0 0 8px rgba(255, 215, 0, 0.7),
+    0 0 16px rgba(255, 223, 0, 0.6);
 }
 
 /* Неактивен профил */
@@ -65,8 +72,15 @@ div.single-section-box {
     border-radius: 6px;
     font-size: 14px;
     font-weight: 600;
-    border: 1px solid rgba(255, 103, 103, 0.6);
-    box-shadow: 0 4px 8px rgba(255, 103, 103, 0.3);
+    border: 1px solid rgba(255, 103, 103, 0.5);
+    box-shadow: 0 0 6px rgba(255, 103, 103, 0.4),
+    0 0 12px rgba(255, 103, 103, 0.3);
+    transition: all 0.3s ease-in-out;
+}
+
+.profile-status-role-container .inactive-profile:hover {
+    box-shadow: 0 0 8px rgba(255, 103, 103, 0.6),
+    0 0 16px rgba(255, 103, 103, 0.5);
 }
 
 /* Подобрен бутон за действие */
@@ -98,8 +112,8 @@ div.single-section-box {
 
 /* Подобрен аватар */
 .profile-avatar {
-    width: 160px;
-    height: 160px;
+    width: 220px;
+    height: 220px;
     border-radius: 50%;
     margin-bottom: 16px;
     box-shadow: 0 0 14px rgba(255, 255, 255, 0.15);
@@ -121,13 +135,13 @@ div.single-section-box {
     align-items: start;
     text-align: left;
     margin-left: 10%;
-    color: #ffffff;
+    color: #3E2723;
 }
 
 /* Подобрени полета за информация */
 .profile-info p {
     margin: 5px 0;
-    color: #e0e0e0;
+    color: #3E2723;
 }
 
 

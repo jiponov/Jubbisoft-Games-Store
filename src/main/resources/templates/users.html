@@ -38,9 +38,7 @@
                 <tr>
                     <th>Id</th>
                     <th>Username</th>
-                    <th>Email</th>
                     <th>Role</th>
-                    <th>Country</th>
                     <th>Status</th>
                     <th>Created on</th>
                     <th>Switch status</th>
@@ -51,27 +49,27 @@
                 <tr th:each="user : ${users}">
                     <td th:text="${user.id}"></td>
                     <td th:text="${user.username}"></td>
-                    <td th:text="${#strings.isEmpty(user.email) ? 'no email' : user.email}"></td>
-                    <td th:text="${#strings.capitalize(#strings.toLowerCase(user.role.name()))}"></td>
-                    <td th:text="${#strings.capitalize(#strings.toLowerCase(user.country.name()))}"></td>
+                    <td th:text="${#strings.capitalize(#strings.toLowerCase(user.role.name()))}"
+                        th:classappend="${user.role.name() == 'ADMIN' ? 'role admin' : 'role user'}">
+                    </td>
                     <td>
                         <p th:if="${user.active}" class="status active">Active</p>
                         <p th:unless="${user.active}" class="status terminated">Inactive</p>
                     </td>
                     <td th:text="${#temporals.format(user.createdOn, 'dd MMM YYYY HH:mm')}"></td>
                     <td>
-                        <!-- /users/{id}/status           -->
+                        <!-- /users/{id}/status -->
                         <form th:action="@{'/users/' + ${user.id} + '/status'}" th:method="PUT">
                             <button class="profile-actions-button status-button">
-                                <p>Status</p>
+                                <i class="fas fa-history"></i> Status
                             </button>
                         </form>
                     </td>
                     <td>
-                        <!-- /users/{id}/role           -->
+                        <!-- /users/{id}/role -->
                         <form th:action="@{'/users/' + ${user.id} + '/role'}" th:method="PUT">
                             <button class="profile-actions-button role-button">
-                                <p>Role</p>
+                                <i class="fas fa-user-shield"></i> Role
                             </button>
                         </form>
                     </td>

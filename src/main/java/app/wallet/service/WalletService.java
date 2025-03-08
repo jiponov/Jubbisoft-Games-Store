@@ -66,7 +66,6 @@ public class WalletService {
 
         String transactionDescription = "Added funds %.2f".formatted(amount.doubleValue());
 
-
         if (wallet.getStatus() == WalletStatus.INACTIVE) {
             Transaction transaction = transactionService.createNewTransaction(
                     wallet.getOwner(),
@@ -114,4 +113,56 @@ public class WalletService {
     }
 
 
+    @Transactional
+    public Transaction charge(User user, UUID walletId, BigDecimal amount, String description) {
+
+        Wallet wallet = getWalletById(walletId);
+        String failureReason = null;
+        boolean isFailedTransaction = false;
+
+        if (wallet.getStatus() == WalletStatus.INACTIVE) {
+            failureReason = "Inactive wallet status";
+            isFailedTransaction = true;
+        }
+
+        if (wallet.getBalance().compareTo(amount) < 0) {
+            failureReason = "Insufficient funds";
+            isFailedTransaction = true;
+        }
+
+        if (isFailedTransaction) {
+            Transaction transaction = transactionService.createNewTransaction(
+                    user,
+                    wallet.getId().toString(),
+                    JUBBISOFT_LTD,
+                    amount,
+                    wallet.getBalance(),
+                    wallet.getCurrency(),
+                    TransactionType.WITHDRAWAL,
+                    TransactionStatus.FAILED,
+                    description,
+                    failureReason);
+
+            return transaction;
+        }
+
+        wallet.setBalance(wallet.getBalance().subtract(amount));
+        wallet.setUpdatedOn(LocalDateTime.now());
+
+        walletRepository.save(wallet);
+
+        Transaction transaction = transactionService.createNewTransaction(
+                user,
+                wallet.getId().toString(),
+                JUBBISOFT_LTD,
+                amount,
+                wallet.getBalance(),
+                wallet.getCurrency(),
+                TransactionType.WITHDRAWAL,
+                TransactionStatus.APPROVED,
+                description,
+                null);
+
+        return transaction;
+    }
 }

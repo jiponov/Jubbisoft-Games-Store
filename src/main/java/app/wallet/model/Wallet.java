@@ -24,6 +24,7 @@ public class Wallet {
     @Column(nullable = false)
     private BigDecimal balance;
 
+
     @Column(nullable = false)
     private WalletStatus status;
 
