@@ -15,9 +15,9 @@
     <link rel="stylesheet" type="text/css" href="/css/common.css">
     <link rel="stylesheet" type="text/css" href="/css/sidebar.css">
 
-    <link rel="stylesheet" type="text/css" href="/css/wallet.css">
+    <link rel="stylesheet" type="text/css" href="/css/loyalty.css">
 
-    <title>Wallet</title>
+    <title>Loyalty</title>
 </head>
 
 
@@ -29,32 +29,36 @@
 
     <div th:replace="~{fragments/sidebar::sidebar}"></div>
 
-    <div class="home-section">
-        <div class="single-section-box home-profile-information">
+    <div class="loyalty-section">
+        <div class="single-section-box loyalty-profile-information">
 
-            <div class="profile-header">
-                <img th:src="${'https://eapi.pcloud.com/getpubthumb?code=XZCmClZlctqkCAN8e7RSarL4F1ytmQu81Bk&amp;linkpassword=undefined&amp;size=1890x1890&amp;crop=0&amp;type=auto'}"
-                     alt="Profile Picture" class="profile-avatar">
-                <h2 class="profile-name" >BALANCE:</h2>
-                <h2 class="profile-name" th:text="${user.wallet.balance} + ' ' + 'EUR'"></h2>
-                <div class="profile-status-role-container">
-                    <p th:if="${user.wallet.getStatus().name() == 'ACTIVE'}" class="active-profile">ACTIVE</p>
-                    <p th:if="${user.wallet.getStatus().name() == 'INACTIVE'}" class="inactive-profile">INACTIVE</p>
+            <div class="loyalty-header">
+                <img th:src="${'https://eapi.pcloud.com/getpubthumb?code=XZcgllZpoU8aDArgsQFthSnotc730NkRLy0&size=1890x1890&crop=0&type=auto'}"
+                     alt="Loyalty Badge" class="loyalty-avatar">
+                <h2 class="loyalty-title">Loyalty Status:</h2>
+
+                <div class="loyalty-status-container">
+                    <p th:if="${loyalty.getType().name() == 'DEFAULT'}" class="default-loyalty">DEFAULT</p>
+                    <p th:if="${loyalty.getType().name() == 'PREMIUM'}" class="premium-loyalty">PREMIUM</p>
                 </div>
             </div>
 
-            <div class="profile-info">
+            <div class="loyalty-info">
                 <div class="details-section-container">
-                    <strong>Wallet id: </strong>
-                    <p th:text="${user.wallet.id}"></p>
+                    <strong>Loyalty ID: </strong>
+                    <p th:text="${loyalty.id}"></p>
                 </div>
                 <div class="details-section-container">
-                    <strong>Currency: </strong>
-                    <p th:text="${user.wallet.currency}"></p>
+                    <strong>Games Purchased: </strong>
+                    <p th:text="${loyalty.gamesPurchased}"></p>
                 </div>
                 <div class="details-section-container">
-                    <strong>Wallet - Created on: </strong>
-                    <p th:text="${#temporals.format(user.wallet.createdOn, 'dd MMM YYYY HH:mm')}"></p>
+                    <strong>Discount Percentage: </strong>
+                    <p th:text="${discount + '%'}"></p>
+                </div>
+                <div class="details-section-container">
+                    <strong>Member Since: </strong>
+                    <p th:text="${#temporals.format(user.createdOn, 'dd MMM YYYY HH:mm')}"></p>
                 </div>
                 <div class="details-section-container">
                     <strong>User: </strong>
@@ -64,6 +68,7 @@
 
         </div>
     </div>
+
 
 </main>
 

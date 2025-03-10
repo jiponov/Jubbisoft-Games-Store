@@ -1,0 +1,138 @@
+body main {
+    margin: 20px 20px;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 25px;
+}
+
+/* Loyalty Section */
+.loyalty-section {
+    background: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 0;
+    width: 100%;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+/* Loyalty Box */
+div.single-section-box {
+    background: linear-gradient(135deg, #F5F5DC, #E0D4B7); /* Бежав градиент */
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(224, 212, 183, 0.4);
+    color: #5D4037; /* Кафяв текст */
+    text-align: center;
+    width: 600px;
+    max-width: 60%;
+    margin: 0 auto;
+}
+
+/* Loyalty Status */
+.loyalty-status-container {
+    display: flex;
+    padding: 5px 10px;
+    justify-content: center;
+    gap: 20px;
+    text-transform: uppercase;
+}
+
+/* Default Loyalty (Сиво) */
+.loyalty-status-container .default-loyalty {
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 18px;
+    font-weight: 600;
+    background-color: #B0BEC5;
+    color: #37474F;
+    border: 1px solid rgba(176, 190, 197, 0.6);
+    box-shadow: 0 0 6px rgba(176, 190, 197, 0.5);
+    transition: all 0.3s ease-in-out;
+}
+
+.loyalty-status-container .default-loyalty:hover {
+    box-shadow: 0 0 8px rgba(176, 190, 197, 0.8);
+}
+
+/* Premium Loyalty (Лилаво) */
+.loyalty-status-container .premium-loyalty {
+    background-color: #673AB7;
+    color: #ffffff;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 18px;
+    font-weight: 600;
+    border: 1px solid rgba(103, 58, 183, 0.6);
+    box-shadow: 0 0 6px rgba(103, 58, 183, 0.5);
+    transition: all 0.3s ease-in-out;
+}
+
+.loyalty-status-container .premium-loyalty:hover {
+    box-shadow: 0 0 8px rgba(103, 58, 183, 0.8);
+}
+
+/* Loyalty Avatar */
+.loyalty-avatar {
+    width: 220px;
+    height: 220px;
+    border-radius: 50%;
+    margin-bottom: 16px;
+    box-shadow: 0 0 14px rgba(255, 255, 255, 0.15);
+    border: 4px solid rgba(255, 255, 255, 0.3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Loyalty Info */
+.loyalty-info {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    font-size: 14px;
+    font-weight: 300;
+    align-items: start;
+    text-align: left;
+    margin-left: 10%;
+    color: #5D4037; /* Кафяв текст */
+}
+
+/* Loyalty Info Fields */
+.loyalty-info p {
+    margin: 5px 0;
+    color: #5D4037;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .loyalty-section {
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
+    }
+
+    .single-section-box.loyalty-profile-information {
+        margin-left: 0;
+        max-width: 100%;
+    }
+
+    .loyalty-info {
+        text-align: center;
+        margin-left: 0;
+    }
+}
+
+
+.loyalty-title {
+    margin-bottom: 0px; /* Намалява разстоянието под h2 */
+}
+
+.loyalty-status-container {
+    margin-top: 0px; /* Намалява разстоянието отгоре */
+}

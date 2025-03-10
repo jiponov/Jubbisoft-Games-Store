@@ -49,7 +49,7 @@ div.single-section-box {
     backdrop-filter: blur(8px);
     padding: 6px 12px; /* Подобрено: По-голям padding */
     border-radius: 6px;
-    font-size: 14px; /* По-добра четливост */
+    font-size: 18px; /* По-добра четливост */
     font-weight: 600;
     background-color: #FFD700; /* Фон - златист */
     color: #ffffff; /* Текст - бял */
@@ -70,7 +70,7 @@ div.single-section-box {
     color: #ffffff;
     padding: 6px 12px;
     border-radius: 6px;
-    font-size: 14px;
+    font-size: 18px;
     font-weight: 600;
     border: 1px solid rgba(255, 103, 103, 0.5);
     box-shadow: 0 0 6px rgba(255, 103, 103, 0.4),

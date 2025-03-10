@@ -52,7 +52,7 @@ public class Transaction {
     @Column(nullable = false)
     private LocalDateTime createdOn;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(referencedColumnName = "id", nullable = true)
     private User owner;
 }

@@ -2,6 +2,7 @@ package app.game.service;
 
 import app.game.model.*;
 import app.game.repository.*;
+import app.loyalty.service.*;
 import app.shared.exception.*;
 import app.user.model.*;
 import app.user.service.*;
@@ -29,13 +30,15 @@ public class GameService {
 
     private final UserService userService;
     private final WalletService walletService;
+    private final LoyaltyService loyaltyService;
 
 
     @Autowired
-    public GameService(GameRepository gameRepository, UserService userService, WalletService walletService) {
+    public GameService(GameRepository gameRepository, UserService userService, WalletService walletService, LoyaltyService loyaltyService) {
         this.gameRepository = gameRepository;
         this.userService = userService;
         this.walletService = walletService;
+        this.loyaltyService = loyaltyService;
     }
 
 
@@ -211,31 +214,38 @@ public class GameService {
     // -----------------------------  BUY GAME  -----------------------------
 
 
+    @Transactional
     public void purchaseGame(UUID gameId, UUID userId) {
 
         User user = userService.getById(userId);
         Game game = getGameById(gameId);
 
-        // Проверява дали потребителят вече притежава играта.
-        if (game.getPurchasedByUsers().contains(user)) {
-            throw new DomainException("You already own this game.");
+        if (user.getBoughtGames().contains(game)) {
+            throw new DomainException("You already own this game!");
         }
+
+
+        // Проверяваме дали потребителят има отстъпка и автоматично намаляваме цената, ако потребителят е PREMIUM
+        double discount = loyaltyService.getDiscountPercentage(userId);
+        BigDecimal finalPrice = game.getPrice();
+        finalPrice = finalPrice.multiply(BigDecimal.valueOf(1 - discount));    // Пресмятаме цената с отстъпка
 
         Wallet wallet = user.getWallet();
 
-        // Проверява дали има достатъчно баланс.
-        if (wallet.getBalance().compareTo(game.getPrice()) < 0) {
-            throw new DomainException("Insufficient funds to purchase this game.");
+        if (wallet.getBalance().compareTo(finalPrice) < 0) {
+            throw new DomainException("Not enough balance to purchase this game!");
         }
 
-        // Намаляваме баланса
-        wallet.setBalance(wallet.getBalance().subtract(game.getPrice()));
 
-        // Добавя играта към списъка на закупените.
-        game.getPurchasedByUsers().add(user);
+        wallet.setBalance(wallet.getBalance().subtract(finalPrice));
+        // walletService.updateWallet(wallet);
 
-        // walletRepository.save(wallet);
-        // gameRepository.save(game);
+        user.getBoughtGames().add(game);
+        // userRepository.save(user);
+
+
+        // Обновяване на Loyalty след покупка
+        loyaltyService.updateLoyaltyAfterPurchase(user);
     }
 
 

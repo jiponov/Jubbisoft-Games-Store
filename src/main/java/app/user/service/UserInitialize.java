@@ -2,6 +2,7 @@ package app.user.service;
 
 import app.game.model.*;
 import app.game.repository.*;
+import app.loyalty.service.*;
 import app.user.model.*;
 import app.user.repository.*;
 import app.wallet.model.*;
@@ -26,15 +27,17 @@ public class UserInitialize implements CommandLineRunner {
     private final PasswordEncoder passwordEncoder;
     private final WalletRepository walletRepository;
     private final GameRepository gameRepository;
+    private final LoyaltyService loyaltyService;
 
 
     @Autowired
-    public UserInitialize(UserService userService, PasswordEncoder passwordEncoder, WalletRepository walletRepository, UserRepository userRepository, GameRepository gameRepository) {
+    public UserInitialize(UserService userService, PasswordEncoder passwordEncoder, WalletRepository walletRepository, UserRepository userRepository, GameRepository gameRepository, LoyaltyService loyaltyService) {
         this.userService = userService;
         this.passwordEncoder = passwordEncoder;
         this.walletRepository = walletRepository;
         this.userRepository = userRepository;
         this.gameRepository = gameRepository;
+        this.loyaltyService = loyaltyService;
     }
 
 
@@ -46,6 +49,7 @@ public class UserInitialize implements CommandLineRunner {
             return;
         }
 
+        // 1. ADMIN
         // Създаваме Wallet
         Wallet walletXbox = Wallet.builder()
                 .balance(new BigDecimal("1000.00"))
@@ -72,6 +76,9 @@ public class UserInitialize implements CommandLineRunner {
 
         // Запазваме потребителя в базата ПРЕДИ да създадем игри
         XBOX = userRepository.save(XBOX);
+
+        // Създаваме DEFAULT Loyalty за XBOX
+        loyaltyService.createLoyalty(XBOX);
 
 
         // Създаваме игрите със записания вече в базата XBOX като publisher
@@ -149,7 +156,7 @@ public class UserInitialize implements CommandLineRunner {
         userRepository.save(XBOX);
 
 
-
+        // 2. ADMIN
         // Създаваме Wallet
         Wallet walletPlayStation = Wallet.builder()
                 .balance(new BigDecimal("1000.00"))
@@ -173,8 +180,19 @@ public class UserInitialize implements CommandLineRunner {
                 .wallet(walletPlayStation)       // Свързваме User с вече създаден Wallet
                 .build();
 
-        userRepository.save(PlayStation);
 
+        // Запазваме потребителя в базата ПРЕДИ да създадем игри
+        PlayStation = userRepository.save(PlayStation);
+
+        // Създаваме DEFAULT Loyalty за PlayStation
+        loyaltyService.createLoyalty(PlayStation);
+
+
+
+        // ----------- Създаване на обикновени потребители : USERS -----------
+
+
+        // 3. USER
 
         Wallet walletUser1 = Wallet.builder()
                 .balance(new BigDecimal("100.00"))
@@ -200,6 +218,12 @@ public class UserInitialize implements CommandLineRunner {
 
         userRepository.save(user1);
 
+        // Създаваме DEFAULT Loyalty за user1
+        loyaltyService.createLoyalty(user1);
+
+
+
+        // 4. USER
 
         Wallet walletUser2 = Wallet.builder()
                 .balance(new BigDecimal("100.00"))
@@ -224,6 +248,9 @@ public class UserInitialize implements CommandLineRunner {
                 .build();
 
         userRepository.save(user2);
+
+        // Създаваме DEFAULT Loyalty за user2
+        loyaltyService.createLoyalty(user2);
 
     }
 

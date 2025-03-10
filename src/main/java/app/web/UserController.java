@@ -30,6 +30,7 @@ public class UserController {
     }
 
 
+    // /users
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping
     public ModelAndView getAllUsers(@AuthenticationPrincipal AuthenticationMetadata authenticationMetadata) {
@@ -51,7 +52,7 @@ public class UserController {
     }
 
 
-    // Endpoint:  '/users/{placeholder}/profile'- unique (just single in my app)
+    // /users/{id}/profile
     @GetMapping("/{id}/profile")
     public ModelAndView getProfileMenu(@PathVariable UUID id) {
 
@@ -66,6 +67,7 @@ public class UserController {
     }
 
 
+    // /users/{id}/profile
     @PutMapping("/{id}/profile")
     public ModelAndView updateUserProfile(@PathVariable UUID id, @Valid UserEditRequest userEditRequest, BindingResult bindingResult) {
 
@@ -88,6 +90,7 @@ public class UserController {
 
 
     // /users/{id}/status
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{id}/status")
     public String switchUserStatus(@PathVariable UUID id) {
 
@@ -98,6 +101,7 @@ public class UserController {
 
 
     // /users/{id}/role
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{id}/role")
     public String switchUserRole(@PathVariable UUID id) {
 

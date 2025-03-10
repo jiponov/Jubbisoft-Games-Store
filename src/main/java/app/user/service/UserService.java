@@ -1,5 +1,6 @@
 package app.user.service;
 
+import app.loyalty.service.*;
 import app.security.*;
 import app.shared.exception.*;
 import app.user.model.*;
@@ -28,13 +29,15 @@ public class UserService implements UserDetailsService {
 
     private final PasswordEncoder passwordEncoder;
     private final WalletService walletService;
+    private final LoyaltyService loyaltyService;
 
 
     @Autowired
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, WalletService walletService) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, WalletService walletService, LoyaltyService loyaltyService) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.walletService = walletService;
+        this.loyaltyService = loyaltyService;
     }
 
 
@@ -48,14 +51,23 @@ public class UserService implements UserDetailsService {
             throw new DomainException("Username [%s] already exist.".formatted(registerRequest.getUsername()));
         }
 
+        // 1. Създавам USER
         User user = initializeUser(registerRequest);
 
+        // 2. Записвам User в DB:
+        user = userRepository.save(user);
+
+        // ДОБАВИ други ДЕФОЛТНИ състояния АКО има: >>
+
+        // 3. Създавам Wallet и го свързваме с USERA
         Wallet myWallet = walletService.createNewWallet(user);
         user.setWallet(myWallet);
+        userRepository.save(user);     // Запазвам отново, за да запази Wallet-а
 
-        // ДОБАВИ други ДЕФОЛТНИ състояния АКО има      >>     . . . . . . .
+        // 4. Сега вече имам USER с ID и МОГА да му дам НОВО Loyalty
+        // При регистрация, User автоматично получава DEFAULT Loyalty , той е member
+        loyaltyService.createLoyalty(user);
 
-        user = userRepository.save(user);
         log.info("Successfully create new user account for username [%s] and id [%s]".formatted(user.getUsername(), user.getId()));
 
         return user;

@@ -12,25 +12,24 @@
 <main>
 
 
-
     <div th:fragment="sidebar" class="nav-bar">
         <div class="side-bar-container">
             <nav>
                 <div class="side_navbar">
                     <div class="jubbisoft-nav-bar">
                         <div class="jubbisoft-nav-bar-name">Jubbisoft</div>
-                        <div class="jubbisoft-nav-bar-version">v1.0.0</div>
+                        <div class="jubbisoft-nav-bar-store">Games Store</div>
                     </div>
 
 
                     <div class="func-block">
-                        <a href="/home" class="active">
-                            <p>Dashboard</p>
-                            <i class="fas fa-chart-line"></i>
-                        </a>
-                        <a class="special-gold" href="/treasury">
-                            <p>Treasury</p>
+                        <a th:href="@{/home}" class="active">
+                            <p>My Profile</p>
                             <i class="fas fa-crown"></i>
+                        </a>
+                        <a class="loyalty-beige" th:if="${user != null}" th:href="@{'/users/' + ${user.id} + '/loyalty'}">
+                            <p>Loyalty</p>
+                            <i class="fas fa-star"></i>
                         </a>
                     </div>
 
@@ -53,7 +52,8 @@
                     </div>
 
 
-                    <div class="func-block admin-func-block" th:if="${user != null and user.role != null and user.role.name() == 'ADMIN'}">
+                    <div class="func-block admin-func-block"
+                         th:if="${user != null and user.role != null and user.role.name() == 'ADMIN'}">
                         <div class="func-block-title">Admin</div>
                         <a href="/users">
                             <p>Users</p>
@@ -81,7 +81,6 @@
             </nav>
         </div>
     </div>
-
 
 
 </main>

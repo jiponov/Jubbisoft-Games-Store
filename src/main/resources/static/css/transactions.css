@@ -1,0 +1,81 @@
+.styled-table {
+    flex-direction: row!important;
+    align-items: flex-start!important;
+    justify-content: flex-start!important;
+
+    margin: 0 auto!important;
+    width: 100%;
+    position: relative;
+
+    border-collapse: collapse;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    background: #1e1e1e;
+    color: #ffffff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    padding: 15px;
+}
+
+
+/* Заглавен ред */
+.styled-table thead {
+    background: linear-gradient(90deg, #009dff, #ff7300, #ffd700);
+    color: white;
+    text-transform: uppercase;
+    font-weight: 600;
+    text-align: left;
+}
+
+.styled-table thead th {
+    padding: 14px;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+    text-align: left;
+}
+
+/* Редове */
+.styled-table tbody td {
+    padding: 14px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: left;
+}
+
+/* Оцветяване на редове */
+.styled-table tbody tr:nth-child(even) {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.styled-table tbody tr:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* Статус - Active */
+.status.approved {
+    color: #27ae60;
+    font-weight: bold;
+    text-shadow: 0 0 10px rgba(39, 174, 96, 0.7); /* Зелен ореол */
+}
+
+.status.failed {
+    color: #e74c3c;
+    font-weight: bold;
+    text-shadow: 0 0 10px rgba(231, 76, 60, 0.7); /* Червен ореол */
+}
+
+.status.deposit {
+    color: #276bae;
+    font-weight: bold;
+    text-shadow: 0 0 10px rgba(39, 122, 174, 0.7); /* Зелен ореол */
+}
+
+/* Статус - Inactive */
+.status.withdrawal {
+    color: #bdb6b6;
+    font-weight: bold;
+    text-shadow: 0 0 10px rgba(210, 206, 206, 0.7); /* Червен ореол */
+}
+
+.crosslined {
+    text-decoration: line-through;
+}

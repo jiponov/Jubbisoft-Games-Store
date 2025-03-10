@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&amp;display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&amp;display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" type="text/css" href="/css/common.css">
+    <link rel="stylesheet" type="text/css" href="/css/sidebar.css">
+
+    <link rel="stylesheet" type="text/css" href="/css/contact.css">
+
+    <title>Contact</title>
+</head>
+
+
+<body>
+
+<header th:replace="~{fragments/header::header}"></header>
+
+<main>
+
+    <div class="contact-section">
+        <div class="single-section-box contact-box">
+            <h2>Contact Us</h2>
+
+            <div class="contact-details">
+                <p><strong>📍 Address:</strong> Jubbisoft Tower, 1987 Silicon Heights, Hollywood Blvd, CA 90210, USA</p>
+                <p><strong>📞 Phone:</strong> +1 777-7-777-2025-04-06</p>
+                <p><strong>📧 Email:</strong> <a href="mailto:support@jubbisoft.com">support@jubbisoft.com</a></p>
+            </div>
+
+            <div class="contact-form">
+                <h3>Send us a message</h3>
+                <form>
+                    <input type="text" placeholder="Your Name" required>
+                    <input type="email" placeholder="Your Email" required>
+                    <textarea placeholder="Your Message" required></textarea>
+                    <button type="submit">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</main>
+
+<footer th:replace="~{fragments/footer::footer}"></footer>
+
+</body>
+
+</html>

@@ -44,6 +44,22 @@ public class IndexController {
         return modelAndView;
     }
 
+    @GetMapping("/contact")
+    public ModelAndView getContactPage(@AuthenticationPrincipal AuthenticationMetadata authenticationMetadata) {
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("contact");
+
+        if (authenticationMetadata != null && authenticationMetadata.getUserId() != null) {
+            User user = userService.getById(authenticationMetadata.getUserId());
+            modelAndView.addObject("user", user); // Добавяме user в модела
+        } else {
+            modelAndView.addObject("user", null); // Гарантираме, че user винаги съществува в Thymeleaf
+        }
+
+        return modelAndView;
+    }
+
 
     @GetMapping("/login")
     public ModelAndView getLoginPage(@RequestParam(value = "error", required = false) String errorParam) {
