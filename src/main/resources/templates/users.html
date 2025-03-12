@@ -57,22 +57,25 @@
                         <p th:unless="${user.active}" class="status terminated">Inactive</p>
                     </td>
                     <td th:text="${#temporals.format(user.createdOn, 'dd MMM YYYY HH:mm')}"></td>
+
                     <td>
                         <!-- /users/{id}/status -->
-                        <form th:action="@{'/users/' + ${user.id} + '/status'}" th:method="PUT">
+                        <form th:action="@{'/users/' + ${user.id} + '/status'}" th:method="PUT" title="Change Status of user">
                             <button class="profile-actions-button status-button">
                                 <i class="fas fa-history"></i> Status
                             </button>
                         </form>
                     </td>
+
                     <td>
                         <!-- /users/{id}/role -->
-                        <form th:action="@{'/users/' + ${user.id} + '/role'}" th:method="PUT">
+                        <form th:action="@{'/users/' + ${user.id} + '/role'}" th:method="PUT" title="Change Role of user">
                             <button class="profile-actions-button role-button">
                                 <i class="fas fa-user-shield"></i> Role
                             </button>
                         </form>
                     </td>
+
                 </tr>
                 </tbody>
             </table>

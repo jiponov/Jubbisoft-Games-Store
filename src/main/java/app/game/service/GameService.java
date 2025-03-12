@@ -4,6 +4,7 @@ import app.game.model.*;
 import app.game.repository.*;
 import app.loyalty.service.*;
 import app.shared.exception.*;
+import app.transaction.model.*;
 import app.user.model.*;
 import app.user.service.*;
 import app.wallet.model.*;
@@ -215,53 +216,73 @@ public class GameService {
 
 
     @Transactional
-    public void purchaseGame(UUID gameId, UUID userId) {
+    public Transaction purchaseGame(Game game, User user) {
 
-        User user = userService.getById(userId);
-        Game game = getGameById(gameId);
+        // 🔴 Проверяваме дали текущият user е Publisher на играта
+        if (game.getPublisher().getId().equals(user.getId())) {
+            throw new DomainException("You cannot buy your own created game!");
+        }
 
-        if (user.getBoughtGames().contains(game)) {
+
+        // 🔴 Проверяваме дали USER вече притежава дадена GAME
+        boolean alreadyOwned = user
+                .getBoughtGames()
+                .stream()
+                .anyMatch(g -> g.getId().equals(game.getId()));
+
+        if (alreadyOwned) {
             throw new DomainException("You already own this game!");
         }
 
 
-        // Проверяваме дали потребителят има отстъпка и автоматично намаляваме цената, ако потребителят е PREMIUM
-        double discount = loyaltyService.getDiscountPercentage(userId);
-        BigDecimal finalPrice = game.getPrice();
-        finalPrice = finalPrice.multiply(BigDecimal.valueOf(1 - discount));    // Пресмятаме цената с отстъпка
+        // 🏷️ Проверяваме дали потребителят има отстъпка и автоматично намаляваме цената, ако потребителят е PREMIUM
+        double discount = loyaltyService.getDiscountPercentage(user.getId());
+        BigDecimal gamePrice = game.getPrice();
 
+        BigDecimal discountAmount = gamePrice.multiply(BigDecimal.valueOf(discount));
+
+        BigDecimal finalGamePrice = gamePrice.subtract(discountAmount);
+
+
+        // 💳 Опит за плащане чрез WalletService  ->  TRANSACTION generated за покупка на Game!
+        String chargeDescription = "Purchase of game '%s'".formatted(game.getTitle());
         Wallet wallet = user.getWallet();
+        // връща transaction метода charge от walletservice
+        Transaction transactionChargeResult = walletService.charge(user, wallet.getId(), finalGamePrice, chargeDescription);
 
-        if (wallet.getBalance().compareTo(finalPrice) < 0) {
-            throw new DomainException("Not enough balance to purchase this game!");
+        if (transactionChargeResult.getStatus() == TransactionStatus.FAILED) {
+            log.warn("Charge for this game [%s] failed for user with id [%s]".formatted(game.getTitle(), user.getId()));
+
+            //throw new DomainException("Transaction failed: Not enough funds or wallet issue.");
+            return transactionChargeResult;
         }
 
 
-        wallet.setBalance(wallet.getBalance().subtract(finalPrice));
-        // walletService.updateWallet(wallet);
-
+        // ✅ if success:
+        // купихме вече играта и я добавяме към библиотеката LIST на USER-а  (bought games)  >>
         user.getBoughtGames().add(game);
-        // userRepository.save(user);
+
+        // Добавяме потребителя към списъка на купилите играта
+        game.getPurchasedByUsers().add(user);
 
 
-        // Обновяване на Loyalty след покупка
+        // 🔄 Запазваме и двете страни в базата; Гарантираме, че релацията @ManyToMany се обновява и в двете посоки!  >>
+        // 1. запазваме User-a в db
+        userService.saveUser(user);
+
+        // 2. запазваме Game-a в db
+        gameRepository.save(game);
+
+
+        // 🎖️ обновяване на Loyalty GAMES STATUS (up +1)  ->  след покупка на GAME
         loyaltyService.updateLoyaltyAfterPurchase(user);
+
+        return transactionChargeResult;
+    }
+
+    public List<Game> getMyPurchasedGames(User user) {
+        return gameRepository.findAllByPurchasedByUsersOrderByReleaseDateDesc(user);
     }
 
 
 }
-
-
-/*  ALTERNATIVE
-
-// change to false
-public void availabilityChangeFalse(UUID gameId) {
-    gameRepository
-            .findById(gameId)
-            .ifPresent(game -> {
-
-                game.setAvailable(false);
-                gameRepository.save(game);
-            });
-}
-*/

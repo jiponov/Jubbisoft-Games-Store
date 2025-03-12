@@ -1,0 +1,153 @@
+.payment-box {
+    max-width: 800px;
+
+    text-align: center;
+    padding-inline: 20px 30px;
+    color: #333;
+
+    flex-direction: row!important;
+    align-items: flex-start!important;
+    justify-content: flex-start!important;
+
+    margin: 0 auto!important;
+    width: 85%;
+    position: relative;
+}
+
+.payment-result-container {
+    flex-direction: row!important;
+    align-items: flex-start!important;
+    justify-content: flex-start!important;
+
+    margin: 0 auto!important;
+    width: 85%;
+    position: relative;
+
+    gap: 6px;
+    font-family: 'Poppins', sans-serif;
+    overflow: hidden;
+}
+
+.single-section-box.payment-result-container {
+    flex-direction: row!important;
+    align-items: flex-start!important;
+    justify-content: flex-start!important;
+
+    margin: 0 auto!important;
+    width: 85%;
+    position: relative;
+
+    min-width: 800px;
+}
+
+.payment-box .payment-header {
+    margin-bottom: 20px;
+}
+
+.payment-box .payment-header .icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin: 0 auto 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.payment-box.success .payment-header .icon {
+    background: rgba(39, 174, 96, 0.2);
+    border: 2px solid #27ae60;
+    text-shadow: 0 0 8px rgba(39, 174, 96, 0.8);
+}
+
+.payment-box.failure .payment-header .icon {
+    background: rgba(231, 76, 60, 0.2);
+    border: 2px solid #e74c3c;
+    text-shadow: 0 0 8px rgba(231, 76, 60, 0.8);
+}
+
+
+.payment-box .payment-header h2 {
+    font-size: 1.5rem;
+    color: #ffffff;
+    margin: 0 0 10px;
+}
+
+.payment-box .payment-header p {
+    font-size: 0.8rem;
+    color: #ffffff;
+}
+
+.payment-box .payment-details {
+    background: #f4f4f4;
+    padding: 15px;
+    width: 80%;
+    justify-self: center;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.payment-box .details {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.payment-box .details .item {
+    font-size: 14px;
+    color: #555;
+}
+
+.payment-box .details .value {
+    font-size: 14px;
+    color: #333;
+}
+
+.details-section {
+    margin-bottom: 20px;
+    font-size: 12px!important;
+}
+
+
+
+.icon {
+    font-size: 48px; /* Размер на иконата */
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+}
+
+.icon.success {
+    background: #27ae60; /* Зелен фон за успешна транзакция */
+    box-shadow: 0 4px 12px rgba(39, 174, 96, 0.5);
+}
+
+.icon.failure {
+    background: #e74c3c; /* Червен фон за неуспешна транзакция */
+    box-shadow: 0 4px 12px rgba(231, 76, 60, 0.5);
+}
+
+
+
+.back-button {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    font-weight: 600;
+    text-decoration: none;
+    color: white;
+    background: linear-gradient(135deg, #009dff, #ff7300);
+    padding: 10px 16px;
+    border-radius: 8px;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.back-button i {
+    margin-right: 8px;
+    font-size: 20px;
+}

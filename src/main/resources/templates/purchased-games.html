@@ -13,11 +13,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="stylesheet" type="text/css" href="/css/common.css">
+    <link rel="stylesheet" type="text/css" href="/css/sidebar.css">
 
+    <link rel="stylesheet" type="text/css" href="/css/purchased-games.css">
 
-    <link rel="stylesheet" type="text/css" href="/css/games-public.css">
-
-    <title>Explore Games</title>
+    <title>Purchased Games</title>
 </head>
 
 
@@ -27,45 +27,38 @@
 
 <main>
 
+    <div th:replace="~{fragments/sidebar::sidebar}"></div>
+
     <div class="home-section">
 
         <div class="my-games-section">
             <div class="home-section">
-                <h3 class="my-games">Explore Games</h3>
-                <ul>
-                    <li th:each="game : ${allAvailablePublicGames}">
+                <h3 class="my-games">My Purchased Games from the store</h3>
+                <ul th:if="${purchasedGames != null and not #lists.isEmpty(purchasedGames)}">
+                    <li th:each="game : ${purchasedGames}">
                         <div class="game-board">
+                            <div><img
+                                    th:src="${#strings.isEmpty(game.imageCoverUrl) ? 'https://eapi.pcloud.com/getpubthumb?code=XZCUYlZHul3dwxwhr88Ezb8Fcfow4PsV4Xk&size=800x800&format=png' : game.imageCoverUrl}"
+                                    alt="Profile Picture" class="profile-avatar"></div>
 
-                            <!-- Image -->
-                            <div>
-                                <img th:src="${#strings.isEmpty(game.imageCoverUrl) ? 'https://eapi.pcloud.com/getpubthumb?code=XZCUYlZHul3dwxwhr88Ezb8Fcfow4PsV4Xk&size=800x800&format=png' : game.imageCoverUrl}"
-                                     alt="Game Cover" class="profile-avatar">
-                            </div>
-
-                            <!-- Game Info -->
                             <div class="single-game">
                                 <h5>Title: <span th:text="${game.title}"></span></h5>
+                                <h5>Description: <span th:text="${game.description}"></span></h5>
+
                                 <h5>Genre: <span
                                         th:text="${#strings.capitalize(#strings.toLowerCase(game.genre))}"></span></h5>
-                                <h5>Price: <span th:text="${game.price}"></span></h5>
+
                                 <h5>Added by: <span th:text="${game.publisher.username}"></span></h5>
                             </div>
 
-                            <!-- Buttons - now aligned to the right -->
                             <div class="button-group">
-                                <!-- VIEW Button -->
+                                <!-- View Button -->
                                 <a th:href="@{'/games/' + ${game.id} + '/explore'}" title="View this game">
                                     <button class="btn-view">
                                         <i class="fas fa-eye"></i> View
                                     </button>
                                 </a>
 
-                                <!-- BUY Button -->
-                                <form th:action="@{'/games/' + ${game.id} + '/buy'}" th:method="post" title="Buy this game">
-                                    <button class="btn-buy" type="submit">
-                                        <i class="fas fa-shopping-cart"></i> Buy
-                                    </button>
-                                </form>
                             </div>
 
                         </div>

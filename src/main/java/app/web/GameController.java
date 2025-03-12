@@ -3,6 +3,7 @@ package app.web;
 import app.game.model.*;
 import app.game.service.*;
 import app.security.*;
+import app.transaction.model.*;
 import app.user.model.*;
 import app.user.service.*;
 import app.web.dto.*;
@@ -219,7 +220,7 @@ public class GameController {
     }
 
 
-    // PUBLIC GAMES  for  USERS  (not for all - NOT LOGGED-IN)
+
     // /games/{gameId}/owned
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/{gameId}/owned")
@@ -338,7 +339,6 @@ public class GameController {
 
     // -----------------------------  BUY GAME  -----------------------------
 
-
     // POST - Buy Game
     // /games/{gameId}/buy
     @PostMapping("/{gameId}/buy")
@@ -350,74 +350,42 @@ public class GameController {
         }
 
         User user = userService.getById(authenticationMetadata.getUserId());
+        Game game = gameService.getGameById(gameId);
 
-        // purchaseGame(gameId, userId)   ->  обработва покупката.
-        // Ако няма баланс, връща грешка в страницата.
-        // Ако е успешно, презарежда страницата на играта
-        try {
-            gameService.purchaseGame(gameId, user.getId());
-        } catch (IllegalStateException e) {
-            ModelAndView modelAndView = new ModelAndView("game");
-            modelAndView.addObject("error", e.getMessage());
-            modelAndView.addObject("game", gameService.getGameById(gameId));
-            return modelAndView;
-        }
+        // Опит за покупка (ако няма баланс, ще хвърли грешка)
+        Transaction buyGameResult = gameService.purchaseGame(game, user);
 
-        return new ModelAndView("redirect:/games/" + gameId + "/explore");
+        // Презареждане на страницата на играта с допълнителни атрибути
+        // ModelAndView modelAndView = new ModelAndView();
+        // modelAndView.setViewName("game");
+        // modelAndView.addObject("game", game);
+        // modelAndView.addObject("successMessage", "Game purchased successfully!");
+
+        return new ModelAndView("redirect:/transactions/" + buyGameResult.getId());
     }
 
-}
-
-
-
-/*this WORKS  >>
-
-// PUBLIC GAMES  -  EXPLORE button
-    // /games
-    @GetMapping("/explore")
-    public ModelAndView getAllPublicGames(HttpSession session) {
-
-        // List<Game> allSystemGames = gameService.getAllGames();
-        List<Game> allAvailablePublicGames = gameService.getAllAvailableGames();
+    @GetMapping("/purchased")
+    public ModelAndView getPurchasedGames(@AuthenticationPrincipal AuthenticationMetadata authenticationMetadata) {
 
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("games-public");
+        modelAndView.setViewName("purchased-games");
 
-        modelAndView.addObject("allAvailablePublicGames", allAvailablePublicGames);
-
-        return modelAndView;
-    }
-
-    */
-
-/* this WORKS  >>
-
-      // PUBLIC GAMES  for  USERS  (not for all - NOT LOGGED-IN)
-    // /games/{gameId}
-    @GetMapping("/{gameId}")
-    public ModelAndView viewGame(@PathVariable UUID gameId, HttpSession session) {
-
-        UUID userId = (UUID) session.getAttribute("user_id");
-
-        if (userId == null) {
+        // Проверка дали потребителят е логнат
+        if (authenticationMetadata == null || authenticationMetadata.getUserId() == null) {
             return new ModelAndView("redirect:/login");
         }
 
-        Game game = gameService.getGameById(gameId);
+        User user = userService.getById(authenticationMetadata.getUserId());
 
-        if (game == null) {
-            // return new ModelAndView("redirect:/login");
-            // Или да върне 404:
-            // throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Story not found");
-            return new ModelAndView("redirect:/home");
-        }
+        modelAndView.addObject("user", user); // Добавяме user в модела
 
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("game");
+        // Взимаме всички игри, които са публикувани от текущия потребител
+        List<Game> purchasedGames = gameService.getMyPurchasedGames(user);
 
-        modelAndView.addObject("game", game);
+        // Добавяме игрите в модела
+        modelAndView.addObject("purchasedGames", purchasedGames);
 
         return modelAndView;
     }
 
-    */
+}

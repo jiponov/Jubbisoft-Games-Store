@@ -59,21 +59,21 @@
 
                             <div class="button-group">
                                 <!-- View Button -->
-                                <a th:href="@{'/games/' + ${game.id} + '/owned'}">
+                                <a th:href="@{'/games/' + ${game.id} + '/owned'}" title="View this game">
                                     <button class="btn-view">
                                         <i class="fas fa-eye"></i> View
                                     </button>
                                 </a>
 
                                 <!-- Edit Button -->
-                                <a th:href="@{'/games/' + ${game.id} + '/profile'}">
+                                <a th:href="@{'/games/' + ${game.id} + '/profile'}" title="Edit this game">
                                     <button class="btn-edit">
                                         <i class="fas fa-edit"></i> Edit
                                     </button>
                                 </a>
 
                                 <!-- Status Button -->
-                                <form th:action="@{'/games/'+ ${game.id} + '/availability'}" th:method="PUT">
+                                <form th:action="@{'/games/'+ ${game.id} + '/availability'}" th:method="PUT" title="Change game availability">
                                     <button class="btn-status">
                                         <i class="fas fa-toggle-on"></i> Status
                                     </button>
@@ -81,7 +81,7 @@
                                 </form>
 
                                 <!-- Delete Button -->
-                                <form th:action="@{'/games/'+ ${game.id}}" th:method="DELETE">
+                                <form th:action="@{'/games/'+ ${game.id}}" th:method="DELETE" title="Delete this game">
                                     <button class="btn-delete">
                                         <i class="fas fa-trash"></i> Delete
                                     </button>

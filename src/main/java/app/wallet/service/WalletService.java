@@ -126,7 +126,7 @@ public class WalletService {
         }
 
         if (wallet.getBalance().compareTo(amount) < 0) {
-            failureReason = "Insufficient funds";
+            failureReason = "Not enough balance to purchase this game!";
             isFailedTransaction = true;
         }
 
@@ -146,6 +146,8 @@ public class WalletService {
             return transaction;
         }
 
+
+        // if success:
         wallet.setBalance(wallet.getBalance().subtract(amount));
         wallet.setUpdatedOn(LocalDateTime.now());
 

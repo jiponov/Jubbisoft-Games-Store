@@ -4,7 +4,7 @@
     justify-content: flex-start!important;
 
     margin: 0 auto!important;
-    width: 100%;
+    width: 90%;
     position: relative;
 
     border-collapse: collapse;
@@ -21,7 +21,7 @@
 
 /* Заглавен ред */
 .styled-table thead {
-    background: linear-gradient(90deg, #009dff, #ff7300, #ffd700);
+    background: linear-gradient(90deg, #009dff, #ff7300, #ffd700, #009dff);
     color: white;
     text-transform: uppercase;
     font-weight: 600;

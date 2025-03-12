@@ -1,6 +1,7 @@
 package app.game.repository;
 
 import app.game.model.*;
+import app.user.model.*;
 import org.springframework.data.jpa.repository.*;
 import org.springframework.stereotype.*;
 
@@ -15,4 +16,6 @@ public interface GameRepository extends JpaRepository<Game, UUID> {
     List<Game> findAllByPublisherIdOrderByReleaseDateDesc(UUID publisherId);
 
     List<Game> findAllByIsAvailableTrueOrderByReleaseDateDesc();
+
+    List<Game> findAllByPurchasedByUsersOrderByReleaseDateDesc(User user);
 }

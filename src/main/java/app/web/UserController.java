@@ -1,5 +1,6 @@
 package app.web;
 
+import app.game.model.*;
 import app.security.*;
 import app.user.model.*;
 import app.user.service.*;
@@ -7,6 +8,7 @@ import app.web.dto.*;
 import app.web.mapper.*;
 import jakarta.validation.*;
 import org.springframework.beans.factory.annotation.*;
+import org.springframework.security.access.*;
 import org.springframework.security.access.prepost.*;
 import org.springframework.security.core.annotation.*;
 import org.springframework.stereotype.*;

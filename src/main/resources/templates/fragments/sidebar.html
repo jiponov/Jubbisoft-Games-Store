@@ -23,29 +23,31 @@
 
 
                     <div class="func-block">
-                        <a th:href="@{/home}" class="active">
+                        <a th:href="@{/home}" class="active" title="My Profile">
                             <p>My Profile</p>
                             <i class="fas fa-crown"></i>
                         </a>
-                        <a class="loyalty-beige" th:if="${user != null}" th:href="@{'/users/' + ${user.id} + '/loyalty'}">
+                        <a class="wallet-yellow" href="/wallet" title="My Wallet">
+                            <p>Wallet</p>
+                            <i class="fas fa-wallet"></i>
+                        </a>
+                        <a class="loyalty-beige" th:if="${user != null}" th:href="@{'/users/' + ${user.id} + '/loyalty'}" title="Loyalty Page">
                             <p>Loyalty</p>
                             <i class="fas fa-star"></i>
                         </a>
+
                     </div>
 
 
                     <div class="func-block">
                         <span class="func-block-title">Options</span>
 
-                        <a href="/games">
+                        <a href="/games/purchased" title="My purchased games">
                             <p>Purchased Games</p>
                             <i class="fas fa-gamepad"></i>
                         </a>
-                        <a href="/wallet">
-                            <p>Wallet</p>
-                            <i class="fas fa-wallet"></i>
-                        </a>
-                        <a href="/transactions">
+
+                        <a href="/transactions" title="My latest transactions">
                             <p>Transactions</p>
                             <i class="fas fa-file-invoice-dollar"></i>
                         </a>
@@ -55,15 +57,15 @@
                     <div class="func-block admin-func-block"
                          th:if="${user != null and user.role != null and user.role.name() == 'ADMIN'}">
                         <div class="func-block-title">Admin</div>
-                        <a href="/users">
+                        <a href="/users" title="All Users of Jubbisoft">
                             <p>Users</p>
                             <i class="fas fa-user-cog"></i>
                         </a>
-                        <a href="/games/owned">
+                        <a href="/games/owned" title="My owned created games">
                             <p>Owned Games</p>
                             <i class="fas fa-bolt"></i>
                         </a>
-                        <a href="/games/new">
+                        <a href="/games/new" title="Create new game for my collection">
                             <p>Create New Game</p>
                             <i class="fas fa-bullseye"></i>
                         </a>
@@ -71,7 +73,7 @@
 
 
                     <div class="func-block">
-                        <a class="logout" href="/logout">
+                        <a class="logout" href="/logout" title="Logout from Jubbisoft">
                             <p>Logout</p>
                             <i class="fas fa-sign-out-alt"></i>
                         </a>

@@ -12,12 +12,12 @@
 <header th:fragment="header" class="header">
     <div class="header-inner">
         <nav class="nav">
-            <a th:href="@{/}" class="button explore">Prime</a>
-            <a th:href="@{/contact}" class="button explore">Contact</a>
-            <a th:href="@{/games/explore}" class="button explore">Explore</a>
-            <a th:if="${user}" th:href="@{/home}" class="button explore">Home</a>
-            <a th:unless="${user}" th:href="@{/login}" class="button login">Login</a>
-            <a th:unless="${user}" th:href="@{/register}" class="button register">Register</a>
+            <a th:href="@{/}" class="button explore" title="Main Page">Main</a>
+            <a th:href="@{/contact}" class="button explore" title="Contact Page">Contact</a>
+            <a th:href="@{/games/explore}" class="button explore" title="Explore Our Games">Explore</a>
+            <a th:if="${user}" th:href="@{/home}" class="button explore" title="Home Page">Home</a>
+            <a th:unless="${user}" th:href="@{/login}" class="button login" title="Login Page">Login</a>
+            <a th:unless="${user}" th:href="@{/register}" class="button register" title="Register Page">Register</a>
         </nav>
     </div>
 </header>

@@ -37,7 +37,7 @@ body main {
     padding: 20px;
 
 
-    background: linear-gradient(135deg,#FF8C00, #8f3813, #ea3131,#ee5dec );
+    background: linear-gradient(90deg, #b54aea, #ff7300, #ffd700, #b54aea);
 
     text-align: center;
     border-radius: 12px;
@@ -79,8 +79,8 @@ body main {
     color: #f1f1f1;
 
     text-align: left!important;
-    width: 235px;
-    height: 235px;
+    width: 280px;
+    height: 280px;
     background: rgba(40, 40, 40, 0.85);
     border-radius: 14px;
     padding: 24px;
@@ -141,8 +141,8 @@ ul, li {
 
 /* 🎨 Image Cover - модерно стилно изображение */
 .profile-avatar {
-    width: 280px;
-    height: 280px;
+    width: 325px;
+    height: 325px;
     border-radius: 16px;
     margin-bottom: 16px;
     box-shadow: 0 0 20px rgba(255, 255, 255, 0.15); /* Леко сияние */

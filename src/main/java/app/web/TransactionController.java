@@ -49,4 +49,24 @@ public class TransactionController {
         return modelAndView;
     }
 
+    @GetMapping("/{id}")
+    public ModelAndView getTransactionById(@PathVariable UUID id, @AuthenticationPrincipal AuthenticationMetadata authenticationMetadata) {
+
+        if (authenticationMetadata == null || authenticationMetadata.getUserId() == null) {
+            return new ModelAndView("redirect:/login");
+        }
+
+        User user = userService.getById(authenticationMetadata.getUserId());
+
+        Transaction transaction = transactionService.getById(id);
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("transaction-result");
+
+        modelAndView.addObject("transaction", transaction);
+        modelAndView.addObject("user", user);
+
+        return modelAndView;
+    }
+
 }

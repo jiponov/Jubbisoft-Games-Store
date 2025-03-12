@@ -4,7 +4,7 @@
     justify-content: flex-start!important;
 
     margin: 0 auto!important;
-    width: 100%;
+    width: 90%;
     position: relative;
 
     border-collapse: collapse;
@@ -109,6 +109,7 @@
     background: linear-gradient(135deg, #5e3370, #3e2150);
     box-shadow: 0 0 15px rgba(142, 68, 173, 0.9); /* По-силен ореол при hover */
 }
+
 
 /* Администратор - син цвят */
 .role.admin {

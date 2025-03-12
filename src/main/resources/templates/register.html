@@ -30,7 +30,7 @@
             </a>
         </div>
 
-        <form class="form" th:action="@{/register}" th:method="POST" th:object="${registerRequest}">
+        <form class="form" th:action="@{/register}" th:method="POST" th:object="${registerRequest}" title="Register">
 
             <h3>Register Here</h3>
 
@@ -50,7 +50,7 @@
             </select>
 
             <button>Register</button>
-            <p class="form-already">Already have an account? <a th:href="@{/login}">Login</a>!</p>
+            <p class="form-already">Already have an account? <a th:href="@{/login}" title="Log In">Log In</a>!</p>
 
         </form>
 

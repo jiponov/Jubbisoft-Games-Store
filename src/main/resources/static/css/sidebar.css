@@ -158,3 +158,13 @@
     text-decoration: none; /* Подчертаване НЕ */
     margin: 10px 0 5px 15px; /* Оставя разстояние за подравняване */
 }
+
+.func-block a.wallet-yellow {
+    background: linear-gradient(145deg, #f1c40f, #f39c12);
+    color: white;
+    font-weight: 500;
+}
+
+.func-block a.wallet-yellow:hover {
+    background: linear-gradient(145deg, #f4b942, #e67e22);
+}
