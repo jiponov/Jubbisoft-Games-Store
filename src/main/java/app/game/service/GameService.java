@@ -284,5 +284,10 @@ public class GameService {
         return gameRepository.findAllByPurchasedByUsersOrderByReleaseDateDesc(user);
     }
 
-
+    @Transactional
+    public Game saveGame(Game game) {
+        Game savedGame = gameRepository.save(game);
+        log.info("Game created: {} (Price: {})", game.getTitle(), game.getPrice());
+        return savedGame;
+    }
 }

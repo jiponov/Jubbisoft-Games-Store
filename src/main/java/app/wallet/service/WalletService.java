@@ -91,7 +91,7 @@ public class WalletService {
         wallet.setUpdatedOn(LocalDateTime.now());
 
         walletRepository.save(wallet);
-        log.info("SUCCESS TRANSACTION: %.2f EUR added to Wallet %s (New Balance: %.2f)".formatted( amount.doubleValue(), walletId, wallet.getBalance()));
+        log.info("SUCCESS TRANSACTION: %.2f EUR added to Wallet %s (New Balance: %.2f)".formatted(amount.doubleValue(), walletId, wallet.getBalance()));
 
         Transaction transaction = transactionService.createNewTransaction(
                 wallet.getOwner(),
@@ -170,5 +170,11 @@ public class WalletService {
                 null);
 
         return transaction;
+    }
+
+    @Transactional
+    public Wallet saveWallet(Wallet wallet) {
+        Wallet savedWallet = walletRepository.save(wallet);
+        return savedWallet;
     }
 }

@@ -1,5 +1,6 @@
 package app.user.service;
 
+import app.game.service.*;
 import app.treasury.model.*;
 import app.treasury.repository.*;
 import app.game.model.*;
@@ -9,6 +10,7 @@ import app.user.model.*;
 import app.user.repository.*;
 import app.wallet.model.*;
 import app.wallet.repository.*;
+import app.wallet.service.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.boot.*;
 import org.springframework.security.crypto.password.*;
@@ -24,43 +26,25 @@ import java.util.*;
 public class UserInitialize implements CommandLineRunner {
 
     private final UserService userService;
-    private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
-    private final WalletRepository walletRepository;
-    private final GameRepository gameRepository;
+
+    private final WalletService walletService;
+    private final GameService gameService;
     private final LoyaltyService loyaltyService;
-    private final TreasuryRepository treasuryRepository;
 
 
     @Autowired
-    public UserInitialize(UserService userService, PasswordEncoder passwordEncoder, WalletRepository walletRepository, UserRepository userRepository, GameRepository gameRepository, LoyaltyService loyaltyService, TreasuryRepository treasuryRepository) {
+    public UserInitialize(UserService userService, PasswordEncoder passwordEncoder, WalletService walletService, GameService gameService, LoyaltyService loyaltyService) {
         this.userService = userService;
         this.passwordEncoder = passwordEncoder;
-        this.walletRepository = walletRepository;
-        this.userRepository = userRepository;
-        this.gameRepository = gameRepository;
+        this.walletService = walletService;
+        this.gameService = gameService;
         this.loyaltyService = loyaltyService;
-        this.treasuryRepository = treasuryRepository;
     }
 
 
     @Override
     public void run(String... args) throws Exception {
-
-        // създаваме Treasury ако не съществува
-        if (treasuryRepository.findByName("Treasury vault").isEmpty()) {
-
-            // Treasury treasury = new Treasury();
-            Treasury treasury = Treasury.builder()
-                    .name("Treasury vault")
-                    .balance(new BigDecimal("1000.00"))
-                    .currency(Currency.getInstance("EUR"))
-                    .createdOn(LocalDateTime.now())
-                    .updatedOn(LocalDateTime.now())
-                    .build();
-
-            treasuryRepository.save(treasury);
-        }
 
         // save check че няма да регистрираме 2 пъти един и същи потребител при стартиране на APP
         if (!userService.getAllUsers().isEmpty()) {
@@ -77,7 +61,8 @@ public class UserInitialize implements CommandLineRunner {
                 .updatedOn(LocalDateTime.now())
                 .build();
 
-        walletPlayaDeepCorporation = walletRepository.save(walletPlayaDeepCorporation); // Запазваме Wallet, за да има ID
+        // Запазваме Wallet, за да има ID
+        walletPlayaDeepCorporation = walletService.saveWallet(walletPlayaDeepCorporation);
 
         // Създаваме User с вече създаден Wallet
         User PlayaDeepCorporation = User.builder()
@@ -94,7 +79,7 @@ public class UserInitialize implements CommandLineRunner {
 
 
         // Запазваме потребителя в базата ПРЕДИ да създадем игри
-        PlayaDeepCorporation = userRepository.save(PlayaDeepCorporation);
+        PlayaDeepCorporation = userService.saveUser(PlayaDeepCorporation);
 
         // Създаваме DEFAULT Loyalty за PlayaDeepCorporation
         loyaltyService.createLoyalty(PlayaDeepCorporation);
@@ -113,7 +98,8 @@ public class UserInitialize implements CommandLineRunner {
                 .updatedOn(LocalDateTime.now())
                 .build();
 
-        gamePlayaDeepCorporation1 = gameRepository.save(gamePlayaDeepCorporation1);
+        gamePlayaDeepCorporation1 = gameService.saveGame(gamePlayaDeepCorporation1);
+
 
         Game gamePlayaDeepCorporation2 = Game.builder()
                 .publisher(PlayaDeepCorporation)    // Администраторът се записва като publisher
@@ -127,7 +113,8 @@ public class UserInitialize implements CommandLineRunner {
                 .updatedOn(LocalDateTime.now())
                 .build();
 
-        gamePlayaDeepCorporation2 = gameRepository.save(gamePlayaDeepCorporation2);
+        gamePlayaDeepCorporation2 = gameService.saveGame(gamePlayaDeepCorporation2);
+
 
         Game gamePlayaDeepCorporation3 = Game.builder()
                 .publisher(PlayaDeepCorporation)    // Администраторът се записва като publisher
@@ -141,7 +128,8 @@ public class UserInitialize implements CommandLineRunner {
                 .updatedOn(LocalDateTime.now())
                 .build();
 
-        gamePlayaDeepCorporation3 = gameRepository.save(gamePlayaDeepCorporation3);
+        gamePlayaDeepCorporation3 = gameService.saveGame(gamePlayaDeepCorporation3);
+
 
         Game gamePlayaDeepCorporation4 = Game.builder()
                 .publisher(PlayaDeepCorporation)    // Администраторът се записва като publisher
@@ -155,7 +143,8 @@ public class UserInitialize implements CommandLineRunner {
                 .updatedOn(LocalDateTime.now())
                 .build();
 
-        gamePlayaDeepCorporation4 = gameRepository.save(gamePlayaDeepCorporation4);
+        gamePlayaDeepCorporation4 = gameService.saveGame(gamePlayaDeepCorporation4);
+
 
         Game gamePlayaDeepCorporation5 = Game.builder()
                 .publisher(PlayaDeepCorporation)    // Администраторът се записва като publisher
@@ -169,10 +158,10 @@ public class UserInitialize implements CommandLineRunner {
                 .updatedOn(LocalDateTime.now())
                 .build();
 
-        gamePlayaDeepCorporation5 = gameRepository.save(gamePlayaDeepCorporation5);
+        gamePlayaDeepCorporation5 = gameService.saveGame(gamePlayaDeepCorporation5);
 
 
-        userRepository.save(PlayaDeepCorporation);
+        userService.saveUser(PlayaDeepCorporation);
 
 
         // 2. ADMIN
@@ -185,7 +174,8 @@ public class UserInitialize implements CommandLineRunner {
                 .updatedOn(LocalDateTime.now())
                 .build();
 
-        walletJintenddoCorporation = walletRepository.save(walletJintenddoCorporation); // Запазваме Wallet, за да има ID
+        // Запазваме Wallet, за да има ID
+        walletJintenddoCorporation = walletService.saveWallet(walletJintenddoCorporation);
 
         // Създаваме User с вече създаден Wallet
         User JintenddoCorporation = User.builder()
@@ -202,7 +192,7 @@ public class UserInitialize implements CommandLineRunner {
 
 
         // Запазваме потребителя в базата ПРЕДИ да създадем игри
-        JintenddoCorporation = userRepository.save(JintenddoCorporation);
+        JintenddoCorporation = userService.saveUser(JintenddoCorporation);
 
         // Създаваме DEFAULT Loyalty за PlayStation
         loyaltyService.createLoyalty(JintenddoCorporation);
@@ -221,7 +211,8 @@ public class UserInitialize implements CommandLineRunner {
                 .updatedOn(LocalDateTime.now())
                 .build();
 
-        gameJintenddoCorporation1 = gameRepository.save(gameJintenddoCorporation1);
+        gameJintenddoCorporation1 = gameService.saveGame(gameJintenddoCorporation1);
+
 
         Game gameJintenddoCorporation2 = Game.builder()
                 .publisher(JintenddoCorporation)    // Администраторът се записва като publisher
@@ -235,7 +226,8 @@ public class UserInitialize implements CommandLineRunner {
                 .updatedOn(LocalDateTime.now())
                 .build();
 
-        gameJintenddoCorporation2 = gameRepository.save(gameJintenddoCorporation2);
+        gameJintenddoCorporation2 = gameService.saveGame(gameJintenddoCorporation2);
+
 
         Game gameJintenddoCorporation3 = Game.builder()
                 .publisher(JintenddoCorporation)    // Администраторът се записва като publisher
@@ -249,7 +241,8 @@ public class UserInitialize implements CommandLineRunner {
                 .updatedOn(LocalDateTime.now())
                 .build();
 
-        gameJintenddoCorporation3 = gameRepository.save(gameJintenddoCorporation3);
+        gameJintenddoCorporation3 = gameService.saveGame(gameJintenddoCorporation3);
+
 
         Game gameJintenddoCorporation4 = Game.builder()
                 .publisher(JintenddoCorporation)    // Администраторът се записва като publisher
@@ -263,7 +256,8 @@ public class UserInitialize implements CommandLineRunner {
                 .updatedOn(LocalDateTime.now())
                 .build();
 
-        gameJintenddoCorporation4 = gameRepository.save(gameJintenddoCorporation4);
+        gameJintenddoCorporation4 = gameService.saveGame(gameJintenddoCorporation4);
+
 
         Game gameJintenddoCorporation5 = Game.builder()
                 .publisher(JintenddoCorporation)    // Администраторът се записва като publisher
@@ -277,10 +271,10 @@ public class UserInitialize implements CommandLineRunner {
                 .updatedOn(LocalDateTime.now())
                 .build();
 
-        gameJintenddoCorporation5 = gameRepository.save(gameJintenddoCorporation5);
+        gameJintenddoCorporation5 = gameService.saveGame(gameJintenddoCorporation5);
 
 
-        userRepository.save(JintenddoCorporation);
+        userService.saveUser(JintenddoCorporation);
 
 
         // 3. ADMIN
@@ -293,7 +287,9 @@ public class UserInitialize implements CommandLineRunner {
                 .updatedOn(LocalDateTime.now())
                 .build();
 
-        walletXlocksCorporation = walletRepository.save(walletXlocksCorporation); // Запазваме Wallet, за да има ID
+        // Запазваме Wallet, за да има ID
+        walletXlocksCorporation = walletService.saveWallet(walletXlocksCorporation);
+
 
         // Създаваме User с вече създаден Wallet
         User XlocksCorporation = User.builder()
@@ -310,7 +306,8 @@ public class UserInitialize implements CommandLineRunner {
 
 
         // Запазваме потребителя в базата ПРЕДИ да създадем игри
-        XlocksCorporation = userRepository.save(XlocksCorporation);
+        XlocksCorporation = userService.saveUser(XlocksCorporation);
+
 
         // Създаваме DEFAULT Loyalty за PlayaDeepCorporation
         loyaltyService.createLoyalty(XlocksCorporation);
@@ -329,7 +326,8 @@ public class UserInitialize implements CommandLineRunner {
                 .updatedOn(LocalDateTime.now())
                 .build();
 
-        gameXlocksCorporation1 = gameRepository.save(gameXlocksCorporation1);
+        gameXlocksCorporation1 = gameService.saveGame(gameXlocksCorporation1);
+
 
         Game gameXlocksCorporation2 = Game.builder()
                 .publisher(XlocksCorporation)    // Администраторът се записва като publisher, Тук вече е записан в DB
@@ -343,7 +341,8 @@ public class UserInitialize implements CommandLineRunner {
                 .updatedOn(LocalDateTime.now())
                 .build();
 
-        gameXlocksCorporation2 = gameRepository.save(gameXlocksCorporation2);
+        gameXlocksCorporation2 = gameService.saveGame(gameXlocksCorporation2);
+
 
         Game gameXlocksCorporation3 = Game.builder()
                 .publisher(XlocksCorporation)    // Администраторът се записва като publisher, Тук вече е записан в DB
@@ -357,7 +356,8 @@ public class UserInitialize implements CommandLineRunner {
                 .updatedOn(LocalDateTime.now())
                 .build();
 
-        gameXlocksCorporation3 = gameRepository.save(gameXlocksCorporation3);
+        gameXlocksCorporation3 = gameService.saveGame(gameXlocksCorporation3);
+
 
         Game gameXlocksCorporation4 = Game.builder()
                 .publisher(XlocksCorporation)    // Администраторът се записва като publisher, Тук вече е записан в DB
@@ -371,7 +371,8 @@ public class UserInitialize implements CommandLineRunner {
                 .updatedOn(LocalDateTime.now())
                 .build();
 
-        gameXlocksCorporation4 = gameRepository.save(gameXlocksCorporation4);
+        gameXlocksCorporation4 = gameService.saveGame(gameXlocksCorporation4);
+
 
         Game gameXlocksCorporation5 = Game.builder()
                 .publisher(XlocksCorporation)    // Администраторът се записва като publisher, Тук вече е записан в DB
@@ -385,10 +386,10 @@ public class UserInitialize implements CommandLineRunner {
                 .updatedOn(LocalDateTime.now())
                 .build();
 
-        gameXlocksCorporation5 = gameRepository.save(gameXlocksCorporation5);
 
+        gameXlocksCorporation5 = gameService.saveGame(gameXlocksCorporation5);
 
-        userRepository.save(XlocksCorporation);
+        userService.saveUser(XlocksCorporation);
 
 
         // ----------- Създаване на обикновени потребители : USERS -----------
@@ -404,7 +405,9 @@ public class UserInitialize implements CommandLineRunner {
                 .updatedOn(LocalDateTime.now())
                 .build();
 
-        walletUser1 = walletRepository.save(walletUser1); // Запазваме Wallet, за да има ID
+        // Запазваме Wallet, за да има ID
+        walletUser1 = walletService.saveWallet(walletUser1);
+
 
         // Създаваме User с вече създаден Wallet
         User user1 = User.builder()
@@ -418,7 +421,8 @@ public class UserInitialize implements CommandLineRunner {
                 .wallet(walletUser1)       // Свързваме User с вече създаден Wallet
                 .build();
 
-        userRepository.save(user1);
+        userService.saveUser(user1);
+
 
         // Създаваме DEFAULT Loyalty за user1
         loyaltyService.createLoyalty(user1);
@@ -434,7 +438,8 @@ public class UserInitialize implements CommandLineRunner {
                 .updatedOn(LocalDateTime.now())
                 .build();
 
-        walletUser2 = walletRepository.save(walletUser2); // Запазваме Wallet, за да има ID
+        walletUser2 = walletService.saveWallet(walletUser2);
+
 
         // Създаваме User с вече създаден Wallet
         User user2 = User.builder()
@@ -448,7 +453,7 @@ public class UserInitialize implements CommandLineRunner {
                 .wallet(walletUser2)       // Свързваме User с вече създаден Wallet
                 .build();
 
-        userRepository.save(user2);
+        userService.saveUser(user2);
 
         // Създаваме DEFAULT Loyalty за user2
         loyaltyService.createLoyalty(user2);
