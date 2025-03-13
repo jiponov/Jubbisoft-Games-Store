@@ -218,13 +218,13 @@ public class GameService {
     @Transactional
     public Transaction purchaseGame(Game game, User user) {
 
-        // 🔴 Проверяваме дали текущият user е Publisher на играта
+        // Проверяваме дали текущият user е Publisher на играта
         if (game.getPublisher().getId().equals(user.getId())) {
             throw new DomainException("You cannot buy your own created game!");
         }
 
 
-        // 🔴 Проверяваме дали USER вече притежава дадена GAME
+        // Проверяваме дали USER вече притежава дадена GAME
         boolean alreadyOwned = user
                 .getBoughtGames()
                 .stream()
@@ -235,7 +235,7 @@ public class GameService {
         }
 
 
-        // 🏷️ Проверяваме дали потребителят има отстъпка и автоматично намаляваме цената, ако потребителят е PREMIUM
+        // ️Проверяваме дали потребителят има отстъпка и автоматично намаляваме цената, ако потребителят е PREMIUM
         double discount = loyaltyService.getDiscountPercentage(user.getId());
         BigDecimal gamePrice = game.getPrice();
 
@@ -244,7 +244,7 @@ public class GameService {
         BigDecimal finalGamePrice = gamePrice.subtract(discountAmount);
 
 
-        // 💳 Опит за плащане чрез WalletService  ->  TRANSACTION generated за покупка на Game!
+        // Опит за плащане чрез WalletService  ->  TRANSACTION generated за покупка на Game!
         String chargeDescription = "Purchase of game '%s'".formatted(game.getTitle());
         Wallet wallet = user.getWallet();
         // връща transaction метода charge от walletservice
@@ -258,7 +258,7 @@ public class GameService {
         }
 
 
-        // ✅ if success:
+        //  if success:
         // купихме вече играта и я добавяме към библиотеката LIST на USER-а  (bought games)  >>
         user.getBoughtGames().add(game);
 
@@ -266,7 +266,7 @@ public class GameService {
         game.getPurchasedByUsers().add(user);
 
 
-        // 🔄 Запазваме и двете страни в базата; Гарантираме, че релацията @ManyToMany се обновява и в двете посоки!  >>
+        // Запазваме и двете страни в базата; Гарантираме, че релацията @ManyToMany се обновява и в двете посоки!  >>
         // 1. запазваме User-a в db
         userService.saveUser(user);
 
@@ -274,7 +274,7 @@ public class GameService {
         gameRepository.save(game);
 
 
-        // 🎖️ обновяване на Loyalty GAMES STATUS (up +1)  ->  след покупка на GAME
+        // обновяване на Loyalty GAMES STATUS (up +1)  ->  след покупка на GAME
         loyaltyService.updateLoyaltyAfterPurchase(user);
 
         return transactionChargeResult;

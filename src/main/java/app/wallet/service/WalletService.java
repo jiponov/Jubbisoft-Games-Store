@@ -64,9 +64,12 @@ public class WalletService {
 
         Wallet wallet = getWalletById(walletId);
 
-        String transactionDescription = "Added funds %.2f".formatted(amount.doubleValue());
+        String transactionDescription = "Added funds %.2f EUR".formatted(amount.doubleValue());
+
 
         if (wallet.getStatus() == WalletStatus.INACTIVE) {
+            log.error("FAILED TRANSACTION: Wallet is INACTIVE! Wallet ID: %s".formatted(walletId));
+
             Transaction transaction = transactionService.createNewTransaction(
                     wallet.getOwner(),
                     JUBBISOFT_LTD,
@@ -88,6 +91,7 @@ public class WalletService {
         wallet.setUpdatedOn(LocalDateTime.now());
 
         walletRepository.save(wallet);
+        log.info("SUCCESS TRANSACTION: %.2f EUR added to Wallet %s (New Balance: %.2f)".formatted( amount.doubleValue(), walletId, wallet.getBalance()));
 
         Transaction transaction = transactionService.createNewTransaction(
                 wallet.getOwner(),

@@ -1,6 +1,5 @@
-package app.wallet.model;
+package app.treasury.model;
 
-import app.user.model.*;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -15,17 +14,20 @@ import java.util.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Wallet {
+public class Treasury {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
+    // единственото Treasury в ПРОЕКТА: "Treasury vault"
+    // private String name = "Treasury vault";
+    @Column(nullable = false, unique = true)
+    private String name;
+
+    // ще го заредя предварително със сума
     @Column(nullable = false)
     private BigDecimal balance;
-
-    @Column(nullable = false)
-    private WalletStatus status;
 
     @Column(nullable = false)
     private Currency currency;
@@ -35,7 +37,4 @@ public class Wallet {
 
     @Column(nullable = false)
     private LocalDateTime updatedOn;
-
-    @OneToOne(mappedBy = "wallet")
-    private User owner;
 }

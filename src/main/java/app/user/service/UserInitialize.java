@@ -1,5 +1,7 @@
 package app.user.service;
 
+import app.treasury.model.*;
+import app.treasury.repository.*;
 import app.game.model.*;
 import app.game.repository.*;
 import app.loyalty.service.*;
@@ -7,7 +9,6 @@ import app.user.model.*;
 import app.user.repository.*;
 import app.wallet.model.*;
 import app.wallet.repository.*;
-import app.web.dto.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.boot.*;
 import org.springframework.security.crypto.password.*;
@@ -28,21 +29,38 @@ public class UserInitialize implements CommandLineRunner {
     private final WalletRepository walletRepository;
     private final GameRepository gameRepository;
     private final LoyaltyService loyaltyService;
+    private final TreasuryRepository treasuryRepository;
 
 
     @Autowired
-    public UserInitialize(UserService userService, PasswordEncoder passwordEncoder, WalletRepository walletRepository, UserRepository userRepository, GameRepository gameRepository, LoyaltyService loyaltyService) {
+    public UserInitialize(UserService userService, PasswordEncoder passwordEncoder, WalletRepository walletRepository, UserRepository userRepository, GameRepository gameRepository, LoyaltyService loyaltyService, TreasuryRepository treasuryRepository) {
         this.userService = userService;
         this.passwordEncoder = passwordEncoder;
         this.walletRepository = walletRepository;
         this.userRepository = userRepository;
         this.gameRepository = gameRepository;
         this.loyaltyService = loyaltyService;
+        this.treasuryRepository = treasuryRepository;
     }
 
 
     @Override
     public void run(String... args) throws Exception {
+
+        // създаваме Treasury ако не съществува
+        if (treasuryRepository.findByName("Treasury vault").isEmpty()) {
+
+            // Treasury treasury = new Treasury();
+            Treasury treasury = Treasury.builder()
+                    .name("Treasury vault")
+                    .balance(new BigDecimal("1000.00"))
+                    .currency(Currency.getInstance("EUR"))
+                    .createdOn(LocalDateTime.now())
+                    .updatedOn(LocalDateTime.now())
+                    .build();
+
+            treasuryRepository.save(treasury);
+        }
 
         // save check че няма да регистрираме 2 пъти един и същи потребител при стартиране на APP
         if (!userService.getAllUsers().isEmpty()) {
@@ -80,7 +98,6 @@ public class UserInitialize implements CommandLineRunner {
 
         // Създаваме DEFAULT Loyalty за PlayaDeepCorporation
         loyaltyService.createLoyalty(PlayaDeepCorporation);
-
 
 
         // Създаваме игрите със записания вече в базата PlayaDeepCorporation като publisher
@@ -156,7 +173,6 @@ public class UserInitialize implements CommandLineRunner {
 
 
         userRepository.save(PlayaDeepCorporation);
-
 
 
         // 2. ADMIN
@@ -300,7 +316,6 @@ public class UserInitialize implements CommandLineRunner {
         loyaltyService.createLoyalty(XlocksCorporation);
 
 
-
         // Създаваме игрите със записания вече в базата XlocksCorporation като publisher
         Game gameXlocksCorporation1 = Game.builder()
                 .publisher(XlocksCorporation)    // Администраторът се записва като publisher, Тук вече е записан в DB
@@ -376,7 +391,6 @@ public class UserInitialize implements CommandLineRunner {
         userRepository.save(XlocksCorporation);
 
 
-
         // ----------- Създаване на обикновени потребители : USERS -----------
 
 
@@ -408,7 +422,6 @@ public class UserInitialize implements CommandLineRunner {
 
         // Създаваме DEFAULT Loyalty за user1
         loyaltyService.createLoyalty(user1);
-
 
 
         // 5. USER

@@ -35,7 +35,7 @@
             <div class="profile-header">
                 <img th:src="${'https://eapi.pcloud.com/getpubthumb?code=XZCmClZlctqkCAN8e7RSarL4F1ytmQu81Bk&amp;linkpassword=undefined&amp;size=1890x1890&amp;crop=0&amp;type=auto'}"
                      alt="Profile Picture" class="profile-avatar">
-                <h2 class="profile-name" >BALANCE:</h2>
+                <h2 class="profile-name" >BALANCE</h2>
                 <h2 class="profile-name" th:text="${user.wallet.balance} + ' ' + 'EUR'"></h2>
                 <div class="profile-status-role-container">
                     <p th:if="${user.wallet.getStatus().name() == 'ACTIVE'}" class="active-profile">ACTIVE</p>
