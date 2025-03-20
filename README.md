@@ -25,7 +25,7 @@
   `Password:` 123123
   
 ## Core Technologies Used 🛠
-- **Backend:** Spring Framework: Spring Boot, Spring Security, Spring Data JPA, Hibernate. Object-Oriented Design and best practices for high-quality code.
+- **Backend:** Spring Framework - Spring Boot, Spring Security, Spring Data JPA, Hibernate. Object-Oriented Design and best practices for high-quality code.
 - **Frontend:** Thymeleaf, HTML, CSS, JavaScript
 - **Database:** MySQL 
 - **Microservices:** REST API with Feign Clients for API communication - Notice SVC (the service includes its own database, separate and independent from the main project's database)
