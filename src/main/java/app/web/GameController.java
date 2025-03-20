@@ -2,6 +2,7 @@ package app.web;
 
 import app.game.model.*;
 import app.game.service.*;
+import app.notice.service.*;
 import app.security.*;
 import app.transaction.model.*;
 import app.user.model.*;
@@ -11,6 +12,8 @@ import app.web.mapper.*;
 import jakarta.servlet.http.*;
 import jakarta.validation.*;
 import org.springframework.beans.factory.annotation.*;
+import org.springframework.core.io.*;
+import org.springframework.http.*;
 import org.springframework.security.access.*;
 import org.springframework.security.access.prepost.*;
 import org.springframework.security.core.annotation.*;
@@ -28,12 +31,14 @@ public class GameController {
 
     private final UserService userService;
     private final GameService gameService;
+    private final NoticeService noticeService;
 
 
     @Autowired
-    public GameController(UserService userService, GameService gameService) {
+    public GameController(UserService userService, GameService gameService, NoticeService noticeService) {
         this.userService = userService;
         this.gameService = gameService;
+        this.noticeService = noticeService;
     }
 
 
@@ -220,7 +225,6 @@ public class GameController {
     }
 
 
-
     // /games/{gameId}/owned
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/{gameId}/owned")
@@ -339,6 +343,7 @@ public class GameController {
 
     // -----------------------------  BUY GAME  -----------------------------
 
+
     // POST - Buy Game
     // /games/{gameId}/buy
     @PostMapping("/{gameId}/buy")
@@ -364,6 +369,8 @@ public class GameController {
         return new ModelAndView("redirect:/transactions/" + buyGameResult.getId());
     }
 
+
+    // /games/purchased
     @GetMapping("/purchased")
     public ModelAndView getPurchasedGames(@AuthenticationPrincipal AuthenticationMetadata authenticationMetadata) {
 
@@ -386,6 +393,22 @@ public class GameController {
         modelAndView.addObject("purchasedGames", purchasedGames);
 
         return modelAndView;
+    }
+
+
+    // /games/notice/download/{gameId}/{userId}
+    @GetMapping("/notice/download/{gameId}/{userId}")
+    public ResponseEntity<Resource> downloadGameNotice(@PathVariable UUID gameId, @PathVariable UUID userId) {
+        Resource file = noticeService.downloadNotice(gameId, userId);
+
+        if (file == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=game-purchase.txt")
+                .contentType(MediaType.TEXT_PLAIN)
+                .body(file);
     }
 
 }

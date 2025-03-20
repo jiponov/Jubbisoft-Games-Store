@@ -19,7 +19,6 @@
 }
 
 
-/* Заглавен ред */
 .styled-table thead {
     background: linear-gradient(90deg, #009dff, #ff7300, #ffd700, #009dff);
     color: white;
@@ -34,14 +33,14 @@
     text-align: left;
 }
 
-/* Редове */
+
 .styled-table tbody td {
     padding: 14px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     text-align: left;
 }
 
-/* Оцветяване на редове */
+
 .styled-table tbody tr:nth-child(even) {
     background: rgba(255, 255, 255, 0.05);
 }
@@ -50,30 +49,30 @@
     background: rgba(255, 255, 255, 0.1);
 }
 
-/* Статус - Active */
+
 .status.approved {
     color: #27ae60;
     font-weight: bold;
-    text-shadow: 0 0 10px rgba(39, 174, 96, 0.7); /* Зелен ореол */
+    text-shadow: 0 0 10px rgba(39, 174, 96, 0.7);
 }
 
 .status.failed {
     color: #e74c3c;
     font-weight: bold;
-    text-shadow: 0 0 10px rgba(231, 76, 60, 0.7); /* Червен ореол */
+    text-shadow: 0 0 10px rgba(231, 76, 60, 0.7);
 }
 
 .status.deposit {
     color: #276bae;
     font-weight: bold;
-    text-shadow: 0 0 10px rgba(39, 122, 174, 0.7); /* Зелен ореол */
+    text-shadow: 0 0 10px rgba(39, 122, 174, 0.7);
 }
 
-/* Статус - Inactive */
+
 .status.withdrawal {
     color: #bdb6b6;
     font-weight: bold;
-    text-shadow: 0 0 10px rgba(210, 206, 206, 0.7); /* Червен ореол */
+    text-shadow: 0 0 10px rgba(210, 206, 206, 0.7);
 }
 
 .crosslined {

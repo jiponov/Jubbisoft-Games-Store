@@ -1,6 +1,8 @@
 package app.web;
 
 import app.game.model.*;
+import app.loyalty.model.*;
+import app.loyalty.service.*;
 import app.security.*;
 import app.user.model.*;
 import app.user.service.*;
@@ -24,11 +26,13 @@ import java.util.*;
 public class UserController {
 
     private final UserService userService;
+    private final LoyaltyService loyaltyService;
 
 
     @Autowired
-    public UserController(UserService userService) {
+    public UserController(UserService userService, LoyaltyService loyaltyService) {
         this.userService = userService;
+        this.loyaltyService = loyaltyService;
     }
 
 
@@ -110,5 +114,30 @@ public class UserController {
         userService.switchRole(id);
 
         return "redirect:/users";
+    }
+
+
+    // /users/{id}/view
+    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping("/{userId}/view")
+    public ModelAndView viewUser(@PathVariable UUID userId, @AuthenticationPrincipal AuthenticationMetadata authenticationMetadata) {
+
+        if (authenticationMetadata == null || authenticationMetadata.getUserId() == null) {
+            return new ModelAndView("redirect:/login");
+        }
+
+        User user = userService.getById(authenticationMetadata.getUserId());
+        User viewSomeUser = userService.getById(userId);
+        Loyalty loyalty = loyaltyService.getLoyaltyByUserId(userId);
+        double loyaltyDiscount = loyaltyService.getDiscountPercentage(userId) * 100;
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("view-user");
+        modelAndView.addObject("user", user);
+        modelAndView.addObject("viewSomeUser", viewSomeUser);
+        modelAndView.addObject("loyalty", loyalty);
+        modelAndView.addObject("loyaltyDiscount", loyaltyDiscount);
+
+        return modelAndView;
     }
 }

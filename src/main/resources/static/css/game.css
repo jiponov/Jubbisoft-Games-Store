@@ -6,7 +6,7 @@ body main {
     gap: 25px;
 }
 
-/* Основен контейнер */
+
 .home-section {
     display: flex;
     justify-content: center;
@@ -16,7 +16,7 @@ body main {
     background: linear-gradient(to bottom, #1a1a1a, #0e0e0e);
 }
 
-/* Карта на играта */
+
 .single-section-box {
     background: #2a2a2a;
     padding: 50px;
@@ -29,7 +29,7 @@ body main {
     max-width: 100%;
 }
 
-/* Изображение на играта */
+
 .profile-avatar {
     width: 650px;
     height: 410px;
@@ -43,7 +43,7 @@ body main {
     object-fit: cover;
 }
 
-/* Заглавие на играта */
+
 .profile-name {
     font-size: 24px;
     font-weight: bold;
@@ -51,7 +51,7 @@ body main {
     margin-bottom: 10px;
 }
 
-/* Статус на играта */
+
 .profile-status-role-container {
     display: flex;
     justify-content: center;
@@ -60,7 +60,7 @@ body main {
 }
 
 .active-profile {
-    background-color: #2980b9; /* Синьо */
+    background-color: #2980b9;
     color: #ffffff;
     padding: 8px 16px;
     border-radius: 6px;
@@ -87,16 +87,16 @@ body main {
     align-items: flex-start;
 }
 
-/* Детайли за играта */
+
 .details-section-container {
     display: flex;
     flex-direction: column;
-    align-items: flex-start; /* Променя подравняването в ляво */
+    align-items: flex-start;
     text-align: left;
     margin: 10px 0;
 
-    width: 100%; /* Разтяга контейнера на цялата ширина */
-    max-width: 90%; /* Ограничава ширината, за да не стане прекалено голям */
+    width: 100%;
+    max-width: 90%;
 }
 
 .details-section-container strong {
@@ -111,21 +111,21 @@ body main {
     font-size: 16px;
     font-weight: 300;
     margin: 4px 0;
-    display: block; /* Уверява, че всички параграфи са блокови елементи */
-    text-align: left; /* Подравнява текста в ляво */
+    display: block;
+    text-align: left;
 
-    word-wrap: break-word; /* Принудително пренасяне на дълги думи */
-    overflow-wrap: break-word; /* Разрешава пренасяне при дълги думи */
-    white-space: normal; /* Позволява текста да се чупи на нов ред */
-    max-width: 100%; /* Гарантира, че няма да излезе от контейнера */
+    word-wrap: break-word;          /* Принудително пренасяне на дълги думи */
+    overflow-wrap: break-word;      /* Разрешава пренасяне при дълги думи */
+    white-space: normal;            /* Позволява текста да се чупи на нов ред */
+    max-width: 100%;                /* Гарантира, че няма да излезе от контейнера */
 }
 
-/* Бутон за редактиране */
+
 .profile-actions-button {
-    display: flex; /* Подрежда съдържанието в един ред */
-    align-items: center; /* Центрира иконата и текста по вертикала */
-    justify-content: center; /* Центрира съдържанието хоризонтално */
-    gap: 8px; /* Разстояние между иконата и текста */
+    display: flex;              /* Подрежда съдържанието в един ред */
+    align-items: center;        /* Центрира иконата и текста по вертикала */
+    justify-content: center;    /* Центрира съдържанието хоризонтално */
+    gap: 8px;                   /* Разстояние между иконата и текста */
     margin: 20px auto 0 auto;
     padding: 10px 20px;
     font-size: 16px;
@@ -137,20 +137,20 @@ body main {
     text-decoration: none;
     transition: all 0.3s ease-in-out;
     box-shadow: 0 4px 15px rgba(255, 87, 51, 0.5);
-    width: fit-content; /* Бутонът ще бъде точно толкова широк, колкото е нужно */
+    width: fit-content;         /* Бутонът ще бъде точно толкова широк, колкото е нужно */
     max-width: 250px;
     text-align: center;
 }
 
-/* Ховър ефект */
+
 .profile-actions-button:hover {
     background: linear-gradient(135deg, #c13584, #f15a24);
     box-shadow: 0 4px 15px rgba(255, 87, 51, 0.8);
 }
 
-/* Подреждане на текста и иконата в един ред */
+
 .profile-actions-button p {
-    margin: 0; /* Премахва ненужни маржове */
+    margin: 0;                  /* Премахва ненужни маржове */
 }
 
 
@@ -161,8 +161,8 @@ body main {
     padding: 12px 20px;
     font-size: 16px;
     font-weight: 600;
-    color: #fff;
-    background: linear-gradient(135deg, #2c2c2c, #3d3d3d);
+    background: linear-gradient(135deg, #f15a24, #c13584);
+    color: #ffffff;
     border-radius: 8px;
     text-decoration: none;
     transition: all 0.3s ease-in-out;
@@ -175,13 +175,13 @@ body main {
     transition: transform 0.3s ease-in-out;
 }
 
-/* Hover ефект */
+
 .back-button:hover {
-    background: linear-gradient(135deg, #3d3d3d, #525252);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    background: linear-gradient(135deg, #c13584, #f15a24);
+    box-shadow: 0 4px 14px rgba(255, 87, 51, 0.9);
 }
 
-/* Малък анимационен ефект на иконата */
+
 .back-button:hover i {
     transform: translateX(-3px);
 }

@@ -41,6 +41,7 @@
                     <th>Role</th>
                     <th>Status</th>
                     <th>Created on</th>
+                    <th>View user</th>
                     <th>Switch status</th>
                     <th>Change role</th>
                 </tr>
@@ -57,6 +58,15 @@
                         <p th:unless="${user.active}" class="status terminated">Inactive</p>
                     </td>
                     <td th:text="${#temporals.format(user.createdOn, 'dd MMM YYYY HH:mm')}"></td>
+
+                    <td>
+                        <!-- /users/{id}/view -->
+                        <form th:action="@{'/users/' + ${user.id} + '/view'}" th:method="GET" title="View user info">
+                            <button class="profile-actions-button view-button">
+                                <i class="fas fa-eye"></i> View
+                            </button>
+                        </form>
+                    </td>
 
                     <td>
                         <!-- /users/{id}/status -->

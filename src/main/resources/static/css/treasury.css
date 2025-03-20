@@ -6,42 +6,42 @@ body main {
     gap: 25px;
 }
 
-/* Home Section */
+
 .home-section {
 
     background: transparent; /* Така ще вземе фона от common.css */
     display: flex;
     justify-content: center; /* Подравнява съдържанието CENTER */
     align-items: center; /* Центрира съдържанието вертикално */
-    padding-left: 0; /* Оставя място за Sidebar */
+    padding-left: 0;
     width: 100%;
 
     padding-top: 20px;
     padding-bottom: 20px;
 }
 
-/* Подобрено: Центриране и разширяване на профилния панел */
+
 div.single-section-box {
-    background: linear-gradient(135deg, #F5DEB3, #f8c24d); /* Същият фон като sidebar */
-    padding: 40px; /* Повече въздух */
-    border-radius: 10px; /* Малко по-меки ъгли */
+    background: linear-gradient(135deg, #F5DEB3, #f8c24d);
+    padding: 40px;
+    border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     border: 1px solid rgba(255, 213, 0, 0.5);
     color: #3E2723;
     text-align: center;
-    width: 600px; /* По-широк панел */
+    width: 600px;
     max-width: 60%;
     margin: 0 auto;
 
 }
 
-/* Подобрен бутон за действие */
+
 .profile-actions-button {
     margin: 20px auto 0;
     align-self: center;
     text-align: center;
     padding: 12px 16px;
-    width: 250px;
+    width: 240px;
     align-items: center;
     justify-content: center;
     display: flex;
@@ -56,18 +56,20 @@ div.single-section-box {
     text-decoration: none;
     transition: all 0.3s ease-in-out;
     box-shadow: 0 4px 12px rgba(0, 114, 255, 0.4);
+    border: rgb(56, 175, 241);
 }
 
 .profile-actions-button:hover {
     background: linear-gradient(90deg, #0072ff, #00c6ff);
+    border: rgb(34, 128, 182);
     box-shadow: 0 4px 18px rgba(0, 114, 255, 0.6);
 }
 
-/* Подобрен аватар */
+
 .profile-avatar {
-    width: 220px;
-    height: 220px;
-    border-radius: 50%;
+    width: 370px;
+    height: 250px;
+    border-radius: 6%;
     margin-bottom: 16px;
     box-shadow: 0 0 14px rgb(241, 218, 181);
     border: 4px solid rgb(236, 236, 181);
@@ -75,10 +77,10 @@ div.single-section-box {
     justify-content: center;
     align-items: center;
     margin-left: auto;
-    margin-right: auto; /* Центриране на снимката */
+    margin-right: auto;
 }
 
-/* Подобрена информация за профила */
+
 .profile-info {
     display: flex;
     flex-direction: column;
@@ -91,7 +93,7 @@ div.single-section-box {
     color: #3E2723;
 }
 
-/* Подобрени полета за информация */
+
 .profile-info p {
     margin: 5px 0;
     color: #3E2723;

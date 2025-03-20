@@ -6,7 +6,7 @@ body main {
     gap: 25px;
 }
 
-/* Contact Section */
+
 .contact-section {
     background: transparent;
     display: flex;
@@ -16,21 +16,21 @@ body main {
     padding: 20px;
 }
 
-/* Contact Box */
+
 .contact-box {
-    background: #FFFFFF; /* Бежав градиент */
+    background: #FFFFFF;
     padding: 40px;
     border-radius: 12px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    border: 1px solid rgba(93, 64, 55, 0.3); /* Кафяв нюанс */
-    color: #5D4037; /* Кафяв текст */
+    border: 1px solid rgba(93, 64, 55, 0.3);
+    color: #5D4037;
     text-align: center;
     width: 600px;
     max-width: 60%;
     margin: 0 auto;
 }
 
-/* Contact Details */
+
 .contact-details {
     text-align: left;
     font-size: 16px;
@@ -52,7 +52,7 @@ body main {
     text-decoration: underline;
 }
 
-/* Contact Form */
+
 .contact-form {
     margin-top: 20px;
 }
@@ -101,7 +101,8 @@ body main {
     transform: scale(1.05);
 }
 
-/* Responsive */
+
+
 @media (max-width: 1024px) {
     .contact-section {
         flex-direction: column;

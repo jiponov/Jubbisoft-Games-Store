@@ -65,7 +65,7 @@ public class UserInitialize implements CommandLineRunner {
         walletPlayaDeepCorporation = walletService.saveWallet(walletPlayaDeepCorporation);
 
         // Създаваме User с вече създаден Wallet
-        User PlayaDeepCorporation = User.builder()
+        User playaDeepCorporation = User.builder()
                 .username("PlayaDeepCorporation")
                 .password(passwordEncoder.encode("123123"))
                 .role(UserRole.ADMIN)
@@ -79,18 +79,18 @@ public class UserInitialize implements CommandLineRunner {
 
 
         // Запазваме потребителя в базата ПРЕДИ да създадем игри
-        PlayaDeepCorporation = userService.saveUser(PlayaDeepCorporation);
+        playaDeepCorporation = userService.saveUser(playaDeepCorporation);
 
         // Създаваме DEFAULT Loyalty за PlayaDeepCorporation
-        loyaltyService.createLoyalty(PlayaDeepCorporation);
+        loyaltyService.createLoyalty(playaDeepCorporation);
 
 
         // Създаваме игрите със записания вече в базата PlayaDeepCorporation като publisher
         Game gamePlayaDeepCorporation1 = Game.builder()
-                .publisher(PlayaDeepCorporation)    // Администраторът се записва като publisher, Тук вече е записан в DB
+                .publisher(playaDeepCorporation)    // Администраторът се записва като publisher, Тук вече е записан в DB
                 .title("Cyber Wars: Uprising")
                 .description("A fast-paced sci-fi shooter where you lead a resistance against a rogue AI empire. Intense combat, futuristic weapons, and high-speed chases await!")
-                .price(new BigDecimal("29.99"))
+                .price(new BigDecimal("160.00"))
                 .genre(Genre.ACTION)
                 .isAvailable(true)    // Играта е достъпна
                 .imageCoverUrl("https://eapi.pcloud.com/getpubthumb?code=XZHbhlZYpsLLpEaFzJ1EfaqYH3p5HKlubFk&size=800x800&format=png")
@@ -102,7 +102,7 @@ public class UserInitialize implements CommandLineRunner {
 
 
         Game gamePlayaDeepCorporation2 = Game.builder()
-                .publisher(PlayaDeepCorporation)    // Администраторът се записва като publisher
+                .publisher(playaDeepCorporation)    // Администраторът се записва като publisher
                 .title("Mystic Quest: Shadows of Time")
                 .description("An epic RPG adventure where you must restore balance to the realms by unlocking forgotten magic and battling dark forces in an enchanted world.")
                 .price(new BigDecimal("49.99"))
@@ -117,7 +117,7 @@ public class UserInitialize implements CommandLineRunner {
 
 
         Game gamePlayaDeepCorporation3 = Game.builder()
-                .publisher(PlayaDeepCorporation)    // Администраторът се записва като publisher
+                .publisher(playaDeepCorporation)    // Администраторът се записва като publisher
                 .title("Ultimate Tactics: Kingdoms at War")
                 .description("A deep strategy game where you build, defend, and expand your medieval empire through diplomacy, warfare, and resource management.")
                 .price(new BigDecimal("19.99"))
@@ -132,7 +132,7 @@ public class UserInitialize implements CommandLineRunner {
 
 
         Game gamePlayaDeepCorporation4 = Game.builder()
-                .publisher(PlayaDeepCorporation)    // Администраторът се записва като publisher
+                .publisher(playaDeepCorporation)    // Администраторът се записва като publisher
                 .title("Ultimate Soccer Showdown")
                 .description("Experience the thrill of competitive football with stunning graphics, real-time physics, and immersive gameplay. Build your dream team, strategize your formations, and conquer tournaments worldwide.")
                 .price(new BigDecimal("9.99"))
@@ -147,7 +147,7 @@ public class UserInitialize implements CommandLineRunner {
 
 
         Game gamePlayaDeepCorporation5 = Game.builder()
-                .publisher(PlayaDeepCorporation)    // Администраторът се записва като publisher
+                .publisher(playaDeepCorporation)    // Администраторът се записва като publisher
                 .title("Lost in the Enchanted Jungle")
                 .description("Embark on a breathtaking journey through mystical jungles, solve ancient puzzles, and uncover lost treasures while surviving nature’s wildest challenges.")
                 .price(new BigDecimal("39.99"))
@@ -161,7 +161,7 @@ public class UserInitialize implements CommandLineRunner {
         gamePlayaDeepCorporation5 = gameService.saveGame(gamePlayaDeepCorporation5);
 
 
-        userService.saveUser(PlayaDeepCorporation);
+        userService.saveUser(playaDeepCorporation);
 
 
         // 2. ADMIN
@@ -178,7 +178,7 @@ public class UserInitialize implements CommandLineRunner {
         walletJintenddoCorporation = walletService.saveWallet(walletJintenddoCorporation);
 
         // Създаваме User с вече създаден Wallet
-        User JintenddoCorporation = User.builder()
+        User jintenddoCorporation = User.builder()
                 .username("JintenddoCorporation")
                 .password(passwordEncoder.encode("123123"))
                 .role(UserRole.ADMIN)
@@ -192,15 +192,15 @@ public class UserInitialize implements CommandLineRunner {
 
 
         // Запазваме потребителя в базата ПРЕДИ да създадем игри
-        JintenddoCorporation = userService.saveUser(JintenddoCorporation);
+        jintenddoCorporation = userService.saveUser(jintenddoCorporation);
 
         // Създаваме DEFAULT Loyalty за PlayStation
-        loyaltyService.createLoyalty(JintenddoCorporation);
+        loyaltyService.createLoyalty(jintenddoCorporation);
 
 
         // Създаваме игрите със записания вече в базата JintenddoCorporation като publisher
         Game gameJintenddoCorporation1 = Game.builder()
-                .publisher(JintenddoCorporation)    // Администраторът се записва като publisher
+                .publisher(jintenddoCorporation)    // Администраторът се записва като publisher
                 .title("Shadow Reckoning")
                 .description("Step into the shoes of a former mercenary returning to a war-torn city where secret organizations wage a relentless battle. With high-tech weapons and acrobatic combat skills, you must survive.")
                 .price(new BigDecimal("49.99"))
@@ -215,7 +215,7 @@ public class UserInitialize implements CommandLineRunner {
 
 
         Game gameJintenddoCorporation2 = Game.builder()
-                .publisher(JintenddoCorporation)    // Администраторът се записва като publisher
+                .publisher(jintenddoCorporation)    // Администраторът се записва като publisher
                 .title("Echoes of Eldoria")
                 .description("Uncover the ancient mysteries of the lost civilization of Eldoria. As a young archaeologist, you will journey through jungles, deserts, and icy peaks, solving intricate puzzles, unlocking hidden realms, and facing mysterious guardians of time.")
                 .price(new BigDecimal("99.99"))
@@ -230,10 +230,10 @@ public class UserInitialize implements CommandLineRunner {
 
 
         Game gameJintenddoCorporation3 = Game.builder()
-                .publisher(JintenddoCorporation)    // Администраторът се записва като publisher
+                .publisher(jintenddoCorporation)    // Администраторът се записва като publisher
                 .title("Turbo Blitz")
-                .description("Experience the ultimate adrenaline rush in Turbo Blitz, the latest futuristic sports league! Ride high-speed hoverboards, perform gravity-defying tricks, and compete against the world’s elite racers.")
-                .price(new BigDecimal("26.00"))
+                .description("Feel the rush, embrace the speed! Turbo Blitz puts you in the heart of the ultimate sprinting challenge. Precision, endurance, and sheer willpower — do you have what it takes to become the fastest on the field?")
+                .price(new BigDecimal("120.00"))
                 .genre(Genre.SPORTS)
                 .isAvailable(true)    // Играта е достъпна
                 .imageCoverUrl("https://eapi.pcloud.com/getpubthumb?code=XZUUtlZc6o3Iv1smJRJxEh3J1EpHbM8RiyV&size=800x800&format=png")
@@ -245,7 +245,7 @@ public class UserInitialize implements CommandLineRunner {
 
 
         Game gameJintenddoCorporation4 = Game.builder()
-                .publisher(JintenddoCorporation)    // Администраторът се записва като publisher
+                .publisher(jintenddoCorporation)    // Администраторът се записва като publisher
                 .title("Dominion: Rise of Empires")
                 .description("Build your empire from the ground up and transform it into a global superpower! Manage resources, lead armies, and forge alliances in this real-time strategy game where every decision shapes history.")
                 .price(new BigDecimal("62.00"))
@@ -260,7 +260,7 @@ public class UserInitialize implements CommandLineRunner {
 
 
         Game gameJintenddoCorporation5 = Game.builder()
-                .publisher(JintenddoCorporation)    // Администраторът се записва като publisher
+                .publisher(jintenddoCorporation)    // Администраторът се записва като publisher
                 .title("Arcane Chronicles")
                 .description("In a world where magic and technology coexist, you are the Chosen One—the only one who can prevent an ancient evil from awakening. Collect powerful artifacts, master new spells, and shape your own destiny in an epic role-playing adventure.")
                 .price(new BigDecimal("85.00"))
@@ -274,7 +274,7 @@ public class UserInitialize implements CommandLineRunner {
         gameJintenddoCorporation5 = gameService.saveGame(gameJintenddoCorporation5);
 
 
-        userService.saveUser(JintenddoCorporation);
+        userService.saveUser(jintenddoCorporation);
 
 
         // 3. ADMIN
@@ -292,7 +292,7 @@ public class UserInitialize implements CommandLineRunner {
 
 
         // Създаваме User с вече създаден Wallet
-        User XlocksCorporation = User.builder()
+        User xlocksCorporation = User.builder()
                 .username("XlocksCorporation")
                 .password(passwordEncoder.encode("123123"))
                 .role(UserRole.ADMIN)
@@ -306,16 +306,16 @@ public class UserInitialize implements CommandLineRunner {
 
 
         // Запазваме потребителя в базата ПРЕДИ да създадем игри
-        XlocksCorporation = userService.saveUser(XlocksCorporation);
+        xlocksCorporation = userService.saveUser(xlocksCorporation);
 
 
         // Създаваме DEFAULT Loyalty за PlayaDeepCorporation
-        loyaltyService.createLoyalty(XlocksCorporation);
+        loyaltyService.createLoyalty(xlocksCorporation);
 
 
         // Създаваме игрите със записания вече в базата XlocksCorporation като publisher
         Game gameXlocksCorporation1 = Game.builder()
-                .publisher(XlocksCorporation)    // Администраторът се записва като publisher, Тук вече е записан в DB
+                .publisher(xlocksCorporation)    // Администраторът се записва като publisher, Тук вече е записан в DB
                 .title("Shadowstrike: Cyber Ops")
                 .description("In a dystopian cyberpunk future, elite hacker-assassins wage war in the digital shadows. As a rogue agent, infiltrate megacorporations, outmaneuver security drones, and engage in high-speed parkour combat to uncover a conspiracy that threatens the world.")
                 .price(new BigDecimal("47.50"))
@@ -330,7 +330,7 @@ public class UserInitialize implements CommandLineRunner {
 
 
         Game gameXlocksCorporation2 = Game.builder()
-                .publisher(XlocksCorporation)    // Администраторът се записва като publisher, Тук вече е записан в DB
+                .publisher(xlocksCorporation)    // Администраторът се записва като publisher, Тук вече е записан в DB
                 .title("Echoes of Deep Eroween")
                 .description("A young archaeologist stumbles upon an ancient artifact linked to a lost civilization. Travel through mystical ruins, solve cryptic puzzles, and unlock the secrets of time itself in this breathtaking open-world adventure.")
                 .price(new BigDecimal("105.00"))
@@ -345,9 +345,9 @@ public class UserInitialize implements CommandLineRunner {
 
 
         Game gameXlocksCorporation3 = Game.builder()
-                .publisher(XlocksCorporation)    // Администраторът се записва като publisher, Тук вече е записан в DB
+                .publisher(xlocksCorporation)    // Администраторът се записва като publisher, Тук вече е записан в DB
                 .title("Hyper Xtreme")
-                .description("The ultimate futuristic racing league has arrived! Compete in high-speed hovercraft tournaments across neon-lit cityscapes, upgrade your vehicle, and master gravity-defying stunts to become the galaxy’s top racer.")
+                .description("Feel the adrenaline as you explode off the starting blocks, race against fierce competitors, and chase the ultimate glory on the grandest stadiums. Precision, power, and pure velocity — do you have what it takes to become the fastest of all time?")
                 .price(new BigDecimal("70.00"))
                 .genre(Genre.SPORTS)
                 .isAvailable(true)    // Играта е достъпна
@@ -360,9 +360,9 @@ public class UserInitialize implements CommandLineRunner {
 
 
         Game gameXlocksCorporation4 = Game.builder()
-                .publisher(XlocksCorporation)    // Администраторът се записва като publisher, Тук вече е записан в DB
-                .title("Dominion: Galactic Conquest")
-                .description("The galaxy is in turmoil. Lead a faction of space explorers, build massive fleets, form alliances, and engage in tactical space battles to expand your empire. Every decision matters in this deep, turn-based strategy game.")
+                .publisher(xlocksCorporation)    // Администраторът се записва като publisher, Тук вече е записан в DB
+                .title("Kingdoms at War: The Siege Begins")
+                .description("Build an unbreakable fortress, command mighty armies, and forge powerful alliances in this epic medieval strategy game. Will your empire thrive, or will it fall to the tides of war? The battle for dominance begins now!")
                 .price(new BigDecimal("8.80"))
                 .genre(Genre.STRATEGY)
                 .isAvailable(true)    // Играта е достъпна
@@ -375,7 +375,7 @@ public class UserInitialize implements CommandLineRunner {
 
 
         Game gameXlocksCorporation5 = Game.builder()
-                .publisher(XlocksCorporation)    // Администраторът се записва като publisher, Тук вече е записан в DB
+                .publisher(xlocksCorporation)    // Администраторът се записва като publisher, Тук вече е записан в DB
                 .title("Veilborn: Legacy of the Ancients")
                 .description("In a world torn by war, you are a Veilborn – a warrior with forbidden magic. Choose your path, shape the fate of kingdoms, and uncover the dark forces behind the destruction of your homeland in this epic open-world RPG.")
                 .price(new BigDecimal("16.20"))
@@ -389,7 +389,7 @@ public class UserInitialize implements CommandLineRunner {
 
         gameXlocksCorporation5 = gameService.saveGame(gameXlocksCorporation5);
 
-        userService.saveUser(XlocksCorporation);
+        userService.saveUser(xlocksCorporation);
 
 
         // ----------- Създаване на обикновени потребители : USERS -----------

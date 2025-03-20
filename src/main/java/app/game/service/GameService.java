@@ -3,6 +3,7 @@ package app.game.service;
 import app.game.model.*;
 import app.game.repository.*;
 import app.loyalty.service.*;
+import app.notice.service.*;
 import app.shared.exception.*;
 import app.transaction.model.*;
 import app.user.model.*;
@@ -33,13 +34,16 @@ public class GameService {
     private final WalletService walletService;
     private final LoyaltyService loyaltyService;
 
+    private final NoticeService noticeService;
+
 
     @Autowired
-    public GameService(GameRepository gameRepository, UserService userService, WalletService walletService, LoyaltyService loyaltyService) {
+    public GameService(GameRepository gameRepository, UserService userService, WalletService walletService, LoyaltyService loyaltyService, NoticeService noticeService) {
         this.gameRepository = gameRepository;
         this.userService = userService;
         this.walletService = walletService;
         this.loyaltyService = loyaltyService;
+        this.noticeService = noticeService;
     }
 
 
@@ -253,7 +257,7 @@ public class GameService {
         if (transactionChargeResult.getStatus() == TransactionStatus.FAILED) {
             log.warn("Charge for this game [%s] failed for user with id [%s]".formatted(game.getTitle(), user.getId()));
 
-            //throw new DomainException("Transaction failed: Not enough funds or wallet issue.");
+            // throw new DomainException("Transaction failed: Not enough funds or wallet issue.");
             return transactionChargeResult;
         }
 
@@ -277,12 +281,22 @@ public class GameService {
         // обновяване на Loyalty GAMES STATUS (up +1)  ->  след покупка на GAME
         loyaltyService.updateLoyaltyAfterPurchase(user);
 
+
+        String content = "You have successfully purchased '%s'!".formatted(game.getTitle());
+        String username = user.getUsername();
+        String gameUrl = "http://localhost:8080/games/" + game.getId() + "/explore";
+        String publisher = game.getPublisher().getUsername();
+        noticeService.createNotice(user.getId(), game.getId(), "Game Purchased", content, username, gameUrl, publisher);
+
+
         return transactionChargeResult;
     }
+
 
     public List<Game> getMyPurchasedGames(User user) {
         return gameRepository.findAllByPurchasedByUsersOrderByReleaseDateDesc(user);
     }
+
 
     @Transactional
     public Game saveGame(Game game) {

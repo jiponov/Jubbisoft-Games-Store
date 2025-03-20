@@ -12,8 +12,13 @@
 <header th:fragment="header" class="header">
     <div class="header-inner">
         <nav class="nav">
-            <a th:href="@{/}" class="button explore" title="Main Page">Main</a>
+            <a th:href="@{/}" class="header-logo-jubbisoft">
+                <img src="/images/logo-header-jubbisoft.png" alt="Jubbisoft Logo">
+            </a>
+            <a th:href="@{/}" class="button explore" title="Front Page">Overview</a>
             <a th:href="@{/contact}" class="button explore" title="Contact Page">Contact</a>
+            <a th:href="@{/about-us}" class="button explore" title="About Us">About Us</a>
+            <a th:href="@{/terms}" class="button explore" title="Terms">Terms</a>
             <a th:href="@{/games/explore}" class="button explore" title="Explore Our Games">Explore</a>
             <a th:if="${user}" th:href="@{/home}" class="button explore" title="Home Page">Home</a>
             <a th:unless="${user}" th:href="@{/login}" class="button login" title="Login Page">Login</a>

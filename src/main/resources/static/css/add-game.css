@@ -1,4 +1,4 @@
-/* Основни стилове */
+
 .add-game-menu {
     background: linear-gradient(135deg, #1e1e1e, #2a2a2a);
     padding: 40px;
@@ -22,7 +22,7 @@
     -webkit-text-fill-color: transparent;
 }
 
-/* Формуляр */
+
 .form {
     display: flex;
     flex-direction: column;
@@ -43,16 +43,16 @@
 .form select {
     width: 100%;
     height: 45px;
-    background-color: rgba(255, 255, 255, 0.12); /* Променено - по-тъмен фон */
+    background-color: rgba(255, 255, 255, 0.12);
     border-radius: 6px;
     padding: 0 12px;
     font-size: 14px;
     font-weight: 400;
-    color: #fff; /* Буквите остават бели */
+    color: #fff;
     outline: none;
     border: 1px solid rgba(255, 255, 255, 0.2);
     transition: background-color 0.3s, box-shadow 0.3s;
-    appearance: none; /* Скрива стандартния стрелкичка-стил в някои браузъри */
+    appearance: none;
 }
 
 .form input:focus,
@@ -67,14 +67,14 @@
 
 /* Стилизация на списъка с жанрове */
 .form select option {
-    background-color: #2a2a2a; /* Фонът на падащия списък */
-    color: #ffffff; /* Цвят на текста */
+    background-color: #2a2a2a;
+    color: #ffffff;
 }
 
 /* Когато един от жанровете е маркиран */
 .form select option:checked {
-    background-color: #c13584; /* Активен фон */
-    color: #ffffff; /* Запазваме белите букви */
+    background-color: #c13584;
+    color: #ffffff;
 }
 
 /* Firefox-specific fix */
@@ -84,7 +84,7 @@
     }
 }
 
-/* Бутон */
+
 .game-actions-button {
     display: flex;
     align-items: center;
@@ -99,6 +99,7 @@
     background: linear-gradient(135deg, #f15a24, #c13584);
     border: none;
     transition: all 0.3s ease-in-out;
+    gap: 8px;
 }
 
 .game-actions-button i {

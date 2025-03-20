@@ -1,3 +1,75 @@
+main {
+    position: relative;
+}
+
+.left-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    position: absolute;
+    max-width: 450px;
+    left: 50px;
+    top: 60%;                           /* 60% от височината на main, а не от целия екран */
+    transform: translateY(-50%);        /* Центрира по Y, за да е в средата  */
+}
+
+.app-description {
+    font-size: 24px;
+    color: #fff;
+    margin-bottom: 20px;
+    max-width: 400px;
+}
+
+.button-container {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+}
+
+.btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px 30px;
+    font-size: 18px;
+    font-weight: 600;
+    text-transform: uppercase;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background 0.3s ease, transform 0.2s ease;
+    gap: 10px;
+    width: 140px;
+    text-align: center;
+    height: 25px;
+    line-height: 25px;
+}
+
+.btn i {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.games-btn {
+    background: linear-gradient(135deg, #c13584, #f15a24);
+    color: #fff;
+}
+
+.games-btn i {
+    color: #fff;
+}
+
+.info-btn {
+    background: #333;
+    color: #fff;
+}
+
+.btn:hover {
+    transform: scale(1.05);
+}
+
+
 .logo-container {
     height: 75vh;
     display: flex;
@@ -14,4 +86,27 @@
 .logo-container a:hover {
     transform: scale(1.05);
     opacity: 0.9;
+}
+
+
+@media (max-width: 1200px) {
+    .left-container {
+        left: 30px;
+        top: 20%;
+    }
+}
+
+@media (max-width: 768px) {
+    .left-container {
+        position: static;
+        text-align: center;
+        align-items: center;
+        max-width: 100%;
+        margin: auto;
+    }
+
+    .button-container {
+        flex-direction: column;
+        align-items: center;
+    }
 }

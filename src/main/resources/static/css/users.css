@@ -19,7 +19,6 @@
 }
 
 
-/* Заглавен ред */
 .styled-table thead {
     background: linear-gradient(90deg, #ff0000, #ff7300, #ffd700);
     color: white;
@@ -34,14 +33,14 @@
     text-align: left;
 }
 
-/* Редове */
+
 .styled-table tbody td {
     padding: 14px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     text-align: left;
 }
 
-/* Оцветяване на редове */
+
 .styled-table tbody tr:nth-child(even) {
     background: rgba(255, 255, 255, 0.05);
 }
@@ -50,27 +49,27 @@
     background: rgba(255, 255, 255, 0.1);
 }
 
-/* Статус - Active */
+
 .status.active {
     color: #27ae60;
     font-weight: bold;
-    text-shadow: 0 0 10px rgba(39, 174, 96, 0.7); /* Зелен ореол */
+    text-shadow: 0 0 10px rgba(39, 174, 96, 0.7);
 }
 
-/* Статус - Inactive */
+
 .status.terminated {
     color: #e74c3c;
     font-weight: bold;
-    text-shadow: 0 0 10px rgba(231, 76, 60, 0.7); /* Червен ореол */
+    text-shadow: 0 0 10px rgba(231, 76, 60, 0.7);
 }
 
-/* Бутоните Status & Role */
+
 .profile-actions-button {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 110px;  /* Фиксирана ширина */
-    height: 40px; /* Фиксирана височина */
+    width: 110px;
+    height: 40px;
     font-size: 14px;
     font-weight: 500;
     text-transform: uppercase;
@@ -83,44 +82,56 @@
     outline: none;
 }
 
-/* СИН БУТОН - Status */
+.profile-actions-button.view-button {
+    background: linear-gradient(135deg, #ffcc00, #ff9900); /* Жълт градиент */
+    color: #ffffff;
+    box-shadow: 0 0 10px rgba(255, 204, 0, 0.7);
+    transition: all 0.3s ease-in-out;
+}
+
+.profile-actions-button.view-button:hover {
+    background: linear-gradient(135deg, #ff9900, #cc7700); /* Потъмнен жълт при hover */
+    box-shadow: 0 4px 8px rgba(255, 204, 0, 0.3);
+    box-shadow: 0 0 15px rgba(255, 204, 0, 0.9);
+}
+
+
 .profile-actions-button.status-button {
     background: linear-gradient(135deg, #007bff, #0056b3);
     color: #ffffff;
-    box-shadow: 0 0 10px rgba(0, 123, 255, 0.7); /* Син ореол */
+    box-shadow: 0 0 10px rgba(0, 123, 255, 0.7);
     transition: all 0.3s ease-in-out;
 }
 
 .profile-actions-button.status-button:hover {
     background: linear-gradient(135deg, #0056b3, #003d82);
     box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
-    box-shadow: 0 0 15px rgba(0, 123, 255, 0.9); /* По-силен ореол при hover */
+    box-shadow: 0 0 15px rgba(0, 123, 255, 0.9);
 }
 
-/* ЛИЛАВ БУТОН - Role */
+
 .profile-actions-button.role-button {
     background: linear-gradient(135deg, #8e44ad, #5e3370);
     color: #ffffff;
-    box-shadow: 0 0 10px rgba(142, 68, 173, 0.7); /* Лилав ореол */
+    box-shadow: 0 0 10px rgba(142, 68, 173, 0.7);
     transition: all 0.3s ease-in-out;
 }
 
 .profile-actions-button.role-button:hover {
     background: linear-gradient(135deg, #5e3370, #3e2150);
-    box-shadow: 0 0 15px rgba(142, 68, 173, 0.9); /* По-силен ореол при hover */
+    box-shadow: 0 0 15px rgba(142, 68, 173, 0.9);
 }
 
 
-/* Администратор - син цвят */
 .role.admin {
-    color: #007bff; /* Ярко син */
+    color: #007bff;
     font-weight: bold;
-    text-shadow: 0 0 8px rgba(0, 123, 255, 0.7); /* Синкав ореол */
+    text-shadow: 0 0 8px rgba(0, 123, 255, 0.7);
 }
 
-/* Потребител - сребрист цвят */
+
 .role.user {
-    color: #C0C0C0; /* Сребрист */
+    color: #C0C0C0;
     font-weight: bold;
-    text-shadow: 0 0 8px rgba(192, 192, 192, 0.7); /* Сребрист ореол */
+    text-shadow: 0 0 8px rgba(192, 192, 192, 0.7);
 }

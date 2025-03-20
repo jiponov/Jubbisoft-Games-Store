@@ -6,36 +6,36 @@ body main {
     gap: 25px;
 }
 
-/* Home Section */
+
 .home-section {
 
     background: transparent; /* Така ще вземе фона от common.css */
     display: flex;
-    justify-content: center; /* Подравнява съдържанието CENTER */
-    align-items: center; /* Центрира съдържанието вертикално */
-    padding-left: 0; /* Оставя място за Sidebar */
+    justify-content: center;
+    align-items: center;
+    padding-left: 0;
     width: 100%;
 
     padding-top: 20px;
     padding-bottom: 20px;
 }
 
-/* Подобрено: Центриране и разширяване на профилния панел */
+
 div.single-section-box {
-    background: #2a2a2a; /* Същият фон като sidebar */
-    padding: 40px; /* Повече въздух */
-    border-radius: 10px; /* Малко по-меки ъгли */
+    background: #2a2a2a;
+    padding: 40px;
+    border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     border: 1px solid rgba(255, 255, 255, 0.08);
     color: #f1f1f1;
     text-align: center;
-    width: 600px; /* По-широк панел */
+    width: 600px;
     max-width: 60%;
     margin: 0 auto;
 
 }
 
-/* Статус на профила */
+
 .profile-status-role-container {
     display: flex;
     padding: 5px 10px;
@@ -44,12 +44,12 @@ div.single-section-box {
     text-transform: uppercase;
 }
 
-/* Активен профил */
+
 .profile-status-role-container .active-profile {
     backdrop-filter: blur(8px);
-    padding: 6px 12px; /* Подобрено: По-голям padding */
+    padding: 6px 12px;
     border-radius: 6px;
-    font-size: 18px; /* По-добра четливост */
+    font-size: 18px;
     font-weight: 600;
     background-color: #27ae60;
     color: #ffffff;
@@ -57,7 +57,7 @@ div.single-section-box {
     box-shadow: 0 4px 8px rgba(0, 153, 51, 0.3);
 }
 
-/* Неактивен профил */
+
 .profile-status-role-container .inactive-profile {
     background-color: #c0392b;
     color: #ffffff;
@@ -69,7 +69,7 @@ div.single-section-box {
     box-shadow: 0 4px 8px rgba(255, 103, 103, 0.3);
 }
 
-/* Подобрен бутон за действие */
+
 .profile-actions-button {
     margin: 20px auto 0;
     align-self: center;
@@ -79,7 +79,7 @@ div.single-section-box {
     align-items: center;
     justify-content: center;
     display: flex;
-    gap: 6px;
+    gap: 8px;
     font-size: 16px;
     font-family: 'Poppins', sans-serif;
     border-radius: 6px;
@@ -96,7 +96,7 @@ div.single-section-box {
     box-shadow: 0 4px 10px rgba(255, 87, 51, 0.5);
 }
 
-/* Подобрен аватар */
+
 .profile-avatar {
     width: 160px;
     height: 160px;
@@ -108,10 +108,10 @@ div.single-section-box {
     justify-content: center;
     align-items: center;
     margin-left: auto;
-    margin-right: auto; /* Центриране на снимката */
+    margin-right: auto;
 }
 
-/* Подобрена информация за профила */
+
 .profile-info {
     display: flex;
     flex-direction: column;
@@ -124,30 +124,8 @@ div.single-section-box {
     color: #ffffff;
 }
 
-/* Подобрени полета за информация */
+
 .profile-info p {
     margin: 5px 0;
     color: #e0e0e0;
 }
-
-
-/*Responsive Adjustments
-
-@media (max-width: 1024px) {
-    .home-section {
-        flex-direction: column;
-        align-items: center;
-        padding: 20px;
-    }
-
-    .single-section-box.home-profile-information {
-        margin-left: 0;
-        max-width: 100%;
-    }
-
-    .profile-info {
-        text-align: center;
-        margin-left: 0;
-    }
-}
-*/

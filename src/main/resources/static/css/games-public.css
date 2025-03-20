@@ -1,6 +1,6 @@
-/* General Styling */
+/*   font-family: 'Poppins', sans-serif; */
 body {
-    font-family: 'Poppins', sans-serif;
+
     color: #ffffff;
     background: linear-gradient(to bottom, #252525, #181818);
     margin: 0;
@@ -17,30 +17,30 @@ main {
     flex-direction: column;
 }
 
-/* Home Section */
+
 .home-section {
     width: 90%;
     max-width: 1200px;
     display: flex;
     flex-direction: column;
-    align-items: center; /* Центриране на съдържанието */
+    align-items: center;
 }
 
 /* Центриране на целия блок Explore Games Board */
 .my-games-section {
-    width: 85%; /* Намаляваме ширината, за да изглежда по-добре */
-    max-width: 1200px; /* Ограничаваме максималната ширина */
-    padding: 40px; /* Увеличаваме padding за повече въздух */
+    width: 85%;
+    max-width: 1200px;
+    padding: 40px;
     background: #ffffff;
     border-radius: 12px;
     box-shadow: 0 6px 14px rgba(0, 0, 0, 0.3);
-    margin: 40px auto; /* Автоматичен margin за центриране */
+    margin: 40px auto;
     display: flex;
     flex-direction: column;
-    align-items: center; /* Центриране на съдържанието вътре */
+    align-items: center;
 }
 
-/* Заглавие на секцията */
+
 .my-games {
     font-size: 24px;
     font-weight: 600;
@@ -59,17 +59,17 @@ main {
     align-items: center;
     justify-content: space-between;
     width: 100%;
-    max-width: 1200px; /* Увеличаваме ширината */
+    max-width: 1200px;
     background: linear-gradient(135deg, #202020, #282828);
     border-radius: 16px; /* По-заоблени ъгли */
-    padding: 30px; /* По-голям padding за повече въздух */
+    padding: 30px;
     margin: 25px auto;
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
 }
 
 /* Контейнер за изображението */
 .game-board img.profile-avatar {
-    width: 240px; /* По-голям размер */
+    width: 240px;
     height: 240px;
     border-radius: 16px;
     margin-right: 20px;
@@ -77,7 +77,7 @@ main {
     object-fit: cover;
 }
 
-/* Кутийките - с по-добро разстояние */
+
 .single-game {
     padding: 30px;
     margin-right: 20px;
@@ -91,20 +91,20 @@ main {
     text-align: left;
 }
 
-/* Hover ефект за кутийките */
+
 .single-game:hover {
     transform: translateY(-6px);
     box-shadow: 0 8px 20px rgba(255, 165, 0, 0.5);
 }
 
-/* Текст в кутийките */
+
 .single-game p {
     word-wrap: break-word;
     text-align: left;
     color: #ddd;
 }
 
-/* Подравняване на текст */
+
 .single-game h5 {
     margin: 4px 0;
     font-weight: 600;
@@ -113,27 +113,6 @@ main {
     letter-spacing: 0.5px;
 }
 
-/* Бутона */
-/*button {*/
-/*    background: linear-gradient(135deg, #f15a24, #c13584);*/
-/*    color: #ffffff;*/
-/*    border: none;*/
-/*    padding: 12px 20px;*/
-/*    font-size: 16px;*/
-/*    font-weight: 600;*/
-/*    border-radius: 6px;*/
-/*    cursor: pointer;*/
-/*    transition: all 0.3s ease-in-out;*/
-/*    box-shadow: 0 4px 8px rgba(255, 87, 51, 0.6);*/
-/*    align-self: center;*/
-/*}*/
-
-/* Hover ефект за бутона */
-/*button:hover {*/
-/*    background: linear-gradient(135deg, #c13584, #f15a24);*/
-/*    box-shadow: 0 4px 14px rgba(255, 87, 51, 0.9);*/
-/*    transform: scale(1.07);*/
-/*}*/
 
 /* Премахва маркери от списъците */
 ul, li {
@@ -142,7 +121,7 @@ ul, li {
     margin: 0;
 }
 
-/* 🎨 Image Cover - модерно стилно изображение */
+
 .profile-avatar {
     width: 280px;
     height: 280px;
@@ -156,7 +135,7 @@ ul, li {
     transition: all 0.3s ease-in-out;
 }
 
-/* Hover ефект за Image Cover */
+
 .profile-avatar:hover {
     transform: scale(1.05);
     box-shadow: 0 0 25px rgba(255, 165, 0, 0.5);
@@ -164,10 +143,6 @@ ul, li {
 }
 
 
-
-
-
-/* Подравняване на бутоните вдясно */
 .button-group {
     display: flex;
     flex-direction: column;
@@ -175,7 +150,7 @@ ul, li {
     gap: 16px;
 }
 
-/* Стил за бутоните */
+
 .button-group button {
     display: flex;
     align-items: center;
@@ -192,7 +167,7 @@ ul, li {
     text-decoration: none;
 }
 
-/* Подравняване на <a> таговете (ако са бутони) */
+
 .button-group a {
     text-decoration: none;
     width: 100%;
@@ -201,7 +176,6 @@ ul, li {
 }
 
 
-/* View Button */
 .btn-view {
     background: linear-gradient(135deg, #f15a24, #c13584);
     color: #ffffff;
@@ -227,10 +201,9 @@ ul, li {
 /* Ако бутона е в <a>, премахваме ефекта */
 .btn-view:focus,
 .btn-view:active {
-    outline: none; /* Премахва контурите при клик */
+    outline: none;
     text-decoration: none;
 }
-
 
 
 /* BUY Button */

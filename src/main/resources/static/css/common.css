@@ -19,8 +19,12 @@ main {
 
 .header {
     padding: 15px 6%;
-    background: rgba(255, 255, 255, 0.95); /* Бял фон */
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* По-мека сянка */
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+
+    height: 50px!important;
+    min-height: 50px!important;
+    max-height: 50px!important;
 }
 
 .header-inner {
@@ -33,6 +37,8 @@ main {
     display: flex;
     align-items: center;
     gap: 20px;
+
+    height: 100%;
 }
 
 .header-inner .nav {
@@ -50,11 +56,17 @@ main {
     letter-spacing: 0.04em;
     cursor: pointer;
     border-radius: 8px;
-    background: linear-gradient(135deg, #333333, #111111); /* Градиентен черен */
+    background: linear-gradient(135deg, #333333, #111111);
     border: 1px solid rgba(0, 0, 0, 0.2);
     transition: all 0.3s ease;
     box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+
+
+    align-items: center;
+    justify-content: center;
 }
+
+
 
 .button.explore:hover,
 .button.login:hover,
@@ -78,14 +90,14 @@ main {
 
 
 .footer {
-    color: rgba(0, 0, 0, 0.7); /* Черен текст */
+    color: rgba(0, 0, 0, 0.7);
     text-align: center;
     padding: 20px 0;
-    background: rgba(255, 255, 255, 0.95); /* Бял фон */
-    border-top: 1px solid rgba(0, 0, 0, 0.1); /* Черна лека линия отгоре */
+    background: rgba(255, 255, 255, 0.95);
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
     width: 100%;
     position: relative;
-    box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1); /* Сянка отдолу за дълбочина */
+    box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
 }
 
 
@@ -102,39 +114,22 @@ p.alert-warning {
 }
 
 
-
-/*
-
-.header {
-    padding: 15px 6%;
-    background: rgba(10, 10, 10, 0.95);
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+.header-logo-jubbisoft {
+    display: flex;
+    align-items: center;
+    height: 75px;
+    position: absolute;
+    left: 50px;
 }
 
-.button {
-    display: inline-block;
-    text-decoration: none;
-    padding: 12px 18px;
-    font-size: 18px;
-    font-weight: 400;
-    color: #fff;
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-    cursor: pointer;
-    border-radius: 8px;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    transition: all 0.3s ease;
+.header-logo-jubbisoft img {
+    height: 100%;
+    width: auto;
+    filter: drop-shadow(0px 0px 10px rgba(229, 9, 20, 0.2));
+    transition: transform 0.3s ease, filter 0.3s ease;
 }
 
-
-.footer {
-    color: rgba(255, 255, 255, 0.7);
-    text-align: center;
-    padding: 20px 0;
-    background: rgba(0, 0, 0, 0.95);
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    width: 100%;
-    position: relative;
+.header-logo-jubbisoft img:hover {
+    transform: scale(1.05);
+    filter: drop-shadow(0px 0px 12px rgba(229, 9, 20, 0.4));
 }
-
-*/

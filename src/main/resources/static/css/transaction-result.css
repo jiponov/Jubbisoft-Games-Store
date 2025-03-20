@@ -108,10 +108,8 @@
     font-size: 12px!important;
 }
 
-
-
 .icon {
-    font-size: 48px; /* Размер на иконата */
+    font-size: 48px;
     color: white;
     display: flex;
     justify-content: center;
@@ -122,16 +120,14 @@
 }
 
 .icon.success {
-    background: #27ae60; /* Зелен фон за успешна транзакция */
+    background: #27ae60;
     box-shadow: 0 4px 12px rgba(39, 174, 96, 0.5);
 }
 
 .icon.failure {
-    background: #e74c3c; /* Червен фон за неуспешна транзакция */
+    background: #e74c3c;
     box-shadow: 0 4px 12px rgba(231, 76, 60, 0.5);
 }
-
-
 
 .back-button {
     display: flex;

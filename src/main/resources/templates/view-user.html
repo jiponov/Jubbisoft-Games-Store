@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&amp;display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&amp;display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" type="text/css" href="/css/common.css">
+    <link rel="stylesheet" type="text/css" href="/css/sidebar.css">
+
+    <link rel="stylesheet" type="text/css" href="/css/view-user.css">
+
+    <title>User Details Page</title>
+</head>
+
+
+<body>
+
+<header th:replace="~{fragments/header::header}"></header>
+
+<main th:if="${user != null and user.role != null and user.role.name() == 'ADMIN'}">
+    <div th:replace="~{fragments/sidebar::sidebar}"></div>
+
+    <div class="home-section">
+        <div class="single-section-box user-details">
+
+            <div class="profile-header">
+                <img th:src="${#strings.isEmpty(viewSomeUser.profilePicture) ? 'https://eapi.pcloud.com/getpubthumb?code=XZXRzlZQatwtXl9lHjTjNfbAhOhguGvFjVy&amp;linkpassword=undefined&amp;size=1890x1890&amp;crop=0&amp;type=auto' : viewSomeUser.profilePicture}"
+                     alt="Profile Picture" class="profile-avatar">
+                <h2 class="profile-name" th:text="${viewSomeUser.username}"></h2>
+
+            </div>
+
+            <div class="profile-info">
+                <h3>User Information</h3>
+                <div class="details-section-container">
+                    <strong>User ID: </strong>
+                    <p th:text="${viewSomeUser.id}"></p>
+                </div>
+                <div class="details-section-container">
+                    <strong>User Status: </strong>
+                    <p th:if="${viewSomeUser.isActive()}">Active</p>
+                    <p th:if="${!viewSomeUser.isActive()}">Inactive</p>
+                </div>
+                <div class="details-section-container">
+                    <strong>Email: </strong>
+                    <p th:text="${viewSomeUser.email}"></p>
+                </div>
+
+                <div class="details-section-container">
+                    <strong>First Name: </strong>
+                    <p th:text="${viewSomeUser.firstName}"></p>
+                </div>
+                <div class="details-section-container">
+                    <strong>Last Name: </strong>
+                    <p th:text="${viewSomeUser.lastName}"></p>
+                </div>
+                <div class="details-section-container">
+                    <strong>Role: </strong>
+                    <p th:text="${viewSomeUser.role}"></p>
+                </div>
+
+                <div class="details-section-container">
+                    <strong>Country: </strong>
+                    <p th:text="${#strings.capitalize(#strings.toLowerCase(viewSomeUser.country))}"></p>
+                </div>
+                <div class="details-section-container">
+                    <strong>Member Since: </strong>
+                    <p th:text="${#temporals.format(viewSomeUser.createdOn, 'dd MMM YYYY HH:mm')}"></p>
+                </div>
+                <div class="details-section-container">
+                    <strong>Last Modified: </strong>
+                    <p th:text="${#temporals.format(viewSomeUser.updatedOn, 'dd MMM YYYY HH:mm')}"></p>
+                </div>
+            </div>
+
+            <div class="profile-info">
+                <h3>Wallet Details</h3>
+                <div class="details-section-container">
+                    <strong>Wallet ID: </strong>
+                    <p th:text="${viewSomeUser.wallet.id}"></p>
+                </div>
+                <div class="details-section-container">
+                    <strong>Wallet Status: </strong>
+                    <p th:if="${viewSomeUser.wallet.getStatus().name() == 'ACTIVE'}">Active</p>
+                    <p th:if="${viewSomeUser.wallet.getStatus().name() == 'INACTIVE'}">Inactive</p>
+
+                </div>
+                <div class="details-section-container">
+                    <strong>Balance: </strong>
+                    <p th:text="${viewSomeUser.wallet.balance} + ' EUR'"></p>
+                </div>
+
+                <div class="details-section-container">
+                    <strong>Currency: </strong>
+                    <p th:text="${viewSomeUser.wallet.currency}"></p>
+                </div>
+                <div class="details-section-container">
+                    <strong>Wallet Created: </strong>
+                    <p th:text="${#temporals.format(viewSomeUser.wallet.createdOn, 'dd MMM YYYY HH:mm')}"></p>
+                </div>
+                <div class="details-section-container">
+                    <strong>Wallet Last Modified: </strong>
+                    <p th:text="${#temporals.format(viewSomeUser.wallet.updatedOn, 'dd MMM YYYY HH:mm')}"></p>
+                </div>
+            </div>
+
+            <div class="profile-info">
+                <h3>Loyalty Program</h3>
+                <div class="details-section-container">
+                    <strong>Loyalty ID: </strong>
+                    <p th:text="${loyalty.id}"></p>
+                </div>
+                <div class="details-section-container">
+                    <strong>Loyalty Status: </strong>
+                    <p th:text="${loyalty.type}"></p>
+                </div>
+                <div class="details-section-container">
+                    <strong>Games Purchased: </strong>
+                    <p th:text="${loyalty.gamesPurchased}"></p>
+                </div>
+                <div class="details-section-container">
+                    <strong>Discount Percentage: </strong>
+                    <p th:text="${loyaltyDiscount + '%'}"></p>
+                </div>
+            </div>
+
+            <div class="user-actions">
+                <a th:href="@{'/users'}" class="profile-actions-button" title="Back to All Users">
+                    <i class="fas fa-users"></i>
+                    <p>Back to All Users</p>
+
+                </a>
+            </div>
+        </div>
+    </div>
+</main>
+
+
+<footer th:replace="~{fragments/footer::footer}"></footer>
+
+</body>
+
+</html>

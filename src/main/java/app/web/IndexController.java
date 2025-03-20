@@ -61,6 +61,39 @@ public class IndexController {
     }
 
 
+    @GetMapping("/about-us")
+    public ModelAndView getAboutUsPage(@AuthenticationPrincipal AuthenticationMetadata authenticationMetadata) {
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("about-us");
+
+        if (authenticationMetadata != null && authenticationMetadata.getUserId() != null) {
+            User user = userService.getById(authenticationMetadata.getUserId());
+            modelAndView.addObject("user", user); // Добавяме user в модела
+        } else {
+            modelAndView.addObject("user", null); // Гарантираме, че user винаги съществува в Thymeleaf
+        }
+
+        return modelAndView;
+    }
+
+    @GetMapping("/terms")
+    public ModelAndView getTermsPage(@AuthenticationPrincipal AuthenticationMetadata authenticationMetadata) {
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("terms");
+
+        if (authenticationMetadata != null && authenticationMetadata.getUserId() != null) {
+            User user = userService.getById(authenticationMetadata.getUserId());
+            modelAndView.addObject("user", user);       // Добавяме user в модела
+        } else {
+            modelAndView.addObject("user", null);       // Гарантираме, че user винаги съществува в Thymeleaf
+        }
+
+        return modelAndView;
+    }
+
+
     @GetMapping("/login")
     public ModelAndView getLoginPage(@RequestParam(value = "error", required = false) String errorParam) {
 

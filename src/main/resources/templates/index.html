@@ -14,7 +14,7 @@
 
     <link rel="stylesheet" type="text/css" href="/css/common.css">
     <link rel="stylesheet" type="text/css" href="/css/index.css">
-    <title>Prime Page</title>
+    <title>Jubbisoft - Games Store</title>
 </head>
 
 <body>
@@ -22,6 +22,14 @@
 <header th:replace="~{fragments/header::header}"></header>
 
 <main>
+    <div class="left-container">
+        <p class="app-description">🔥 "Step into the ultimate gaming universe – where endless excitement and epic experiences await, only at Jubbisoft!" 🚀</p>
+        <div class="button-container">
+            <a th:href="@{/games/explore}" class="btn games-btn" title="Explore Our Games"><i class="fas fa-gamepad"></i> Games</a>
+            <a th:href="@{/about-us}" class="btn info-btn" title="About Us"><i class="fas fa-info-circle"></i> More Info</a>
+        </div>
+    </div>
+
     <div class="logo-container">
         <a th:href="@{/}" class="logo-big">
             <img src="/images/jubbisoft-logo-main.png" alt="Logo Image">

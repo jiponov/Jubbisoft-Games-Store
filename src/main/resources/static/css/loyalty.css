@@ -6,7 +6,7 @@ body main {
     gap: 25px;
 }
 
-/* Loyalty Section */
+
 .loyalty-section {
     background: transparent;
     display: flex;
@@ -18,21 +18,21 @@ body main {
     padding-bottom: 20px;
 }
 
-/* Loyalty Box */
+
 div.single-section-box {
-    background: linear-gradient(135deg, #F5F5DC, #E0D4B7); /* Бежав градиент */
+    background: linear-gradient(135deg, #F5F5DC, #E0D4B7);
     padding: 40px;
     border-radius: 12px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
     border: 1px solid rgba(224, 212, 183, 0.4);
-    color: #5D4037; /* Кафяв текст */
+    color: #5D4037;
     text-align: center;
     width: 600px;
     max-width: 60%;
     margin: 0 auto;
 }
 
-/* Loyalty Status */
+
 .loyalty-status-container {
     display: flex;
     padding: 5px 10px;
@@ -41,7 +41,7 @@ div.single-section-box {
     text-transform: uppercase;
 }
 
-/* Default Loyalty (Сиво) */
+
 .loyalty-status-container .default-loyalty {
     padding: 6px 12px;
     border-radius: 6px;
@@ -58,7 +58,7 @@ div.single-section-box {
     box-shadow: 0 0 8px rgba(176, 190, 197, 0.8);
 }
 
-/* Premium Loyalty (Лилаво) */
+
 .loyalty-status-container .premium-loyalty {
     background-color: #673AB7;
     color: #ffffff;
@@ -75,7 +75,7 @@ div.single-section-box {
     box-shadow: 0 0 8px rgba(103, 58, 183, 0.8);
 }
 
-/* Loyalty Avatar */
+
 .loyalty-avatar {
     width: 220px;
     height: 220px;
@@ -90,7 +90,7 @@ div.single-section-box {
     margin-right: auto;
 }
 
-/* Loyalty Info */
+
 .loyalty-info {
     display: flex;
     flex-direction: column;
@@ -100,16 +100,16 @@ div.single-section-box {
     align-items: start;
     text-align: left;
     margin-left: 10%;
-    color: #5D4037; /* Кафяв текст */
+    color: #5D4037;
 }
 
-/* Loyalty Info Fields */
+
 .loyalty-info p {
     margin: 5px 0;
     color: #5D4037;
 }
 
-/* Responsive */
+
 @media (max-width: 1024px) {
     .loyalty-section {
         flex-direction: column;
@@ -130,9 +130,9 @@ div.single-section-box {
 
 
 .loyalty-title {
-    margin-bottom: 10px; /* Намалява разстоянието под h2 */
+    margin-bottom: 10px;
 }
 
 .loyalty-status-container {
-    margin-top: 0px; /* Намалява разстоянието отгоре */
+    margin-top: 0px;
 }

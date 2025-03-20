@@ -1,0 +1,159 @@
+body main {
+    margin: 20px 20px;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 25px;
+}
+
+
+.home-section {
+
+    background: transparent; /* Така ще ВЗЕМА фона от common.css */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 0;
+    width: 100%;
+
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+
+div.single-section-box {
+    background: linear-gradient(135deg, #f15a24, #c13584);
+
+    border-radius: 10px;
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #ffffff;
+    text-align: center;
+
+    width: 90%;
+    max-width: 90%;
+
+
+    justify-content: flex-start!important;
+
+    margin: 0 auto!important;
+
+    position: relative;
+
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-bottom: 40px;
+    padding-top: 40px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center!important;
+}
+
+
+.profile-actions-button {
+    margin: 20px auto 0;
+    align-self: center;
+    text-align: center;
+    padding: 12px 16px;
+    width: 150px;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    gap: 8px;
+    font-size: 16px;
+    font-family: 'Poppins', sans-serif;
+    border-radius: 6px;
+    cursor: pointer;
+    color: #ffffff!important;
+    background: linear-gradient(to bottom, #1a1a1a, #0e0e0e)!important;
+    font-weight: 400;
+    text-decoration: none;
+    transition: all 0.3s ease-in-out;
+}
+
+.profile-actions-button:hover {
+    background: linear-gradient(135deg, #c13584, #f15a24)!important;
+    box-shadow: 0 4px 10px rgb(26, 26, 26) !important;
+}
+
+
+.profile-avatar {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    margin-bottom: 16px;
+    box-shadow: 0 0 14px rgba(255, 255, 255, 0.3);
+    border: 4px solid rgba(255, 255, 255, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+.profile-info {
+    padding: 20px 40px;
+    flex-direction: column!important;
+    width: 100%;
+    max-width: 80%;
+    font-size: 18px;
+    font-weight: 300;
+
+    text-align: left;
+
+    color: #ffffff;
+
+    margin-top: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1);
+    background: linear-gradient(to bottom, #1a1a1a, #0e0e0e);
+    border-radius: 8px;
+
+    display: flex!important; /* Подрежда съдържанието в един ред */
+    align-items: flex-start; /* Центрира иконата и текста по вертикала */
+    justify-content: flex-start; /* Центрира съдържанието хоризонтално */
+    flex-grow: 1;
+    gap: 16px; /* Разстояние между иконата и текста */
+}
+
+
+.profile-info p {
+    margin: 5px 0;
+    color: #ffffff;
+}
+
+.user-details {
+    background: linear-gradient(135deg, #222, #333);
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    text-align: center;
+    width: 100%;
+    max-width: 90%;
+    margin: 0 auto;
+}
+
+.user-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+}
+
+.home-section h2 {
+    font-size: 30px !important;
+}
+
+.home-section h3 {
+    font-size: 24px !important;
+}
+
+.profile-actions-button {
+    background: linear-gradient(135deg, #f15a24, #c13584);
+    color: white;
+    width: 200px!important;
+    max-width: 200px!important;
+}
