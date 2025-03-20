@@ -6,23 +6,23 @@
 2️⃣ **Start Jubbisoft (Main Application)** – Once Notice SVC is running, start the main project.
 
 ## All Projects 🔗
-- [Jubbisoft Games Store (Main Application) link] https://github.com/jiponov/Jubbisoft-Games-Store
-- [Notice SVC (Microservice) link] https://github.com/jiponov/Notice-SVC
+- `[Jubbisoft Games Store (Main Application) link]`  https://github.com/jiponov/Jubbisoft-Games-Store
+- `[Notice SVC (Microservice) link]`  https://github.com/jiponov/Notice-SVC
 
 ## Default Test Accounts for Jubbisoft 🧑‍💻
 ### **ADMINS (pre-added in DB)**
-- **Username:** PlayaDeepCorporation  
-  **Password:** 123123
-- **Username:** JintenddoCorporation  
-  **Password:** 123123
-- **Username:** XlocksCorporation  
-  **Password:** 123123
+- `**Username:**` PlayaDeepCorporation  
+  `**Password:**` 123123
+- `**Username:**` JintenddoCorporation  
+  `**Password:**` 123123
+- `**Username:**` XlocksCorporation  
+  `**Password:**` 123123
 
 ### **USERS (pre-added in DB)**
-- **Username:** Lub123  
-  **Password:** 123123
-- **Username:** Jin123  
-  **Password:** 123123
+- `**Username:**` Lub123  
+  `**Password:**` 123123
+- `**Username:**` Jin123  
+  `**Password:**` 123123
   
 ## Core Technologies Used 🛠
 - **Backend:** Spring Framework: Spring Boot, Spring Security, Spring Data JPA, Hibernate. Object-Oriented Design and best practices for high-quality code.
