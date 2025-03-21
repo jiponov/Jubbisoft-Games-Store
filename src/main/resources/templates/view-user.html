@@ -126,6 +126,10 @@
                     <strong>Games Purchased: </strong>
                     <p th:text="${loyalty.gamesPurchased}"></p>
                 </div>
+                <div class="details-section-container" th:if="${user != null and user.role != null and user.role.name() == 'ADMIN'}">
+                    <strong>Games Owned: </strong>
+                    <p th:text="${loyalty.member.getCreatedGames().size()}"></p>
+                </div>
                 <div class="details-section-container">
                     <strong>Discount Percentage: </strong>
                     <p th:text="${loyaltyDiscount + '%'}"></p>
