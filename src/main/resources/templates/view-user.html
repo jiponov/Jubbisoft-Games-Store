@@ -25,7 +25,8 @@
 
 <header th:replace="~{fragments/header::header}"></header>
 
-<main th:if="${user != null and user.role != null and user.role.name() == 'ADMIN'}">
+<!--   th:if="${user != null and user.role != null and user.role.name() == 'ADMIN'}"   -->
+<main >
     <div th:replace="~{fragments/sidebar::sidebar}"></div>
 
     <div class="home-section">
@@ -126,7 +127,7 @@
                     <strong>Games Purchased: </strong>
                     <p th:text="${loyalty.gamesPurchased}"></p>
                 </div>
-                <div class="details-section-container" th:if="${user != null and user.role != null and user.role.name() == 'ADMIN'}">
+                <div class="details-section-container" >
                     <strong>Games Owned: </strong>
                     <p th:text="${loyalty.member.getCreatedGames().size()}"></p>
                 </div>

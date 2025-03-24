@@ -70,10 +70,16 @@ public class TreasuryController {
 
 }
 
+
+
+
+
+
 /*
-✅ IllegalStateException се обработва автоматично от GlobalExceptionHandler.
-✅ TreasuryController остава чист, без try-catch.
-✅ Ако няма достатъчно средства, потребителят ще бъде пренасочен обратно към /treasury, като ще види съобщението за грешка.
+
+--IllegalStateException се обработва автоматично от GlobalExceptionHandler.
+--TreasuryController остава чист, без try-catch.
+--Ако няма достатъчно средства, потребителят ще бъде пренасочен обратно към /treasury, като ще види съобщението за грешка.
 Глобален Exception Handler (GlobalExceptionHandler)
 Създаваме нов клас, който ще хваща грешките глобално в Spring и ще добавя errorMessage към RedirectAttributes. :
 
@@ -103,7 +109,6 @@ public class GlobalExceptionHandler {
 
 
 
+Ако не използваме try-catch в контролера, може да прехвърлим грешката нагоре към Spring и да използваме глобален Exception Handler, който ще обработва IllegalStateException и ще добавя съобщението към RedirectAttributes.
 
-
-Ако не искаш да използваш try-catch в контролера, можеш да прехвърлиш грешката нагоре към Spring и да използваш глобален Exception Handler, който ще обработва IllegalStateException и ще добавя съобщението към RedirectAttributes.
 */

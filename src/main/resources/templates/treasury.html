@@ -64,8 +64,8 @@
             <div th:if="${successMessage}" class="success-message">
                 <p th:text="${successMessage}"></p>
             </div>
-            <div th:if="${errorMessage}" class="error-message">
-                <p th:text="${errorMessage}"></p>
+            <div th:if="${treasuryIsEmptyMessage}" class="error-message">
+                <p th:text="${treasuryIsEmptyMessage}"></p>
             </div>
 
         </div>
@@ -81,13 +81,13 @@
         if (successMessage) {
             setTimeout(() => {
                 successMessage.style.display = "none";
-            }, 2000); // 2 секунди (3000 ms)
+            }, 3000); // 3 секунди (3000 ms)
         }
 
         if (errorMessage) {
             setTimeout(() => {
                 errorMessage.style.display = "none";
-            }, 2000); // 2 секунди
+            }, 3000); // 3 секунди
         }
     });
 </script>

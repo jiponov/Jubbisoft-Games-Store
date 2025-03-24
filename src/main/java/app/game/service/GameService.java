@@ -58,7 +58,7 @@ public class GameService {
         Optional<Game> optionalTitle = gameRepository.findByTitle(createGameRequest.getTitle());
 
         if (optionalTitle.isPresent()) {
-            throw new DomainException("Title [%s] already exist.".formatted(createGameRequest.getTitle()));
+            throw new GameAlreadyExistException("Title [%s] already exist.".formatted(createGameRequest.getTitle()));
         }
 
         if (createGameRequest.getPrice() == null || createGameRequest.getPrice().compareTo(BigDecimal.ZERO) < 0) {

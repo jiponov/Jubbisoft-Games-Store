@@ -49,7 +49,7 @@ public class UserService implements UserDetailsService {
         Optional<User> optionalUser = userRepository.findByUsername(registerRequest.getUsername());
 
         if (optionalUser.isPresent()) {
-            throw new DomainException("Username [%s] already exist.".formatted(registerRequest.getUsername()));
+            throw new UsernameAlreadyExistException("Username [%s] already exist.".formatted(registerRequest.getUsername()));
         }
 
         // 1. Създавам USER
@@ -108,7 +108,7 @@ public class UserService implements UserDetailsService {
             Optional<User> existingEmailUser = userRepository.findByEmail(email);
 
             if (existingEmailUser.isPresent() && !existingEmailUser.get().getId().equals(user.getId())) {
-                throw new DomainException("Email is already in use! Choose another email.");
+                throw new EmailAlreadyExistException("Email is already in use! Choose another email.");
             }
 
             user.setEmail(email);

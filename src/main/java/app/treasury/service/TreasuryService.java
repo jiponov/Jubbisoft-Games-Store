@@ -111,7 +111,7 @@ public class TreasuryService {
         boolean isSuccess = processTransaction(userId);
 
         if (!isSuccess) {
-            throw new IllegalStateException("Treasury does not have enough funds or Inactive wallet");
+            throw new TreasuryIsEmptyException("Treasury does not have enough funds or Inactive wallet");
         }
     }
 
