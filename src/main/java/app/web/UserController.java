@@ -49,10 +49,16 @@ public class UserController {
 
         List<User> users = userService.getAllUsers();
 
+        long activeCount = userService.countActiveUsers();
+        long inactiveCount = userService.countInactiveUsers();
+
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("users");
         modelAndView.addObject("users", users);
         modelAndView.addObject("user", user);
+
+        modelAndView.addObject("activeCount", activeCount);
+        modelAndView.addObject("inactiveCount", inactiveCount);
 
         return modelAndView;
     }

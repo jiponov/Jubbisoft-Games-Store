@@ -206,4 +206,33 @@ public class UserService implements UserDetailsService {
         return savedUser;
     }
 
+
+    // SCHEDULER
+    public List<User> getInactiveUsersByLastActivity(int inactiveDays) {
+        LocalDateTime cutoff = LocalDateTime.now().minusDays(inactiveDays);
+        return userRepository.findAll()
+                .stream()
+                .filter(user -> user.isActive() && user.getUpdatedOn().isBefore(cutoff))
+                .toList();
+    }
+
+
+    // SCHEDULER
+    public void deactivateUsers(List<User> users) {
+        users.forEach(user -> user.setActive(false));
+        userRepository.saveAll(users);
+    }
+
+
+    // SCHEDULER - USERS Tab (Admin panel)
+    public long countActiveUsers() {
+        return userRepository.findAll().stream().filter(User::isActive).count();
+    }
+
+
+    // SCHEDULER - USERS Tab (Admin panel)
+    public long countInactiveUsers() {
+        return userRepository.findAll().stream().filter(u -> !u.isActive()).count();
+    }
+
 }

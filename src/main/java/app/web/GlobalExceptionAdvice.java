@@ -87,7 +87,7 @@ public class GlobalExceptionAdvice {
     }
 
 
-    // the father of ALL (Exception.class):  ANY other exceptions, which are now these from ABOVE code
+    // the father of ALL (Exception.class):  ANY other exceptions, which are NOT these from ABOVE code
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(Exception.class)
     public ModelAndView handleAnyException(Exception exception) {
