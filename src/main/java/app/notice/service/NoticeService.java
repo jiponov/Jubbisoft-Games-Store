@@ -56,17 +56,24 @@ public class NoticeService {
         try {
             ResponseEntity<Resource> response = noticeClient.downloadNotice(gameId, userId);
 
+            if (!response.getStatusCode().is2xxSuccessful()) {
+                log.warn("Can't create notice to user with id = [{}] due to {}", userId, response.getStatusCode());
+                return null;
+            }
+
             if (response.getBody() == null) {
                 log.warn("No notice found for gameId: {} and userId: {}", gameId, userId);
                 return null;
             }
 
             return response.getBody();
+
         } catch (Exception e) {
-            log.error("Failed to download notice for gameId: {} and userId: {}", gameId, userId, e);
+            log.warn("Failed to download notice for gameId: {} and userId: {}", gameId, userId, e.getMessage());
             return null;
         }
     }
+
 
 }
 
