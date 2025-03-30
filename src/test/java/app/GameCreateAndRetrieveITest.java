@@ -97,37 +97,3 @@ public class GameCreateAndRetrieveITest {
     }
 
 }
-
-/*
-
-// @Test
-    // void createGame_shouldPersistCorrectly() {
-    //     // Given
-    //     User publisher = userService.register(RegisterRequest.builder()
-    //             .username("creator123")
-    //             .password("pass456")
-    //             .country(Country.GERMANY)
-    //             .build());
-    //
-    //     CreateGameRequest request = CreateGameRequest.builder()
-    //             .title("Mystic Lands")
-    //             .description("Explore a vast and magical open world.")
-    //             .price(new BigDecimal("14.99"))
-    //             .genre(Genre.RPG)
-    //             .imageCoverUrl("https://example.com/mystic.jpg")
-    //             .build();
-    //
-    //     // When
-    //     gameService.createNewGame(request, publisher);
-    //
-    //     // Then
-    //     Optional<Game> gameOpt = gameRepository.findByTitle("Mystic Lands");
-    //     assertTrue(gameOpt.isPresent());
-    //     Game game = gameOpt.get();
-    //     assertThat(game.getTitle(), is("Mystic Lands"));
-    //     assertThat(game.getGenre(), is(Genre.RPG));
-    //     assertThat(game.getPublisher().getUsername(), is("creator123"));
-    //     assertThat(game.getIsAvailable(), is(false)); // по подразбиране
-    // }
-
-*/
