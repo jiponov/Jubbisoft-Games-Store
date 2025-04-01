@@ -1,6 +1,5 @@
 # Jubbisoft-Games-Store 🎮
 🚀 Jubbisoft is a digital platform for video games, software, and community features. It allows users to buy, download, and play games, as well as access game updates, cloud saves, multiplayer, forums and game reviews. Built with **Spring Boot**, it supports secure authentication with Spring Security, REST API communication, and a microservice-based architecture.
-> (The project is still being developed and some features may be incomplete or unstable.)
 
 ⚠️ **Startup Order:**  
 1️⃣ **Start Notice SVC first** – This microservice must be running before Jubbisoft.  
