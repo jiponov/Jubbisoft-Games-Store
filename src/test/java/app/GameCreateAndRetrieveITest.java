@@ -24,6 +24,7 @@ import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+
 @ActiveProfiles("test")
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 @SpringBootTest
@@ -37,6 +38,7 @@ public class GameCreateAndRetrieveITest {
 
     @Autowired
     private UserService userService;
+
 
     @Test
     void findAllGames_shouldReturnTheCreatedOne() {
@@ -65,6 +67,7 @@ public class GameCreateAndRetrieveITest {
         assertTrue(gameOpt.isPresent(), "Expected game with title 'Casual Racing' to be present");
         assertThat(gameOpt.get().getTitle(), is("Casual Racing"));
     }
+
 
     @Test
     void createGame_shouldPersistCorrectly() {

@@ -27,11 +27,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @SpringBootTest
 // Integration Test (Load the complete Spring Application Context - all beans)
 public class RegisterITest {
+
     @Autowired
     private UserService userService;
 
     @Autowired
     private UserRepository userRepository;
+
 
     @Test
     void registerUser_shouldPersistUserInDB() {

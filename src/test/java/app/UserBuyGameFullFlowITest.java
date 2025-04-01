@@ -1,4 +1,5 @@
 package app;
+
 import app.game.model.*;
 import app.game.repository.GameRepository;
 import app.game.service.GameService;
@@ -22,6 +23,8 @@ import java.time.*;
 import java.util.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
+
+
 @ActiveProfiles("test")
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 @SpringBootTest
@@ -48,6 +51,7 @@ public class UserBuyGameFullFlowITest {
     private User creatorUser;
     private User buyerUser;
     private Game testGame;
+
 
     @BeforeEach
     void setUp() {
@@ -79,6 +83,7 @@ public class UserBuyGameFullFlowITest {
         gameRepository.save(testGame);
     }
 
+
     @Test
     void testUserCanBuyGameAndWalletAndLoyaltyAreUpdated() {
         // when
@@ -101,6 +106,7 @@ public class UserBuyGameFullFlowITest {
         Loyalty loyalty = loyaltyRepository.findByMemberId(updatedUser.getId()).orElseThrow();
         assertThat(loyalty.getGamesPurchased()).isGreaterThan(0);
     }
+
 
     @Test
     void testLoyaltyDiscountAppliedAfterTwoPurchases() {

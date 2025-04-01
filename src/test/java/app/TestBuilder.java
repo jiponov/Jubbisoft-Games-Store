@@ -13,6 +13,7 @@ import java.util.*;
 
 @UtilityClass
 public class TestBuilder {
+    // API tests
 
     public static User aRandomUser() {
         UUID userId = UUID.randomUUID();
