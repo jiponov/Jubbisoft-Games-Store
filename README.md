@@ -2,8 +2,15 @@
 🚀 Jubbisoft is a digital platform for video games, software, and community features. It allows users to buy, download, and play games, as well as access game updates, cloud saves, multiplayer, forums and game reviews. Built with **Spring Boot**, it supports secure authentication with Spring Security, REST API communication, and a microservice-based architecture.
 
 ⚠️ **Startup Order:**  
+
 1️⃣ **Start Notice SVC first** – This microservice must be running before Jubbisoft.  
-2️⃣ **Start Jubbisoft (Main Application)** – Once Notice SVC is running, start the main project.
+➡️ In the Notice SVC project, run the `Application` class.
+
+2️⃣ **Start Jubbisoft (Main Application)** – Once Notice SVC is running, start the main project.  
+➡️ In the Jubbisoft project, run the `Application` class.
+
+3️⃣ Open [`http://localhost:8080/`](http://localhost:8080/) in **Google Chrome** – This is the entry point to the application.
+
 
 ## All Projects 🔗
 - `[Jubbisoft Games Store (Main Application) link]`  https://github.com/jiponov/Jubbisoft-Games-Store
